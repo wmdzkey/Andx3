@@ -3,9 +3,15 @@
           package="com.umk.andx3"
           android:versionCode="1"
           android:versionName="1.0">
-    <uses-sdk android:minSdkVersion="17"/>
+
+    <uses-sdk android:minSdkVersion="8"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
-        <activity android:name="WelcomeActivity"
+        <activity android:name="com.umk.tiebashenqi.activity.WelcomeActivity_"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
