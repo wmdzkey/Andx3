@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
+
         <activity android:name="com.umk.tiebashenqi.activity.WelcomeActivity_"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
                   android:label="@string/app_name">
@@ -18,5 +19,27 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+                android:name="com.umk.tiebashenqi.activity.MainActivity_"
+                android:screenOrientation="portrait" >
+        </activity>
+
+        <!--贴吧-->
+        <activity
+                android:name="com.umk.tiebashenqi.activity.tieba.TiebaActivity_"
+                android:screenOrientation="portrait" >
+        </activity>
+        <activity
+                android:name="com.umk.tiebashenqi.activity.tieba.ImageViewActivity"
+                android:screenOrientation="portrait" >
+        </activity>
+        <!--贴吧.end-->
+
+        <activity
+                android:name="com.umk.tiebashenqi.activity.more.MoreActivity_"
+                android:screenOrientation="portrait" >
+        </activity>
+
     </application>
 </manifest>

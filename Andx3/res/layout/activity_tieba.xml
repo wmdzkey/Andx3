@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+
+    <EditText
+            android:id="@+id/et_main_tieba"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="100dip"/>
+
+    <Button
+            android:id="@+id/btn_main_tieba"
+            android:layout_width="100dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="下载"/>
+
+    <ScrollView
+            android:id="@+id/sv_main_tieba"
+            android:layout_width="fill_parent"
+            android:layout_height="200dip"
+            android:layout_marginTop="50dip">
+        <TextView
+                android:id="@+id/tv_main_tieba"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+    </ScrollView>
+
+    <GridView
+            android:id="@+id/gv_main_pic"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/sv_main_tieba"
+            android:gravity="fill"
+            android:columnWidth="100dp"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth">
+    </GridView>
+
+</RelativeLayout>
+

@@ -2,12 +2,14 @@ package com.umk.andx3.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.lidroid.xutils.util.LogUtils;
 import com.umk.andx3.R;
 
 /**
@@ -18,18 +20,28 @@ import com.umk.andx3.R;
  *  1.instance实例化监测
  *  2.显示Toast
  *  3.CustomToast
+ *  4.startActivity
+ *  5.LogUtils
  * @since：13-12-14
  */
 public abstract class BaseActivity extends Activity{
 
     public static Context instance = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         instance = this;
+        initLog();
     }
 
+    private void initLog() {
+        LogUtils.customTagPrefix = "com.umk.andx3";
+    }
+
+
+    /***************************************************************************************************
+     *              Toast
+     * *************************************************************************************************/
 
     /** 短暂显示Toast提示(来自String) **/
     public void showShortToast(String text) {
@@ -77,4 +89,13 @@ public abstract class BaseActivity extends Activity{
         toast.show();
     }
 
+    /***************************************************************************************************
+     *              startActivity
+     * *************************************************************************************************/
+
+    /** 通过Class跳转界面 **/
+    protected void startActivity(Class<?> cls) {
+        Intent intent = new Intent(this, cls);
+        startActivity(intent);
+    }
 }

@@ -19,6 +19,8 @@ public class WelcomeActivity extends BaseActivity {
     @Click
     void tv_welcome_title() {
         showCustomToast("Andx3");
+        startActivity(MainActivity_.class);
+        finish();
     }
 
 }
