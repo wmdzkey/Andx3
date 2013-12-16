@@ -1,117 +1,115 @@
 package com.umk.tiebashenqi.activity.tieba;
 
-import android.widget.Button;
+import android.content.Intent;
+import android.view.View;
 import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.TextView;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 import com.google.gson.internal.LinkedTreeMap;
-import com.googlecode.androidannotations.annotations.*;
+import com.googlecode.androidannotations.annotations.AfterViews;
+import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.NoTitle;
+import com.googlecode.androidannotations.annotations.ViewById;
 import com.lidroid.xutils.util.LogUtils;
 import com.umk.andx3.R;
 import com.umk.andx3.base.BaseActivity;
-import com.umk.tiebashenqi.activity.MainActivity_;
-import com.umk.tiebashenqi.adapter.TiebaPictureAdapter;
+import com.umk.tiebashenqi.adapter.TiebaTieziAdapter;
+import com.umk.tiebashenqi.entity.Tieba;
+import com.umk.tiebashenqi.entity.Tiezi;
+import com.umk.tiebashenqi.entity.TieziPicture;
+import com.umk.tiebashenqi.lpi.TiebaLpi;
+import com.umk.tiebashenqi.lpi.TieziLpi;
 import com.umk.tiebashenqi.util.TiebaUtil;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @NoTitle
 @EActivity(R.layout.activity_tieba)
 public class TiebaActivity extends BaseActivity {
 
-
+    @ViewById(R.id.elv_main_tieba)
+    ExpandableListView elv_main_tieba;
     @ViewById(R.id.et_main_tieba)
     EditText et_main_tieba;
-    @ViewById(R.id.btn_main_tieba)
-    Button btn_main_tieba;
-    @ViewById(R.id.tv_main_tieba)
-    TextView tv_main_tieba;
-    @ViewById(R.id.gv_main_pic)
-    GridView gv_main_pic;
 
-
-    TiebaPictureAdapter tiebaPictureAdapter;
-    int clickNum = 0;
+    TiebaTieziAdapter mAdapter = null;
+    List<Tiezi> mGroup = new ArrayList<Tiezi>();
+    List<List<TieziPicture>> mData = new ArrayList<List<TieziPicture>>();
 
     @AfterViews
     void init() {
-
+        initData();
+        mAdapter = new TiebaTieziAdapter(this, mGroup, mData);
+        elv_main_tieba.setGroupIndicator(getResources().getDrawable(R.drawable.ic_expander));
+        elv_main_tieba.setAdapter(mAdapter);
+        elv_main_tieba.setOnChildClickListener(onChildClickListener);
     }
 
-    @Click
-    void btn_main_tieba() {
-        clickNum++;
-        // et_main_tieba.getText().toString();
 
-        //String homePage = "http://tieba.baidu.com/f?ie=utf-8&kw=微笑脉脉水悠悠";
-        //String homePage = "http://tieba.baidu.com/f?ie=utf-8&kw=%E5%BE%AE%E7%AC%91%E8%84%89%E8%84%89%E6%B0%B4%E6%82%A0%E6%82%A0";
-        String homePage = "http://tieba.baidu.com/f?ie=utf-8&kw=%E5%A7%90%E8%84%B1";
+
+    private void initData() {
+
+
+        Tieba tieba = new Tieba();
+        tieba.setTheName("微笑脉脉水悠悠");
+        tieba.setTheNameUrl("%E5%BE%AE%E7%AC%91%E8%84%89%E8%84%89%E6%B0%B4%E6%82%A0%E6%82%A0");//%E5%A7%90%E8%84%B1
+        //TODO:保存贴吧到数据库
+        TiebaLpi tiebaLpi = new TiebaLpi();
+        tiebaLpi.saveOrUpdate(instance, tieba);
+
+        //设置主页
+        String homePage = "http://tieba.baidu.com/f?ie=utf-8&kw=" + tieba.getTheNameUrl();
+
+
+        //初始化帖子列表<标题,网址>
         LinkedTreeMap<String, String> map = TiebaUtil.getHomePageHashMap(homePage);
-
-        tv_main_tieba.setText("主页下载完毕，准备解析" + "\n******\n");
-        tv_main_tieba.setText(tv_main_tieba.getText().toString() + "总共：" + map.size() + " 个帖子" + "\n******\n");
-
-//        String path = "";
-//        String dPage = "";
-
-//        for(String s : map.keySet()){
-//            LogUtils.e(s);
-//            //tv_main_tieba.setText(tv_main_tieba.getText().toString() + "******\n" + s + "\n******\n");
-//
-//            path = s;
-//            dPage = map.get(s);
-////            TiebaDownloader td = new TiebaDownloader();
-////            td.dPage = s;
-////            td.path = hsmap.get(s).trim().replace(".", "").replace(":", "").replace("*", "").replace("?", "").replace("\"", "").replace("<", "").replace(">", "").replace("|", "");
-////
-////            pool.submit(new Thread(td));
-//        }
-
-
-        List<String> list = new ArrayList<String>();
-        tiebaPictureAdapter = new TiebaPictureAdapter(instance, list);
-        gv_main_pic.setAdapter(tiebaPictureAdapter);
-
-        int i = 0;
-        for(String s : map.keySet()){
-            if(i == clickNum) {
-                list.addAll(get(s, map.get(s)));
-                break;
-            } else {
-                i++;
-                continue;
-            }
-//            list.addAll(get(path, dPage));
+        //TODO:设置帖子
+        List<Tiezi> tieziList = new ArrayList<Tiezi>();
+        for(String title : map.keySet()){
+            Tiezi tiezi = new Tiezi();
+            tiezi.setTheName(title);
+            tiezi.setTiebaId(tieba.getId());
+            tiezi.setUrl(map.get(title));
+            mGroup.add(tiezi);
+            tieziList.add(tiezi);
         }
-        tiebaPictureAdapter.notifyDataSetChanged();
-        tv_main_tieba.setText("读取帖子内部图片完成");
+        //TODO:保存帖子到数据库
+        TieziLpi tieziLpi = new TieziLpi();
+        tieziLpi.saveOrUpdate(instance, tieziList);
 
-
-//        try {
-//            latch.await();
-//        } catch (InterruptedException e) {
-//            LogUtils.e("线程池等待失败");
-//        }
-//        pool.shutdown();
-//        LogUtils.e("线程池关闭");
-
+        //TODO:初始化帖子内部图片
+        for(String title : map.keySet()){
+            LogUtils.e("准备下载子页面，标题为：" + title);
+            //下载贴吧的每一页
+//            HashSet<String> set = TiebaUtil.getDetailsPageImageList(map.get(title));
+            List<TieziPicture> childList = new ArrayList<TieziPicture>();
+//            for (String url : set) {
+//                TieziPicture tieziPicture = new TieziPicture();
+//                tieziPicture.setImageUrl(url);
+//                childList.add(tieziPicture);
+//            }
+            mData.add(childList);
+            //TODO:暂时不显示，点击之后到数据库加载显示，点刷新重新获取网络数据
+        }
     }
-
-
 
     /**
-     * 启动子线程，下载贴吧的每一页
+     * ChildView 设置 布局很可能onChildClick进不来，要在 ChildView layout 里加上
+     * android:descendantFocusability="blocksDescendants",
+     * 还有isChildSelectable里返回true
      */
-    public Set<String> get(String path, String dPage) {
-        Set<String> set;
-        LogUtils.e("准备下载子页面，标题为：" + path);
-        set = TiebaUtil.getDetailsPageImageList(dPage);
-        return set;
-    }
-
-
-
+    OnChildClickListener onChildClickListener = new OnChildClickListener() {
+        @Override
+        public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+            final TieziPicture item = mAdapter.getChild(groupPosition, childPosition);
+            //加载可放大的图片View显示
+            Intent intent = new Intent(instance, ImageViewActivity.class);
+            intent.putExtra("imageUrl", item.getImageUrl());
+            instance.startActivity(intent);
+            return true;
+        }
+    };
 
 }

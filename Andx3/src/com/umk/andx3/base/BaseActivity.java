@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.lidroid.xutils.util.LogUtils;
 import com.umk.andx3.R;
+import com.umk.andx3.util.xutil.BitmapHelp;
 
 /**
  * @author Winnid
@@ -27,6 +28,7 @@ import com.umk.andx3.R;
 public abstract class BaseActivity extends Activity{
 
     public static Context instance = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

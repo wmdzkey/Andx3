@@ -59,9 +59,9 @@ public class TiebaUtil {
      * @return
      * @throws IOException
      */
-    public static Set<String> getDetailsPageImageList(String detailsPage) {
+    public static HashSet<String> getDetailsPageImageList(String detailsPage) {
 
-        Set<String> set = new HashSet<String>();
+        HashSet<String> set = new HashSet<String>();
         try {
             //读取第一页，查看一共有多少页
             detailsPage = detailsPage + "&see_lz=1";

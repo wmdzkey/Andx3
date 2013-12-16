@@ -12,6 +12,7 @@ import com.googlecode.androidannotations.annotations.NoTitle;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.umk.andx3.R;
 import com.umk.tiebashenqi.activity.more.MoreActivity_;
+import com.umk.tiebashenqi.activity.tieba.TiebaActivity;
 import com.umk.tiebashenqi.activity.tieba.TiebaActivity_;
 
 @NoTitle

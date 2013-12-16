@@ -2,6 +2,7 @@ package com.umk.tiebashenqi.lpi;
 
 import android.content.Context;
 import com.lidroid.xutils.DbUtils;
+import com.lidroid.xutils.db.sqlite.WhereBuilder;
 import com.lidroid.xutils.exception.DbException;
 import com.umk.tiebashenqi.entity.Tieba;
 import com.umk.tiebashenqi.entity.Tiezi;
@@ -17,18 +18,24 @@ import java.util.List;
 public class TieziLpi {
 
     public void saveOrUpdate(Context context, Tiezi tiezi) {
-        DbUtils albumDb = DbUtils.create(context);
+        DbUtils dbUtils = DbUtils.create(context);
         try {
-            albumDb.saveOrUpdate(tiezi);
+            if(exist(context, tiezi) == null) {
+                dbUtils.saveOrUpdate(tiezi);
+            }
         } catch (DbException e) {
             e.printStackTrace();
         }
     }
 
     public void saveOrUpdate(Context context, List<Tiezi> list) {
-        DbUtils albumDb = DbUtils.create(context);
+        DbUtils dbUtils = DbUtils.create(context);
         try {
-            albumDb.saveOrUpdateAll(list);
+            for(Tiezi tiezi : list) {
+                if(exist(context, tiezi) == null) {
+                    dbUtils.saveOrUpdate(tiezi);
+                }
+            }
         } catch (DbException e) {
             e.printStackTrace();
         }
@@ -72,4 +79,20 @@ public class TieziLpi {
         return null;
     }
 
+
+
+    public Tiezi exist(Context context, Tiezi tiezi) {
+        DbUtils dbUtils = DbUtils.create(context);
+        try {
+            Tiezi tieziInDB = dbUtils.findFirst(Tiezi.class, WhereBuilder.b().and("url","=",tiezi.getUrl()));
+            if(tieziInDB != null) {
+                return tieziInDB;
+            } else {
+                return null;
+            }
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

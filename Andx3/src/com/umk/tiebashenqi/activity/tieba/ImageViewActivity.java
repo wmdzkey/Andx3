@@ -19,7 +19,7 @@ public class ImageViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.common_image_view);
 
-        imageView = (TouchImageView) findViewById(R.id.iv_tieba_pic);
+        imageView = (TouchImageView) findViewById(R.id.iv);
 
         Intent intent = getIntent();
         String imageUrl = intent.getStringExtra("imageUrl");
