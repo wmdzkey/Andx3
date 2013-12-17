@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.lidroid.xutils.util.LogUtils;
 import com.umk.andx3.R;
+import com.umk.andx3.util.NetWorkUtil;
 import com.umk.andx3.util.xutil.BitmapHelp;
 
 /**
@@ -23,16 +24,20 @@ import com.umk.andx3.util.xutil.BitmapHelp;
  *  3.CustomToast
  *  4.startActivity
  *  5.LogUtils
+ *  6.NetWorkUtil
  * @since：13-12-14
  */
 public abstract class BaseActivity extends Activity{
 
     public static Context instance = null;
 
+    protected NetWorkUtil mNetWorkUtil;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         instance = this;
+        mNetWorkUtil = new NetWorkUtil(this);
         initLog();
     }
 

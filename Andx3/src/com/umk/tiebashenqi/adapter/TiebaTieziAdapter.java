@@ -12,6 +12,7 @@ import com.umk.demo.entity.Item;
 import com.umk.tiebashenqi.activity.tieba.ImageViewActivity;
 import com.umk.tiebashenqi.entity.Tiezi;
 import com.umk.tiebashenqi.entity.TieziPicture;
+import com.umk.tiebashenqi.lpi.TieziPictureLpi;
 import com.umk.tiebashenqi.util.TiebaUtil;
 
 import java.util.ArrayList;
@@ -26,12 +27,14 @@ import java.util.List;
 */
 public class TiebaTieziAdapter extends BaseExpandableListAdapter {
 
+    private ExpandableListView expandableListView;
     private Context mContext;
     private LayoutInflater mInflater = null;
     private List<Tiezi> mGroup = null;//改名为mGroup,类型改为List<Tiezi>
     private List<List<TieziPicture>>   mData = null;
 
-    public TiebaTieziAdapter(Context ctx, List<Tiezi> tieziList, List<List<TieziPicture>> pictureList) {
+    public TiebaTieziAdapter(Context ctx, ExpandableListView view, List<Tiezi> tieziList, List<List<TieziPicture>> pictureList) {
+        expandableListView = view;
         mContext = ctx;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mGroup = tieziList;
@@ -99,7 +102,7 @@ public class TiebaTieziAdapter extends BaseExpandableListAdapter {
         holder.btn_group_refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO:刷新当前帖子图片数据
+                //TODO(OK):刷新当前帖子图片数据
                 //下载贴吧的每一页
                 HashSet<String> set = TiebaUtil.getDetailsPageImageList(group.getUrl());
                 List<TieziPicture> childList = new ArrayList<TieziPicture>();
@@ -110,7 +113,10 @@ public class TiebaTieziAdapter extends BaseExpandableListAdapter {
                 }
                 mData.set(groupPosition, childList);
                 notifyDataSetChanged();
-                //TODO:保存数据到数据库
+                expandableListView.expandGroup(groupPosition);
+                //TODO(OK):保存数据到数据库
+                TieziPictureLpi tieziPictureLpi = new TieziPictureLpi();
+                tieziPictureLpi.saveOrUpdate(mContext, childList);
             }
         });
 

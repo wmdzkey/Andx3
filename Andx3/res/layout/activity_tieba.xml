@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent">
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
     <EditText
             android:id="@+id/et_main_tieba"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="50dip"/>
+            android:layout_marginRight="50dip"
+            android:visibility="gone"/>
 
     <Button
             android:id="@+id/btn_main_tieba"
             android:layout_width="50dip"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="+"/>
+            android:text="+"
+            android:visibility="gone"/>
 
     <ExpandableListView
             android:id="@+id/elv_main_tieba"

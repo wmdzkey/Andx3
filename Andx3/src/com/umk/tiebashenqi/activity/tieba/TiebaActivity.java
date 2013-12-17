@@ -41,7 +41,7 @@ public class TiebaActivity extends BaseActivity {
     @AfterViews
     void init() {
         initData();
-        mAdapter = new TiebaTieziAdapter(this, mGroup, mData);
+        mAdapter = new TiebaTieziAdapter(this, elv_main_tieba, mGroup, mData);
         elv_main_tieba.setGroupIndicator(getResources().getDrawable(R.drawable.ic_expander));
         elv_main_tieba.setAdapter(mAdapter);
         elv_main_tieba.setOnChildClickListener(onChildClickListener);
@@ -55,17 +55,17 @@ public class TiebaActivity extends BaseActivity {
         Tieba tieba = new Tieba();
         tieba.setTheName("微笑脉脉水悠悠");
         tieba.setTheNameUrl("%E5%BE%AE%E7%AC%91%E8%84%89%E8%84%89%E6%B0%B4%E6%82%A0%E6%82%A0");//%E5%A7%90%E8%84%B1
-        //TODO:保存贴吧到数据库
+        //TODO(OK):保存贴吧到数据库
         TiebaLpi tiebaLpi = new TiebaLpi();
         tiebaLpi.saveOrUpdate(instance, tieba);
 
         //设置主页
-        String homePage = "http://tieba.baidu.com/f?ie=utf-8&kw=" + tieba.getTheNameUrl();
+        String homePage = "http://tieba.baidu.com/f?ie=utf-8&kw=" + "%E5%A7%90%E8%84%B1";
 
 
         //初始化帖子列表<标题,网址>
         LinkedTreeMap<String, String> map = TiebaUtil.getHomePageHashMap(homePage);
-        //TODO:设置帖子
+        //TODO(OK):设置帖子
         List<Tiezi> tieziList = new ArrayList<Tiezi>();
         for(String title : map.keySet()){
             Tiezi tiezi = new Tiezi();
@@ -75,11 +75,11 @@ public class TiebaActivity extends BaseActivity {
             mGroup.add(tiezi);
             tieziList.add(tiezi);
         }
-        //TODO:保存帖子到数据库
+        //TODO(OK):保存帖子到数据库
         TieziLpi tieziLpi = new TieziLpi();
         tieziLpi.saveOrUpdate(instance, tieziList);
 
-        //TODO:初始化帖子内部图片
+        //TODO(OK):初始化帖子内部图片
         for(String title : map.keySet()){
             LogUtils.e("准备下载子页面，标题为：" + title);
             //下载贴吧的每一页
@@ -91,7 +91,7 @@ public class TiebaActivity extends BaseActivity {
 //                childList.add(tieziPicture);
 //            }
             mData.add(childList);
-            //TODO:暂时不显示，点击之后到数据库加载显示，点刷新重新获取网络数据
+            //TODO(OK):暂时不显示，点击之后到数据库加载显示，点刷新重新获取网络数据
         }
     }
 
