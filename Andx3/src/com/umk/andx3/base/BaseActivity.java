@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.umk.andx3.util.xutil.BitmapHelp;
  *  4.startActivity
  *  5.LogUtils
  *  6.NetWorkUtil
+ *  7.屏幕的宽度、高度、密度
  * @since：13-12-14
  */
 public abstract class BaseActivity extends Activity{
@@ -33,12 +35,33 @@ public abstract class BaseActivity extends Activity{
 
     protected NetWorkUtil mNetWorkUtil;
 
+    /**
+     * 屏幕的宽度、高度、密度
+     */
+    protected int mScreenWidth;
+    protected int mScreenHeight;
+    protected float mDensity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         instance = this;
-        mNetWorkUtil = new NetWorkUtil(this);
+        initUtil();
+        initParam();
         initLog();
+    }
+
+
+    private void initUtil() {
+        mNetWorkUtil = new NetWorkUtil(this);
+    }
+
+    private void initParam() {
+        DisplayMetrics metric = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metric);
+        mScreenWidth = metric.widthPixels;
+        mScreenHeight = metric.heightPixels;
+        mDensity = metric.density;
     }
 
     private void initLog() {

@@ -3,7 +3,7 @@
     android:layout_width="0dip"
     android:layout_height="40dip"
     android:layout_weight="1"
-    android:background="@drawable/bg_tb_item_center"
+    android:background="@drawable/bg_tab_item_center"
     android:paddingBottom="2dip" >
 
     <TextView
