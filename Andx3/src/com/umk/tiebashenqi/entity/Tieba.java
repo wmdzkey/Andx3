@@ -3,6 +3,7 @@ package com.umk.tiebashenqi.entity;
 import com.lidroid.xutils.db.annotation.Column;
 import com.lidroid.xutils.db.annotation.Id;
 import com.lidroid.xutils.db.annotation.Table;
+import com.umk.tiebashenqi.config.Code;
 
 /**
  * @author Winnid
@@ -20,7 +21,7 @@ public class Tieba {
     @Column(column = "the_name_url")
     private String theNameUrl;
     @Column(column = "state")
-    private Integer state;
+    private Integer state = Code.State.Normal;
 
     public Long getId() {
         return id;

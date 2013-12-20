@@ -31,6 +31,10 @@
                 android:screenOrientation="portrait" >
         </activity>
         <activity
+                android:name="com.umk.tiebashenqi.activity.tieba.TiebaTieziActivity_"
+                android:screenOrientation="portrait" >
+        </activity>
+        <activity
                 android:name="com.umk.tiebashenqi.activity.tieba.ImageViewActivity"
                 android:screenOrientation="portrait" >
         </activity>
@@ -41,5 +45,11 @@
                 android:screenOrientation="portrait" >
         </activity>
 
+
+
+        <!--Demo-->
+        <activity android:name="com.umk.demo.activity.ExpandableListViewActivity"/>
+        <activity android:name="com.umk.demo.activity.SwipeListViewActivity"/>
+        <!--Demo.end-->
     </application>
 </manifest>

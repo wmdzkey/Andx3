@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="fill_parent"
+             android:layout_height="fill_parent" >
+
+    <LinearLayout
+            android:id="@+id/back"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/gray"
+            android:gravity="right|center_vertical"
+            android:tag="back">
+        <LinearLayout
+                android:layout_width="50dip"
+                android:layout_height="wrap_content"
+                android:background="@null">
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:layout_weight="1">
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:layout_weight="1">
+        </LinearLayout>
+        <LinearLayout
+                android:id="@+id/tieba_list_item_ll_delete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dip">
+            <ImageButton
+                    android:layout_width="40dip"
+                    android:layout_height="40dip"
+                    android:src="@drawable/btn_delete"
+                    android:background="@color/transparence"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:scaleType="centerInside" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="删除"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+            android:id="@+id/front"
+            android:orientation="vertical"
+            android:tag="front"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_vertical"
+            android:padding="5dip"
+            android:background="@color/snow">
+
+        <ImageView
+                android:id="@+id/tieba_list_item_iv_img"
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                android:background="@drawable/ic_nav_tieba_active"
+                />
+        <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="40dip"
+                android:layout_marginLeft="50dip"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
+            <TextView
+                    android:id="@+id/tieba_list_item_tv_name"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:textSize="18sp"
+                    android:textColor="@color/grayblack"
+                    android:text="名称"/>
+            <TextView
+                    android:id="@+id/tieba_list_item_tv_info"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:singleLine="true"
+                    android:textSize="12sp"
+                    android:textColor="@color/green"
+                    android:text="其他信息"
+                    android:visibility="gone"
+                    />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

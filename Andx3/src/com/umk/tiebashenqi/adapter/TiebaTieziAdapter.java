@@ -1,15 +1,12 @@
 package com.umk.tiebashenqi.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.umk.andx3.R;
 import com.umk.andx3.util.xutil.BitmapHelp;
-import com.umk.demo.entity.Item;
-import com.umk.tiebashenqi.activity.tieba.ImageViewActivity;
 import com.umk.tiebashenqi.entity.Tiezi;
 import com.umk.tiebashenqi.entity.TieziPicture;
 import com.umk.tiebashenqi.lpi.TieziPictureLpi;
@@ -86,7 +83,7 @@ public class TiebaTieziAdapter extends BaseExpandableListAdapter {
         GroupViewHolder holder;
         final Tiezi group;
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.group_tiezi_item, null);
+            convertView = mInflater.inflate(R.layout.group_item_tiezi, null);
             holder = new GroupViewHolder();
             holder.mGroupName = (TextView) convertView.findViewById(R.id.group_name);
             holder.mGroupCount = (TextView) convertView.findViewById(R.id.group_count);
@@ -128,7 +125,7 @@ public class TiebaTieziAdapter extends BaseExpandableListAdapter {
         ChildViewHolder holder;
         TieziPicture item;
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.group_tiezi_picture_child_item, null);
+            convertView = mInflater.inflate(R.layout.group_child_tiezi_picture, null);
             holder = new ChildViewHolder();
             holder.mImg = (ImageView) convertView.findViewById(R.id.img);
             convertView.setTag(holder);

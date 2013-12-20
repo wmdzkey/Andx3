@@ -20,7 +20,11 @@ public class TiebaLpi extends BaseLpi<Tieba> {
     public void saveOrUpdate(Context context, Tieba tieba) {
         DbUtils dbUtils = getDbUtils(context);
         try {
-            if(exist(context, tieba) == null) {
+            Tieba tiebaInDB = exist(context, tieba);
+            if(tiebaInDB == null) {
+                dbUtils.saveOrUpdate(tieba);
+            } else {
+                tieba.setId(tiebaInDB.getId());
                 dbUtils.saveOrUpdate(tieba);
             }
         } catch (DbException e) {
@@ -32,7 +36,11 @@ public class TiebaLpi extends BaseLpi<Tieba> {
         DbUtils dbUtils = getDbUtils(context);
         try {
             for(Tieba tieba : list) {
-                if(exist(context, tieba) == null) {
+                Tieba tiebaInDB = exist(context, tieba);
+                if(tiebaInDB == null) {
+                    dbUtils.saveOrUpdate(tieba);
+                } else {
+                    tieba.setId(tiebaInDB.getId());
                     dbUtils.saveOrUpdate(tieba);
                 }
             }
@@ -56,4 +64,13 @@ public class TiebaLpi extends BaseLpi<Tieba> {
         return null;
     }
 
+    public List<Tieba> findAllByState(Context context, int state) {
+        DbUtils dbUtils = getDbUtils(context);
+        try {
+            return dbUtils.findAll(Tieba.class, WhereBuilder.b().and("state", "=", state));
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
