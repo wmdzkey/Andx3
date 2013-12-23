@@ -12,6 +12,7 @@ import com.googlecode.androidannotations.annotations.*;
 import com.umk.andx3.R;
 import com.umk.andx3.base.BaseActivity;
 import com.umk.andx3.util.SharePreferenceUtil;
+import com.umk.andx3.view.ScrollingTextView;
 import com.umk.tiebashenqi.adapter.TiebaAdapter;
 import com.umk.tiebashenqi.config.Code;
 import com.umk.tiebashenqi.entity.Tieba;
@@ -26,6 +27,8 @@ import java.util.List;
 @EActivity(R.layout.activity_tieba)
 public class TiebaActivity extends BaseActivity {
 
+    @ViewById(R.id.header_stv_title)
+    ScrollingTextView header_stv_title;
     @ViewById(R.id.tieba_slv)
     SwipeListView tieba_slv;
     @ViewById(R.id.tieba_et_name)
@@ -41,9 +44,14 @@ public class TiebaActivity extends BaseActivity {
 
     @AfterViews
     void init() {
+        initView();
         initData();
         initDebug(false);
 
+    }
+
+    private void initView() {
+        header_stv_title.setText("贴吧");
     }
 
     private void initDebug(boolean b) {

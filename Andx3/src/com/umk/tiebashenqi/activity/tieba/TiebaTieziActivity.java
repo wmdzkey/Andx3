@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.google.gson.internal.LinkedTreeMap;
 import com.googlecode.androidannotations.annotations.*;
@@ -141,7 +140,21 @@ public class TiebaTieziActivity extends BaseActivity {
     @Click
     void header_layout_left_imagebuttonlayout() {
         //finish();
-        showAlertDialog("测试一下", "我是内容");
+        FlippingAlertDialog.Builder customBuilder = new
+                FlippingAlertDialog.Builder(this);
+        customBuilder.setTitle("Custom title").setIcon(R.drawable.ic_tab_more)
+                .setMessage("Custom body")
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                .setPositiveButton("Confirm",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+        customBuilder.create().show();
     }
 
     /**
@@ -149,26 +162,11 @@ public class TiebaTieziActivity extends BaseActivity {
      * */
     @Click
     void header_layout_right_imagebuttonlayout() {
-//        mGroup.clear();
-//        mData.clear();
-//        initData();
-//        mAdapter.notifyDataSetChanged();
-//        showCustomToast("已刷新");
-        FlippingAlertDialog.Builder customBuilder = new
-                FlippingAlertDialog.Builder(this);
-                customBuilder.setTitle("Custom title").setIcon(R.drawable.ic_tab_more)
-                        .setMessage("Custom body")
-                        .setNegativeButton("Cancel",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                })
-                        .setPositiveButton("Confirm",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                });
-        customBuilder.create().show();
+        mGroup.clear();
+        mData.clear();
+        initData();
+        mAdapter.notifyDataSetChanged();
+        showCustomToast("已刷新");
     }
 
 }

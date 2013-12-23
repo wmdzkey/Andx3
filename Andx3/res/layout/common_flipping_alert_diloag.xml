@@ -6,7 +6,7 @@
               android:orientation="vertical">
 
     <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:minHeight="40dip">
@@ -21,7 +21,6 @@
                 android:id="@+id/alertdialog_tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center_vertical"
                 android:gravity="left|center"
                 android:singleLine="true"
@@ -52,7 +51,7 @@
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:singleLine="true"
+                android:singleLine="false"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:text="正在加载中..."/>

@@ -34,7 +34,7 @@
                 android:paddingRight="8dip"
                 android:visibility="visible" >
 
-            <TextView
+            <com.umk.andx3.view.ScrollingTextView
                     android:id="@+id/header_stv_title"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
