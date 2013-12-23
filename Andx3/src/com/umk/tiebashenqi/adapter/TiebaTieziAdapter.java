@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.lidroid.xutils.util.LogUtils;
 import com.umk.andx3.R;
 import com.umk.andx3.util.xutil.BitmapHelp;
+import com.umk.andx3.view.ScrollingTextView;
 import com.umk.tiebashenqi.entity.Tiezi;
 import com.umk.tiebashenqi.entity.TieziPicture;
 import com.umk.tiebashenqi.lpi.TieziPictureLpi;
@@ -85,9 +87,10 @@ public class TiebaTieziAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.group_item_tiezi, null);
             holder = new GroupViewHolder();
-            holder.mGroupName = (TextView) convertView.findViewById(R.id.group_name);
+            holder.mGroupName = (ScrollingTextView) convertView.findViewById(R.id.group_name);
             holder.mGroupCount = (TextView) convertView.findViewById(R.id.group_count);
-            holder.btn_group_refresh = (Button) convertView.findViewById(R.id.btn_group_refresh);
+            holder.btn_group_fresh = (Button) convertView.findViewById(R.id.btn_group_fresh);
+            holder.btn_group_favorite = (Button) convertView.findViewById(R.id.btn_group_favorite);
             convertView.setTag(holder);
         } else {
             holder = (GroupViewHolder) convertView.getTag();
@@ -95,8 +98,8 @@ public class TiebaTieziAdapter extends BaseExpandableListAdapter {
         group = mGroup.get(groupPosition);
         holder.mGroupName.setText(group.getTheName());
         holder.mGroupCount.setText("[" + mData.get(groupPosition).size() + "]");
-        holder.btn_group_refresh.setFocusable(false);
-        holder.btn_group_refresh.setOnClickListener(new View.OnClickListener() {
+        holder.btn_group_fresh.setFocusable(false);
+        holder.btn_group_fresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO(OK):刷新当前帖子图片数据
@@ -114,6 +117,15 @@ public class TiebaTieziAdapter extends BaseExpandableListAdapter {
                 //TODO(OK):保存数据到数据库
                 TieziPictureLpi tieziPictureLpi = new TieziPictureLpi();
                 tieziPictureLpi.saveOrUpdate(mContext, childList);
+            }
+        });
+        holder.btn_group_favorite.setFocusable(false);
+        holder.btn_group_favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO:加入收藏
+                LogUtils.e("加入收藏");
+
             }
         });
 
@@ -144,9 +156,10 @@ public class TiebaTieziAdapter extends BaseExpandableListAdapter {
     }
 
     private class GroupViewHolder {
-        TextView mGroupName;
+        ScrollingTextView mGroupName;
         TextView mGroupCount;
-        Button btn_group_refresh;
+        Button btn_group_fresh;
+        Button btn_group_favorite;
     }
 
     private class ChildViewHolder {

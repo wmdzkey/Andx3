@@ -4,7 +4,7 @@
               android:layout_height="?android:attr/listPreferredItemHeight"
               android:orientation="horizontal">
 
-    <TextView
+    <com.umk.andx3.view.ScrollingTextView
             android:id="@+id/group_name"
             android:layout_width="wrap_content"
             android:layout_height="?android:attr/listPreferredItemHeight"
@@ -27,9 +27,23 @@
             android:text="[0]"/>
 
     <Button
-            android:id="@+id/btn_group_refresh"
+            android:id="@+id/btn_group_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/btn_bg_d"
+            android:layout_margin="5dip"
+            android:padding="5dip"
+            android:text="收藏"
+            android:layout_gravity="center_vertical"
+            />
+
+    <Button
+            android:id="@+id/btn_group_fresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_bg_d"
+            android:layout_margin="5dip"
+            android:padding="5dip"
             android:text="刷新"
             android:layout_gravity="center_vertical"
             />

@@ -3,10 +3,16 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
 
+    <include
+            android:id="@+id/tiezi_header"
+            layout="@layout/common_headerbar" />
+
     <ExpandableListView
             android:id="@+id/tiezi_elv"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"/>
+            android:layout_height="fill_parent"
+            android:background="@color/transparence"
+            android:layout_below="@+id/tiezi_header"/>
 
 </RelativeLayout>
 

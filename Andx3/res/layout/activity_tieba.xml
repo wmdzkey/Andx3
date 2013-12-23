@@ -2,22 +2,34 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@color/snow">
+                android:background="@color/bg_color_default">
 
-    <EditText
-            android:id="@+id/tieba_et_name"
+    <include
+            android:id="@+id/tieba_header"
+            layout="@layout/common_headerbar_default" />
+
+    <LinearLayout
+            android:id="@+id/tieba_ll_search"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="50dip"
-            android:visibility="visible"/>
+            android:layout_below="@+id/tieba_header"
+            android:orientation="horizontal">
 
-    <Button
-            android:id="@+id/tieba_btn_search"
-            android:layout_width="50dip"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="+"
-            android:visibility="visible"/>
+        <EditText
+                android:id="@+id/tieba_et_name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="visible"/>
+
+        <Button
+                android:id="@+id/tieba_btn_search"
+                android:layout_width="50dip"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:visibility="visible"/>
+
+    </LinearLayout>
 
     <TextView
             android:id="@+id/tieba_tv_test"
@@ -43,7 +55,7 @@
             swipe:swipeOffsetLeft="0dp"
             swipe:swipeOffsetRight="0dp"
             swipe:swipeOpenOnLongPress="false"
-            android:layout_below="@+id/tieba_et_name"
+            android:layout_below="@+id/tieba_ll_search"
             android:layout_above="@+id/tieba_tv_test"/>
 
 

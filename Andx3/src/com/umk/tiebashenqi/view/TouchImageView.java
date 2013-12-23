@@ -9,6 +9,9 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.ImageView;
 
+/**
+ * 触摸放大缩小的图片组件
+ * */
 public class TouchImageView extends ImageView {
 
     Matrix matrix;

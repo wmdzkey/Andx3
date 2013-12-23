@@ -1,7 +1,9 @@
 package com.umk.andx3.base;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.lidroid.xutils.util.LogUtils;
 import com.umk.andx3.R;
+import com.umk.andx3.dialog.FlippingAlertDialog;
 import com.umk.andx3.util.NetWorkUtil;
 import com.umk.andx3.util.xutil.BitmapHelp;
 
@@ -27,6 +30,8 @@ import com.umk.andx3.util.xutil.BitmapHelp;
  *  5.LogUtils
  *  6.NetWorkUtil
  *  7.屏幕的宽度、高度、密度
+ *  8.showDialog
+ *  8.showAlertDialog
  * @since：13-12-14
  */
 public abstract class BaseActivity extends Activity{
@@ -119,6 +124,9 @@ public abstract class BaseActivity extends Activity{
         toast.show();
     }
 
+
+
+
     /***************************************************************************************************
      *              startActivity
      * *************************************************************************************************/
@@ -128,4 +136,52 @@ public abstract class BaseActivity extends Activity{
         Intent intent = new Intent(this, cls);
         startActivity(intent);
     }
+
+
+
+
+    /***************************************************************************************************
+     *              Dialog
+     * *************************************************************************************************/
+
+    /** 含有标题和内容的对话框 **/
+    protected FlippingAlertDialog showAlertDialog(String title, String message) {
+        FlippingAlertDialog.Builder builder = new FlippingAlertDialog.Builder(this).setTitle(title)
+                .setMessage(message);
+        FlippingAlertDialog dialog = builder.create();
+        dialog.show();
+        return dialog;
+    }
+
+    /** 含有标题、内容、两个按钮的对话框 **/
+    protected FlippingAlertDialog showAlertDialog(String title, String message,
+                                          String positiveText,
+                                          DialogInterface.OnClickListener onPositiveClickListener,
+                                          String negativeText,
+                                          DialogInterface.OnClickListener onNegativeClickListener) {
+        FlippingAlertDialog.Builder builder = new FlippingAlertDialog.Builder(this).setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(positiveText, onPositiveClickListener)
+                .setNegativeButton(negativeText, onNegativeClickListener);
+        FlippingAlertDialog dialog = builder.create();
+        dialog.show();
+        return dialog;
+    }
+
+    /** 含有标题、内容、图标、两个按钮的对话框 **/
+    protected FlippingAlertDialog showAlertDialog(String title, String message,
+                                          int icon, String positiveText,
+                                          DialogInterface.OnClickListener onPositiveClickListener,
+                                          String negativeText,
+                                          DialogInterface.OnClickListener onNegativeClickListener) {
+        FlippingAlertDialog.Builder builder = new FlippingAlertDialog.Builder(this).setTitle(title)
+                .setMessage(message).setIcon(icon)
+                .setPositiveButton(positiveText, onPositiveClickListener)
+                .setNegativeButton(negativeText, onNegativeClickListener);
+        FlippingAlertDialog dialog = builder.create();
+        dialog.show();
+        return dialog;
+    }
+
+
 }

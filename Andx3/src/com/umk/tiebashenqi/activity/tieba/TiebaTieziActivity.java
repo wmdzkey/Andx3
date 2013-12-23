@@ -1,17 +1,19 @@
 package com.umk.tiebashenqi.activity.tieba;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import com.google.gson.internal.LinkedTreeMap;
-import com.googlecode.androidannotations.annotations.AfterViews;
-import com.googlecode.androidannotations.annotations.EActivity;
-import com.googlecode.androidannotations.annotations.NoTitle;
-import com.googlecode.androidannotations.annotations.ViewById;
+import com.googlecode.androidannotations.annotations.*;
 import com.lidroid.xutils.util.LogUtils;
 import com.umk.andx3.R;
 import com.umk.andx3.base.BaseActivity;
+import com.umk.andx3.dialog.FlippingAlertDialog;
 import com.umk.tiebashenqi.adapter.TiebaTieziAdapter;
 import com.umk.tiebashenqi.entity.Tieba;
 import com.umk.tiebashenqi.entity.Tiezi;
@@ -34,6 +36,10 @@ public class TiebaTieziActivity extends BaseActivity {
 
     @ViewById(R.id.tiezi_elv)
     ExpandableListView tiezi_elv;
+    @ViewById(R.id.header_layout_right_imagebuttonlayout)
+    LinearLayout header_layout_right_imagebuttonlayout;
+    @ViewById(R.id.header_ib_right_imagebutton)
+    ImageButton header_ib_right_imagebutton;
 
     TiebaTieziAdapter mAdapter = null;
     List<Tiezi> mGroup = new ArrayList<Tiezi>();
@@ -46,16 +52,26 @@ public class TiebaTieziActivity extends BaseActivity {
     void init() {
         initParam();
         initData();
+        initView();
+        initList();
+    }
+
+    private void initList() {
         mAdapter = new TiebaTieziAdapter(this, tiezi_elv, mGroup, mData);
         tiezi_elv.setGroupIndicator(getResources().getDrawable(R.drawable.ic_expander));
         tiezi_elv.setAdapter(mAdapter);
         tiezi_elv.setOnChildClickListener(onChildClickListener);
     }
 
+    private void initView() {
+        header_ib_right_imagebutton.setImageDrawable(getResources().getDrawable(R.drawable.btn_fresh));
+    }
+
     private void initParam() {
         //TODO:初始化参数
         tiebaId = getIntent().getLongExtra(intentTiebaId, -1L);
     }
+
 
 
     private void initData() {
@@ -117,5 +133,42 @@ public class TiebaTieziActivity extends BaseActivity {
             return true;
         }
     };
+
+
+    /**
+     * 返回
+     * */
+    @Click
+    void header_layout_left_imagebuttonlayout() {
+        //finish();
+        showAlertDialog("测试一下", "我是内容");
+    }
+
+    /**
+     * 刷新组
+     * */
+    @Click
+    void header_layout_right_imagebuttonlayout() {
+//        mGroup.clear();
+//        mData.clear();
+//        initData();
+//        mAdapter.notifyDataSetChanged();
+//        showCustomToast("已刷新");
+        FlippingAlertDialog.Builder customBuilder = new
+                FlippingAlertDialog.Builder(this);
+                customBuilder.setTitle("Custom title").setIcon(R.drawable.ic_tab_more)
+                        .setMessage("Custom body")
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                })
+                        .setPositiveButton("Confirm",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                });
+        customBuilder.create().show();
+    }
 
 }
