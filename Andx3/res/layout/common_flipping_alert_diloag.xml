@@ -8,8 +8,7 @@
     <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:minHeight="40dip">
+            android:gravity="center_vertical">
 
         <com.umk.andx3.view.flipping.FlippingImageView
                 android:id="@+id/alertdialog_fiv_icon_title"
@@ -22,11 +21,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_margin="5dip"
                 android:gravity="left|center"
                 android:singleLine="true"
-                android:layout_marginLeft="10dip"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:text="温馨提示"/>
 
     </LinearLayout>
@@ -36,8 +35,7 @@
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:minHeight="40dip">
+            android:gravity="center_vertical">
 
         <com.umk.andx3.view.flipping.FlippingImageView
                 android:id="@+id/alertdialog_fiv_icon_message"
@@ -46,10 +44,11 @@
                 android:src="@drawable/ic_logo"/>
         <TextView
                 android:id="@+id/alertdialog_tv_message"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_margin="5dip"
                 android:gravity="center"
                 android:singleLine="false"
                 android:textColor="@color/black"

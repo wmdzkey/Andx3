@@ -44,7 +44,7 @@ public class MainActivity extends ActivityGroup {
 
         View moreView = inflater.inflate( R.layout.common_bottombar_tab_more, null);
         TabHost.TabSpec moreTabSpec = mTabHost.newTabSpec( MoreActivity_.class.getName()).setIndicator(moreView);
-        moreTabSpec.setContent(new Intent(MainActivity.this, MoreActivity_.class));
+        moreTabSpec.setContent(new Intent(MainActivity.this, AboutActivity_.class));
         mTabHost.addTab(moreTabSpec);
     }
 

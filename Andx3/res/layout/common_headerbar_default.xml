@@ -48,7 +48,7 @@
                     android:text="大标题"/>
 
             <TextView
-                    android:id="@+id/header_htv_subtitle"
+                    android:id="@+id/header_tv_subtitle"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-2dip"
@@ -60,6 +60,30 @@
                     android:textSize="12sp"
                     android:text="小标题"/>
         </LinearLayout>
+
+        <RelativeLayout
+                android:id="@+id/header_layout_search"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:padding="6dip"
+                android:visibility="gone">
+
+            <EditText
+                    android:id="@+id/header_et_search"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/edittext_multiline"
+                    android:hint="输入贴吧名称"
+                    android:imeOptions="actionSearch"
+                    android:paddingBottom="3dip"
+                    android:paddingRight="46dip"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 
@@ -88,7 +112,7 @@
                     android:background="@color/transparence"
                     android:clickable="false"
                     android:focusable="false"
-                    android:scaleType="centerInside" />
+                    android:scaleType="centerInside"/>
         </LinearLayout>
 
         <ImageView

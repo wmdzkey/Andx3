@@ -7,12 +7,14 @@ import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import com.google.gson.internal.LinkedTreeMap;
 import com.googlecode.androidannotations.annotations.*;
 import com.lidroid.xutils.util.LogUtils;
 import com.umk.andx3.R;
 import com.umk.andx3.base.BaseActivity;
 import com.umk.andx3.dialog.FlippingAlertDialog;
+import com.umk.andx3.view.ScrollingTextView;
 import com.umk.tiebashenqi.adapter.TiebaTieziAdapter;
 import com.umk.tiebashenqi.entity.Tieba;
 import com.umk.tiebashenqi.entity.Tiezi;
@@ -39,12 +41,18 @@ public class TiebaTieziActivity extends BaseActivity {
     LinearLayout header_layout_right_imagebuttonlayout;
     @ViewById(R.id.header_ib_right_imagebutton)
     ImageButton header_ib_right_imagebutton;
+    @ViewById(R.id.header_stv_title)
+    ScrollingTextView header_stv_title;
+    @ViewById(R.id.header_tv_subtitle)
+    TextView header_tv_subtitle;
+
 
     TiebaTieziAdapter mAdapter = null;
     List<Tiezi> mGroup = new ArrayList<Tiezi>();
     List<List<TieziPicture>> mData = new ArrayList<List<TieziPicture>>();
 
     Long tiebaId;
+    Tieba tieba;
 
 
     @AfterViews
@@ -53,17 +61,6 @@ public class TiebaTieziActivity extends BaseActivity {
         initData();
         initView();
         initList();
-    }
-
-    private void initList() {
-        mAdapter = new TiebaTieziAdapter(this, tiezi_elv, mGroup, mData);
-        tiezi_elv.setGroupIndicator(getResources().getDrawable(R.drawable.ic_expander));
-        tiezi_elv.setAdapter(mAdapter);
-        tiezi_elv.setOnChildClickListener(onChildClickListener);
-    }
-
-    private void initView() {
-        header_ib_right_imagebutton.setImageDrawable(getResources().getDrawable(R.drawable.btn_fresh));
     }
 
     private void initParam() {
@@ -76,7 +73,7 @@ public class TiebaTieziActivity extends BaseActivity {
     private void initData() {
         if(tiebaId != -1L) {
             TiebaLpi tiebaLpi = new TiebaLpi();
-            Tieba tieba = tiebaLpi.find(instance, tiebaId);
+            tieba = tiebaLpi.find(instance, tiebaId);
 
             //设置主页
             String homePage = "http://tieba.baidu.com/f?ie=utf-8&kw=" + tieba.getTheNameUrl();
@@ -101,13 +98,13 @@ public class TiebaTieziActivity extends BaseActivity {
             for(String title : map.keySet()){
                 LogUtils.e("准备下载子页面，标题为：" + title);
                 //下载贴吧的每一页
-        //            HashSet<String> set = TiebaUtil.getDetailsPageImageList(map.get(title));
+                //            HashSet<String> set = TiebaUtil.getDetailsPageImageList(map.get(title));
                 List<TieziPicture> childList = new ArrayList<TieziPicture>();
-        //            for (String url : set) {
-        //                TieziPicture tieziPicture = new TieziPicture();
-        //                tieziPicture.setImageUrl(url);
-        //                childList.add(tieziPicture);
-        //            }
+                //            for (String url : set) {
+                //                TieziPicture tieziPicture = new TieziPicture();
+                //                tieziPicture.setImageUrl(url);
+                //                childList.add(tieziPicture);
+                //            }
                 mData.add(childList);
                 //TODO(OK):暂时不显示，点击之后到数据库加载显示，点刷新重新获取网络数据
             }
@@ -115,6 +112,20 @@ public class TiebaTieziActivity extends BaseActivity {
             showLongToast("贴吧加载出错");
         }
     }
+
+    private void initView() {
+        header_ib_right_imagebutton.setImageDrawable(getResources().getDrawable(R.drawable.btn_fresh));
+        header_stv_title.setText(tieba.getTheName());
+        header_tv_subtitle.setText("");
+    }
+
+    private void initList() {
+        mAdapter = new TiebaTieziAdapter(this, tiezi_elv, mGroup, mData);
+        tiezi_elv.setGroupIndicator(getResources().getDrawable(R.drawable.ic_expander));
+        tiezi_elv.setAdapter(mAdapter);
+        tiezi_elv.setOnChildClickListener(onChildClickListener);
+    }
+
 
     /**
      * ChildView 设置 布局很可能onChildClick进不来，要在 ChildView layout 里加上

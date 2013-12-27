@@ -6,12 +6,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.googlecode.androidannotations.annotations.Background;
 import com.lidroid.xutils.util.LogUtils;
 import com.umk.andx3.R;
 import com.umk.andx3.dialog.FlippingAlertDialog;
@@ -32,12 +34,15 @@ import com.umk.andx3.util.xutil.BitmapHelp;
  *  7.屏幕的宽度、高度、密度
  *  8.showDialog
  *  8.showAlertDialog
+ *  9.是否处于活动状态
+ *  10.是否处于顶端
  * @since：13-12-14
  */
 public abstract class BaseActivity extends Activity{
 
     public static Context instance = null;
 
+    protected FlippingAlertDialog loadingDialog;
     protected NetWorkUtil mNetWorkUtil;
 
     /**
@@ -46,6 +51,12 @@ public abstract class BaseActivity extends Activity{
     protected int mScreenWidth;
     protected int mScreenHeight;
     protected float mDensity;
+
+    /**
+     * Activity状态
+     * */
+    private static Boolean run = false;
+    private static Boolean runTop = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +84,32 @@ public abstract class BaseActivity extends Activity{
         LogUtils.customTagPrefix = "com.umk.andx3";
     }
 
+
+    /***************************************************************************************************
+     *              运行状态
+     * *************************************************************************************************/
+
+    /** 是否处于运行状态 */
+    public static Boolean getRun() {
+        run = (instance == null);
+        return run;
+    }
+    /** 是否处于顶端（当前）运行 */
+    public static Boolean getRunTop() {
+        return runTop;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        runTop = true;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        runTop = false;
+    }
 
     /***************************************************************************************************
      *              Toast
@@ -138,10 +175,46 @@ public abstract class BaseActivity extends Activity{
     }
 
 
+    /***************************************************************************************************
+     *              SimpleLoadingDialog
+     * *************************************************************************************************/
 
+    /** 含有标题和内容的对话框 **/
+    protected void showLoadingDialog(String message) {
+        FlippingAlertDialog.Builder builder = new FlippingAlertDialog.Builder(this)
+                .setMessage(message);
+        loadingDialog = builder.create();
+        loadingDialog.setCancelable(false);
+        loadingDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(final DialogInterface dialog) {
+                new CountDownTimer(20000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                    }
+                    @Override
+                    public void onFinish() {
+                        if (loadingDialog != null && loadingDialog.isShowing()) {
+                            loadingDialog.dismiss();
+                            showAlertDialog(null, "请求超时，请稍后再试");
+                        }
+                        cancel();
+                    }
+                }.start();
+            }
+        });
+        loadingDialog.show();
+    }
+
+    /** 含有标题和内容的对话框 **/
+    protected void dismissLoadingDialog() {
+        if(loadingDialog != null) {
+            loadingDialog.dismiss();
+        }
+    }
 
     /***************************************************************************************************
-     *              Dialog
+     *              AlertDialog
      * *************************************************************************************************/
 
     /** 含有标题和内容的对话框 **/

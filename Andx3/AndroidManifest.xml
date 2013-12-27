@@ -22,8 +22,19 @@
 
         <activity
                 android:name="com.umk.tiebashenqi.activity.MainActivity_"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustNothing">
+        </activity>
+        <activity
+                android:name="com.umk.tiebashenqi.activity.AboutActivity_"
                 android:screenOrientation="portrait" >
         </activity>
+        <activity
+                android:name="com.umk.tiebashenqi.activity.more.MoreActivity_"
+                android:screenOrientation="portrait" >
+        </activity>
+
+
 
         <!--贴吧-->
         <activity
@@ -39,12 +50,6 @@
                 android:screenOrientation="portrait" >
         </activity>
         <!--贴吧.end-->
-
-        <activity
-                android:name="com.umk.tiebashenqi.activity.more.MoreActivity_"
-                android:screenOrientation="portrait" >
-        </activity>
-
 
 
         <!--Demo-->
