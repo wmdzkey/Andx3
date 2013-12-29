@@ -1,4 +1,4 @@
-package com.umk.tiebashenqi.activity;
+package com.umk.tiebashenqi.activity.more;
 
 import android.content.DialogInterface;
 import android.view.View;
@@ -32,11 +32,6 @@ public class AboutActivity extends BaseActivity {
         header_layout_right_imagebuttonlayout.setVisibility(View.GONE);
     }
 
-    @Click
-    void header_stv_title() {
-        showCustomToast("关于");
-    }
-
     /**
      *发送蓝牙安装包
      * */
@@ -60,4 +55,13 @@ public class AboutActivity extends BaseActivity {
                 "我再想想",rightClickListener);
     }
 
+    @Click
+    void about_btn_info() {
+        startActivity(AboutInfoActivity_.class);
+    }
+
+    @Click
+    void about_btn_more() {
+        startActivity(MoreActivity_.class);
+    }
 }

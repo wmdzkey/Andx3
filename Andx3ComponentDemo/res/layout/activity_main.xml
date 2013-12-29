@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainDemoActivity" >
+
+    <Button
+        android:id="@+id/btn_x3list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="X3ListView" />
+
+    <Button
+        android:id="@+id/btn_x3grid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="X3GridView(暂无)" />
+    
+    <Button
+        android:id="@+id/btn_x3scroll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="X3ScrollView(暂无)" />
+    
+    <Button
+        android:id="@+id/btn_gridheader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GridHeaderView" />
+
+</LinearLayout>

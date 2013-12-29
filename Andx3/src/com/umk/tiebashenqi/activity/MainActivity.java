@@ -11,8 +11,7 @@ import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.NoTitle;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.umk.andx3.R;
-import com.umk.tiebashenqi.activity.more.MoreActivity_;
-import com.umk.tiebashenqi.activity.tieba.TiebaActivity;
+import com.umk.tiebashenqi.activity.more.AboutActivity_;
 import com.umk.tiebashenqi.activity.tieba.TiebaActivity_;
 
 @NoTitle
@@ -43,7 +42,7 @@ public class MainActivity extends ActivityGroup {
         mTabHost.addTab(albumTabSpec);
 
         View moreView = inflater.inflate( R.layout.common_bottombar_tab_more, null);
-        TabHost.TabSpec moreTabSpec = mTabHost.newTabSpec( MoreActivity_.class.getName()).setIndicator(moreView);
+        TabHost.TabSpec moreTabSpec = mTabHost.newTabSpec( AboutActivity_.class.getName()).setIndicator(moreView);
         moreTabSpec.setContent(new Intent(MainActivity.this, AboutActivity_.class));
         mTabHost.addTab(moreTabSpec);
     }

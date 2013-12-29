@@ -1,6 +1,8 @@
 package com.umk.tiebashenqi.activity.more;
 
 import android.content.DialogInterface;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.googlecode.androidannotations.annotations.*;
 import com.umk.andx3.R;
@@ -9,9 +11,11 @@ import com.umk.andx3.view.ScrollingTextView;
 import com.umk.tiebashenqi.util.BlueToothUtil;
 
 @NoTitle
-@EActivity(R.layout.activity_more)
-public class MoreActivity extends BaseActivity {
+@EActivity(R.layout.activity_about_info)
+public class AboutInfoActivity extends BaseActivity {
 
+    @ViewById(R.id.header_layout_right_imagebuttonlayout)
+    LinearLayout header_layout_right_imagebuttonlayout;
     @ViewById(R.id.header_stv_title)
     ScrollingTextView header_stv_title;
     @ViewById(R.id.header_tv_subtitle)
@@ -19,20 +23,25 @@ public class MoreActivity extends BaseActivity {
 
     @AfterViews
     void init() {
-        header_stv_title.setText("更多");
+        initView();
+    }
+
+    private void initView() {
+        header_stv_title.setText("关于");
         header_tv_subtitle.setText("");
+        header_layout_right_imagebuttonlayout.setVisibility(View.GONE);
     }
 
     @Click
     void header_stv_title() {
-        showCustomToast("更多");
+        showCustomToast("关于");
     }
 
     /**
      *发送蓝牙安装包
      * */
     @Click
-    void more_rl_option_bluetooth() {
+    void about_btn_bluetooth() {
 
         DialogInterface.OnClickListener leftClickListener = new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
@@ -51,9 +60,4 @@ public class MoreActivity extends BaseActivity {
                 "我再想想",rightClickListener);
     }
 
-    @Click
-    void more_rl_option_picture() {
-        showCustomToast("图库");
-        startActivity(GalleryActivity_.class);
-    }
 }

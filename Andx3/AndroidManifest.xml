@@ -25,14 +25,26 @@
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustNothing">
         </activity>
+
+        <!--更多-->
         <activity
-                android:name="com.umk.tiebashenqi.activity.AboutActivity_"
+                android:name="com.umk.tiebashenqi.activity.more.AboutActivity_"
+                android:screenOrientation="portrait" >
+        </activity>
+        <activity
+                android:name="com.umk.tiebashenqi.activity.more.AboutInfoActivity_"
                 android:screenOrientation="portrait" >
         </activity>
         <activity
                 android:name="com.umk.tiebashenqi.activity.more.MoreActivity_"
                 android:screenOrientation="portrait" >
         </activity>
+        <activity
+                android:name="com.umk.tiebashenqi.activity.more.GalleryActivity_"
+                android:screenOrientation="portrait" >
+        </activity>
+
+        <!--更多.end-->
 
 
 
