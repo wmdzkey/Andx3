@@ -2,13 +2,16 @@ package com.umk.tiebashenqi.lpi;
 
 import android.content.Context;
 import com.lidroid.xutils.DbUtils;
+import com.lidroid.xutils.db.sqlite.Selector;
 import com.lidroid.xutils.db.sqlite.WhereBuilder;
 import com.lidroid.xutils.exception.DbException;
 import com.umk.andx3.base.BaseLpi;
 import com.umk.tiebashenqi.entity.Tiezi;
 import com.umk.tiebashenqi.entity.TieziPicture;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Winnid
@@ -57,4 +60,14 @@ public class TieziPictureLpi extends BaseLpi<TieziPicture> {
         return null;
     }
 
+    public List<TieziPicture> findByPage(Context context, int pageNo, int pageSize) {
+        DbUtils dbUtils = getDbUtils(context);
+        List<TieziPicture> tieziPictureList = null;
+        try {
+            tieziPictureList = dbUtils.findAll(Selector.from(TieziPicture.class).orderBy("id", false).limit(pageSize).offset(pageSize * pageNo));
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return tieziPictureList;
+    }
 }

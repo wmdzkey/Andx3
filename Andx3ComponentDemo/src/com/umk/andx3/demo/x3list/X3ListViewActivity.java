@@ -1,19 +1,17 @@
 package com.umk.andx3.demo.x3list;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-
 import com.umk.andx3.demo.R;
 import com.umk.andx3.view.x3list.X3ListView;
-import com.umk.andx3.view.x3list.X3ListView.IX3ListViewListener;
+
+import java.util.ArrayList;
 
 
-public class X3ListViewActivity extends Activity implements IX3ListViewListener {
+public class X3ListViewActivity extends Activity implements X3ListView.OnRefreshListener, X3ListView.OnLoadMoreListener {
 	
 	private X3ListView mListView;
 	private ArrayAdapter<String> mAdapter;
@@ -42,7 +40,8 @@ public class X3ListViewActivity extends Activity implements IX3ListViewListener 
  		
 		mAdapter = new ArrayAdapter<String>(this, R.layout.simple_list_item, items);
 		mListView.setAdapter(mAdapter);
-		mListView.setX3ListViewListener(this);
+        mListView.setOnRefreshListener(this);
+        mListView.setOnLoadMoreListener(this);
 		mHandler = new Handler();
 	}
 

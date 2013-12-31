@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent">
+              android:layout_height="fill_parent"
+              android:background="@color/bg_color_default">
 
-    <GridView
-            android:id="@+id/gallery_gv_picture"
+    <com.umk.andx3.view.x3list.X3ListView
+            android:id="@+id/gallery_lv_picture"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"/>
+            android:layout_height="wrap_content"
+            android:fadingEdge="none"
+            android:scrollingCache="false"/>
 
 </RelativeLayout>
 

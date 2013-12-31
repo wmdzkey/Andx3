@@ -40,7 +40,8 @@ public class X3ListView extends ListView implements OnScrollListener {
 	private OnScrollListener mScrollListener; // user's scroll listener
 
 	// the interface to trigger refresh and load more.
-	private IX3ListViewListener mListViewListener;
+    private OnRefreshListener mRefreshListener;
+    private OnLoadMoreListener mLoadMoreListener;
 
 	// -- header view
 	private X3ListViewHeader mHeaderView;
@@ -228,8 +229,7 @@ public class X3ListView extends ListView implements OnScrollListener {
 
 	/**
 	 * set last refresh time
-	 * 
-	 * @param time
+	 * @param date
 	 */
 	public void setRefreshTime(Date date) {
 		mRefreshTime = date;
@@ -319,9 +319,9 @@ public class X3ListView extends ListView implements OnScrollListener {
 	private void startLoadMore() {
 		mPullLoading = true;
 		mFooterView.setState(X3ListViewFooter.STATE_LOADING);
-		if (mListViewListener != null) {
+		if (mLoadMoreListener != null) {
 			cdt.start();
-			mListViewListener.onLoadMore();
+            mLoadMoreListener.onLoadMore();
 		}
 	}
 
@@ -357,9 +357,9 @@ public class X3ListView extends ListView implements OnScrollListener {
 						&& mHeaderView.getVisiableHeight() > mHeaderViewHeight) {
 					mPullRefreshing = true;
 					mHeaderView.setState(X3ListViewHeader.STATE_REFRESHING);
-					if (mListViewListener != null) {
+					if (mRefreshListener != null) {
 						cdt.start();
-						mListViewListener.onRefresh();
+                        mRefreshListener.onRefresh();
 					}
 				}
 				resetHeaderHeight();
@@ -413,9 +413,12 @@ public class X3ListView extends ListView implements OnScrollListener {
 		}
 	}
 
-	public void setX3ListViewListener(IX3ListViewListener l) {
-		mListViewListener = l;
-	}
+    public void setOnRefreshListener(OnRefreshListener l) {
+        mRefreshListener = l;
+    }
+    public void setOnLoadMoreListener(OnLoadMoreListener l) {
+        mLoadMoreListener = l;
+    }
 
 	/**
 	 * you can listen ListView.OnScrollListener or this one. it will invoke
@@ -428,11 +431,15 @@ public class X3ListView extends ListView implements OnScrollListener {
 	/**
 	 * implements this interface to get refresh/load more event.
 	 */
-	public interface IX3ListViewListener {
-		public void onRefresh();
-		public void onLoadMore();
-	}
-	
+    public interface OnRefreshListener {
+        public void onRefresh();
+    }
+
+    public interface OnLoadMoreListener {
+        public void onLoadMore();
+    }
+
+
 	public void onStop() {
 		stopRefresh();
 		stopLoadMore();
@@ -443,10 +450,7 @@ public class X3ListView extends ListView implements OnScrollListener {
 		stopLoadMore();
 		setRefreshTime(new Date(System.currentTimeMillis()));
 	}
-	
-	public void onComplete2() {
-		
-	}
+
 	/**
 	 * 滚动到顶端
 	 * */

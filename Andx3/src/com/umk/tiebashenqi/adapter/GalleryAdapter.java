@@ -9,6 +9,7 @@ import android.widget.*;
 import com.fortysevendeg.android.swipelistview.SwipeListView;
 import com.umk.andx3.R;
 import com.umk.andx3.util.xutil.BitmapHelp;
+import com.umk.andx3.view.gridheader.GridViewWithHeaderBaseAdapter;
 import com.umk.tiebashenqi.activity.tieba.ImageViewActivity;
 import com.umk.tiebashenqi.entity.Tieba;
 import com.umk.tiebashenqi.entity.TieziPicture;
@@ -21,32 +22,46 @@ import java.util.List;
 * @version:1.0
 * @since：13-12-6
 */
-public class GalleryAdapter extends ArrayAdapter<TieziPicture> {
+public class GalleryAdapter extends GridViewWithHeaderBaseAdapter {
 
     private Context mContext ;
     private LayoutInflater mInflater ;
     private List<TieziPicture> objects ;
-    private GridView mGridView ;
 
-    public GalleryAdapter(Context context, int viewResourceId, List<TieziPicture> objects, GridView gridView) {
-        super(context, viewResourceId, objects);
+    public GalleryAdapter(Context context, List<TieziPicture> objects) {
+        super(context);
         this.mContext = context;
-        this.objects = objects ;
-        this.mGridView = gridView ;
-        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.mInflater = LayoutInflater.from(context);
+        this.objects = objects;
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public TieziPicture getItem(int position) {
+        return objects.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemCount() {
+        return objects.size();
+    }
+
+    @Override
+    protected View getItemView(int position, View view, ViewGroup parent) {
         ViewHolder holder = null ;
         final TieziPicture item = getItem(position);
-        if(convertView == null){
-            convertView = mInflater.inflate(R.layout.grid_item_gallery, parent, false);
+
+        if(view == null){
+            view = mInflater.inflate(R.layout.grid_item_gallery, parent, false);
             holder = new ViewHolder();
-            holder.mPicture = (ImageView) convertView.findViewById(R.id.gallery_item_iv_picture);
-            convertView.setTag(holder);
+            holder.mPicture = (ImageView) view.findViewById(R.id.gallery_item_iv_picture);
+            view.setTag(holder);
         }else{
-            holder = (ViewHolder) convertView.getTag();
+            holder = (ViewHolder) view.getTag();
         }
         //默认移除按钮(只做移除操作，事件dismiss在外部进行)
         holder.mPicture.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +74,7 @@ public class GalleryAdapter extends ArrayAdapter<TieziPicture> {
             }
         });
         BitmapHelp.getBitmapUtils(mContext).display( holder.mPicture, item.getImageUrl());
-        return convertView;
+        return view;
     }
 
     class ViewHolder{

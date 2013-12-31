@@ -1,5 +1,6 @@
 package com.umk.tiebashenqi.activity.more;
 
+import android.util.Log;
 import android.widget.GridView;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.EActivity;
@@ -7,10 +8,12 @@ import com.googlecode.androidannotations.annotations.NoTitle;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.umk.andx3.R;
 import com.umk.andx3.base.BaseActivity;
+import com.umk.andx3.view.x3list.X3ListView;
 import com.umk.tiebashenqi.adapter.GalleryAdapter;
 import com.umk.tiebashenqi.entity.TieziPicture;
 import com.umk.tiebashenqi.lpi.TieziPictureLpi;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,12 +26,15 @@ import java.util.List;
 @EActivity(R.layout.activity_gallery)
 public class GalleryActivity extends BaseActivity{
 
-    @ViewById(R.id.gallery_gv_picture)
-    GridView mGridView;
+    @ViewById(R.id.gallery_lv_picture)
+    X3ListView mListView;
     GalleryAdapter mAdapter;
-    List<TieziPicture> pictures;
+    List<TieziPicture> pictures = new ArrayList<TieziPicture>();
+    List<TieziPicture> newPictureList = new ArrayList<TieziPicture>();
+    int pageNo = 0;
+    int pageSize = 12;
 
-    TieziPictureLpi tieziPictureLpi;
+    TieziPictureLpi tieziPictureLpi = new TieziPictureLpi();
 
     @AfterViews
     void init() {
@@ -37,13 +43,33 @@ public class GalleryActivity extends BaseActivity{
     }
 
     private void initData() {
-        tieziPictureLpi = new TieziPictureLpi();
-        pictures = tieziPictureLpi.findAll(instance);
+        loadPicture();
+    }
+
+    private void loadPicture() {
+        newPictureList = tieziPictureLpi.findByPage(instance, pageNo, pageSize);
+        if(newPictureList != null && newPictureList.size() != 0) {
+            pictures.addAll(newPictureList);
+            pageNo++;
+        } else {
+            showCustomToast("已经到底了~");
+        }
     }
 
     private void initView() {
-        mAdapter = new GalleryAdapter(instance, R.layout.grid_item_gallery, pictures, mGridView);
-        mGridView.setAdapter(mAdapter);
+        mAdapter = new GalleryAdapter(instance, pictures);
+        mAdapter.setNumColumns(2);
+        mListView.setPullRefreshEnable(false);
+        mListView.setAdapter(mAdapter);
+        mListView.setOnLoadMoreListener(x3LoadMoreListener);
     }
 
+    X3ListView.OnLoadMoreListener x3LoadMoreListener = new X3ListView.OnLoadMoreListener() {
+        @Override
+        public void onLoadMore() {
+            loadPicture();
+            mAdapter.notifyDataSetChanged();
+            mListView.onComplete();
+        }
+    };
 }

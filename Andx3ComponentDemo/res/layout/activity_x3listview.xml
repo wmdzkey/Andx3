@@ -7,7 +7,9 @@
     <com.umk.andx3.view.x3list.X3ListView
         android:id="@+id/xListView"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:fadingEdge="none"
+        android:scrollingCache="false"/>
     
     <ImageView
             android:id="@+id/lv_backtotop"
