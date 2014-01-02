@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import cn.waps.AppConnect;
 import com.googlecode.androidannotations.annotations.*;
 import com.umk.andx3.R;
 import com.umk.andx3.base.BaseActivity;
@@ -63,5 +64,11 @@ public class AboutActivity extends BaseActivity {
     @Click
     void about_btn_more() {
         startActivity(MoreActivity_.class);
+    }
+
+    @Click
+    void about_btn_ad() {
+        //显示推荐列表（综合）
+        AppConnect.getInstance(this).showOffers(this);
     }
 }

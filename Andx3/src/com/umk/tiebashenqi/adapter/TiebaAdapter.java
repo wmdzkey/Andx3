@@ -42,6 +42,7 @@ public class TiebaAdapter extends ArrayAdapter<Tieba> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null ;
+
         if(convertView == null){
             convertView = mInflater.inflate(R.layout.list_item_tieba, parent, false);
             holder = new ViewHolder();
@@ -53,6 +54,8 @@ public class TiebaAdapter extends ArrayAdapter<Tieba> {
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
+
+
         //默认移除按钮(只做移除操作，事件dismiss在外部进行)
         holder.mBackDelete.setOnClickListener(new View.OnClickListener() {
             @Override

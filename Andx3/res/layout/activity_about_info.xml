@@ -7,7 +7,7 @@
 
     <include
             android:id="@+id/about_header"
-            layout="@layout/common_headerbar_default"/>
+            layout="@layout/common_headerbar"/>
 
     <LinearLayout
             android:layout_width="fill_parent"
@@ -19,7 +19,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
             <ImageView
                     android:layout_width="fill_parent"
@@ -32,41 +32,62 @@
                 android:layout_width="fill_parent"
                 android:layout_height="0dip"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:paddingLeft="15dip"
                 android:paddingRight="15dip">
 
-
-            <Button
-                    android:id="@+id/about_btn_more"
+            <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="40dip"
-                    android:layout_marginTop="10dip"
-                    android:background="@drawable/btn_bg_write"
-                    android:text="更多"
-                    android:textColor="@color/text"
-                    android:textSize="15sp" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <Button
-                    android:id="@+id/about_btn_bluetooth"
-                    android:layout_width="fill_parent"
-                    android:layout_height="40dip"
-                    android:layout_marginTop="10dip"
-                    android:background="@drawable/btn_bg_write"
-                    android:text="免流量发送安装包(蓝牙)"
-                    android:textColor="@color/text"
-                    android:textSize="15sp" />
+                <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dip"
+                        android:text="@string/about_info_intro"
+                        android:textColor="@color/text"
+                        android:textSize="@dimen/m_text_size"/>
 
-            <Button
-                    android:id="@+id/about_btn_info"
+                <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/about_info_intro_info"
+                        android:textColor="@color/text"
+                        android:textSize="@dimen/s_text_size"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="40dip"
-                    android:layout_marginTop="10dip"
-                    android:background="@drawable/btn_bg_write"
-                    android:text="关于Andx3"
-                    android:textColor="@color/text"
-                    android:textSize="15sp" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dip"
+                        android:layout_marginBottom="5dip"
+                        android:background="@drawable/bg_slide_line"/>
+
+                <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dip"
+                        android:text="@string/about_info_me"
+                        android:textColor="@color/text"
+                        android:textSize="@dimen/m_text_size"/>
+
+                <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/about_info_me_info"
+                        android:textColor="@color/text"
+                        android:textSize="@dimen/s_text_size"/>
+
+            </LinearLayout>
+
 
         </LinearLayout>
 

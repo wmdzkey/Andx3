@@ -49,6 +49,16 @@
                     android:textSize="15sp" />
 
             <Button
+                    android:id="@+id/about_btn_ad"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dip"
+                    android:layout_marginTop="10dip"
+                    android:background="@drawable/btn_bg_write"
+                    android:text="点点广告 支持一下"
+                    android:textColor="@color/text"
+                    android:textSize="15sp" />
+
+            <Button
                     android:id="@+id/about_btn_bluetooth"
                     android:layout_width="fill_parent"
                     android:layout_height="40dip"

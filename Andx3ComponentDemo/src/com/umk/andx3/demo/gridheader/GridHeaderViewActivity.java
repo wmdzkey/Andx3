@@ -40,7 +40,7 @@ public class GridHeaderViewActivity extends Activity {
         View header = View.inflate(getBaseContext(), R.layout.simple_list_item, null);
         TextView tv = (TextView) header.findViewById(R.id.text);
         tv.setText("This is a Header");
-        mListView.addHeaderView(tv);
+        mListView.addHeaderView(header);
 
 
         mAdapter = new GridViewWithHeaderExampleAdapter(this);
