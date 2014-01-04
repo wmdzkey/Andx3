@@ -38,7 +38,7 @@ public class X3ListViewActivity extends Activity implements X3ListView.OnRefresh
 		mBackTop = (ImageView) findViewById(R.id.lv_backtotop);
  		mListView.setBackToTopView(mBackTop);
  		
-		mAdapter = new ArrayAdapter<String>(this, R.layout.simple_list_item, items);
+		mAdapter = new ArrayAdapter<String>(this, R.layout.simple_list_text_item, items);
 		mListView.setAdapter(mAdapter);
         mListView.setOnRefreshListener(this);
         mListView.setOnLoadMoreListener(this);
