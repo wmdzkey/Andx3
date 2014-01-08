@@ -8,6 +8,7 @@ import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import cn.waps.AppConnect;
 import com.google.gson.internal.LinkedTreeMap;
 import com.googlecode.androidannotations.annotations.*;
 import com.lidroid.xutils.util.LogUtils;
@@ -15,7 +16,9 @@ import com.umk.andx3.R;
 import com.umk.andx3.base.BaseActivity;
 import com.umk.andx3.dialog.FlippingAlertDialog;
 import com.umk.andx3.view.ScrollingTextView;
+import com.umk.andx3.view.X3ProgressBar;
 import com.umk.tiebashenqi.adapter.TiebaTieziAdapter;
+import com.umk.tiebashenqi.config.Code;
 import com.umk.tiebashenqi.entity.Tieba;
 import com.umk.tiebashenqi.entity.Tiezi;
 import com.umk.tiebashenqi.entity.TieziPicture;
@@ -25,7 +28,7 @@ import com.umk.tiebashenqi.util.TiebaUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Map;
 
 
 @NoTitle
@@ -59,8 +62,13 @@ public class TiebaTieziActivity extends BaseActivity {
     void init() {
         initParam();
         initData();
-        initView();
-        initList();
+        initAd();
+    }
+
+    private void initAd() {
+        // 互动广告调用方式
+        LinearLayout layout = (LinearLayout) this.findViewById(R.id.AdLinearLayout);
+        AppConnect.getInstance(this).showBannerAd(this, layout);
     }
 
     private void initParam() {
@@ -72,42 +80,59 @@ public class TiebaTieziActivity extends BaseActivity {
 
     private void initData() {
         if(tiebaId != -1L) {
-            TiebaLpi tiebaLpi = new TiebaLpi();
-            tieba = tiebaLpi.find(instance, tiebaId);
 
-            //设置主页
-            String homePage = "http://tieba.baidu.com/f?ie=utf-8&kw=" + tieba.getTheNameUrl();
+            X3ProgressBar<Map<String, String>> x3ProgressBar = new X3ProgressBar<Map<String, String>>(instance, "正在加载...", false, null, false) {
+                @Override
+                public Map<String, String> doWork() {
+                    TiebaLpi tiebaLpi = new TiebaLpi();
+                    tieba = tiebaLpi.find(instance, tiebaId);
 
-            //初始化帖子列表<标题,网址>
-            LinkedTreeMap<String, String> map = TiebaUtil.getHomePageHashMap(homePage);
-            //TODO(OK):设置帖子
-            List<Tiezi> tieziList = new ArrayList<Tiezi>();
-            for(String title : map.keySet()){
-                Tiezi tiezi = new Tiezi();
-                tiezi.setTheName(title);
-                tiezi.setTiebaId(tieba.getId());
-                tiezi.setUrl(map.get(title));
-                mGroup.add(tiezi);
-                tieziList.add(tiezi);
-            }
-            //TODO(OK):保存帖子到数据库
-            TieziLpi tieziLpi = new TieziLpi();
-            tieziLpi.saveOrUpdate(instance, tieziList);
+                    //设置主页
+                    String homePage = "http://tieba.baidu.com/f?ie=utf-8&kw=" + tieba.getTheNameUrl();
 
-            //TODO(OK):初始化帖子内部图片
-            for(String title : map.keySet()){
-                LogUtils.e("准备下载子页面，标题为：" + title);
-                //下载贴吧的每一页
-                //            HashSet<String> set = TiebaUtil.getDetailsPageImageList(map.get(title));
-                List<TieziPicture> childList = new ArrayList<TieziPicture>();
-                //            for (String url : set) {
-                //                TieziPicture tieziPicture = new TieziPicture();
-                //                tieziPicture.setImageUrl(url);
-                //                childList.add(tieziPicture);
-                //            }
-                mData.add(childList);
-                //TODO(OK):暂时不显示，点击之后到数据库加载显示，点刷新重新获取网络数据
-            }
+                    //初始化帖子列表<标题,网址>
+                    LinkedTreeMap<String, String> map = TiebaUtil.getHomePageHashMap(homePage);
+                    return map;
+                }
+
+                @Override
+                public void doResult(Map<String, String> map) {
+                    //TODO(OK):设置帖子
+                    List<Tiezi> tieziList = new ArrayList<Tiezi>();
+                    for(String title : map.keySet()){
+                        Tiezi tiezi = new Tiezi();
+                        tiezi.setTheName(title);
+                        tiezi.setTiebaId(tieba.getId());
+                        tiezi.setUrl(map.get(title));
+                        mGroup.add(tiezi);
+                        tieziList.add(tiezi);
+                    }
+                    //TODO(OK):保存帖子到数据库
+                    TieziLpi tieziLpi = new TieziLpi();
+                    tieziLpi.saveOrUpdate(instance, tieziList);
+
+                    //TODO(OK):初始化帖子内部图片
+                    for(String title : map.keySet()){
+                        LogUtils.e("准备下载子页面，标题为：" + title);
+                        //下载贴吧的每一页
+                        //            HashSet<String> set = TiebaUtil.getDetailsPageImageList(map.get(title));
+                        List<TieziPicture> childList = new ArrayList<TieziPicture>();
+                        //            for (String url : set) {
+                        //                TieziPicture tieziPicture = new TieziPicture();
+                        //                tieziPicture.setImageUrl(url);
+                        //                childList.add(tieziPicture);
+                        //            }
+                        mData.add(childList);
+                        //TODO(OK):暂时不显示，点击之后到数据库加载显示，点刷新重新获取网络数据
+                    }
+
+                    initView();
+                    initList();
+                }
+            };
+            x3ProgressBar.start();
+
+
         } else {
             showLongToast("贴吧加载出错");
         }

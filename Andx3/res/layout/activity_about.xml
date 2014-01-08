@@ -9,24 +9,37 @@
             android:id="@+id/about_header"
             layout="@layout/common_headerbar_default"/>
 
+    <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
     <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical"
             android:padding="10dip">
 
-        <LinearLayout
-                android:layout_width="wrap_content"
+        <RelativeLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
-
+                android:orientation="vertical"
+                android:padding="10dip">
             <ImageView
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitStart"
+                    android:layout_height="fill_parent"
+                    android:scaleType="centerInside"
+                    android:layout_marginBottom="10dip"
                     android:src="@drawable/pic_about_logo"/>
-        </LinearLayout>
+            <TextView
+                    android:id="@+id/about_tv_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:text="版本"/>
+        </RelativeLayout>
+
+
 
         <LinearLayout
                 android:layout_width="fill_parent"
@@ -104,5 +117,6 @@
 
     </LinearLayout>
 
+    </ScrollView>
 </LinearLayout>
 

@@ -3,6 +3,7 @@ package com.umk.tiebashenqi.entity;
 import com.lidroid.xutils.db.annotation.Column;
 import com.lidroid.xutils.db.annotation.Id;
 import com.lidroid.xutils.db.annotation.Table;
+import com.umk.andx3.entity.IEntity;
 import com.umk.tiebashenqi.config.Code;
 
 /**
@@ -12,9 +13,9 @@ import com.umk.tiebashenqi.config.Code;
  * @since：13-12-15
  */
 @Table(name = "tieba")
-public class Tieba {
+public class Tieba extends IEntity {
 
-    @Id
+    @Id(column = "id")
     private Long id;
     @Column(column = "the_name")
     private String theName;
@@ -46,6 +47,7 @@ public class Tieba {
     public void setState(Integer state) {
         this.state = state;
     }
+
     public String getTheNameUrl() {
         return theNameUrl;
     }

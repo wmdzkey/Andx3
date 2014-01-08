@@ -7,12 +7,20 @@
             android:id="@+id/tiezi_header"
             layout="@layout/common_headerbar" />
 
+    <LinearLayout
+            android:id="@+id/AdLinearLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_below="@id/tiezi_header"/>
+
     <ExpandableListView
             android:id="@+id/tiezi_elv"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:background="@color/transparence"
-            android:layout_below="@+id/tiezi_header"/>
+            android:layout_below="@+id/AdLinearLayout"/>
 
 </RelativeLayout>
 

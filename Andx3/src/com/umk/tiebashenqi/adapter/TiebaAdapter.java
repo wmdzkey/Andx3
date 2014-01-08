@@ -35,7 +35,7 @@ public class TiebaAdapter extends ArrayAdapter<Tieba> {
     public TiebaAdapter(Context context, int viewResourceId,List<Tieba> objects, SwipeListView mSwipeListView) {
         super(context, viewResourceId, objects);
         this.objects = objects ;
-        this.mSwipeListView = mSwipeListView ;
+        this.mSwipeListView = mSwipeListView;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 

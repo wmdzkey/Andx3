@@ -15,10 +15,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.googlecode.androidannotations.annotations.Background;
 import com.lidroid.xutils.util.LogUtils;
+import com.smartybean.android.http.HttpInterface;
 import com.umk.andx3.R;
+import com.umk.andx3.api.Api;
 import com.umk.andx3.dialog.FlippingAlertDialog;
 import com.umk.andx3.util.NetWorkUtil;
 import com.umk.andx3.util.xutil.BitmapHelp;
+
+import java.lang.reflect.Field;
 
 /**
  * @author Winnid
@@ -36,6 +40,8 @@ import com.umk.andx3.util.xutil.BitmapHelp;
  *  8.showAlertDialog
  *  9.是否处于活动状态
  *  10.是否处于顶端
+ *
+ *  11.注解Api
  * @since：13-12-14
  */
 public abstract class BaseActivity extends Activity{
@@ -62,6 +68,7 @@ public abstract class BaseActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         instance = this;
+        injectApi();
         initUtil();
         initParam();
         initLog();
@@ -256,5 +263,28 @@ public abstract class BaseActivity extends Activity{
         return dialog;
     }
 
+
+    /***************************************************************************************************
+     *              注入Api对象。
+     * *************************************************************************************************/
+    private void injectApi(){
+        Field[] fields = null;
+        if(this.getClass().getName().endsWith("_")){
+            fields = this.getClass().getSuperclass().getDeclaredFields();
+        }else{
+            fields = this.getClass().getDeclaredFields();
+        }
+        for(Field f: fields){
+            if(f.isAnnotationPresent(Api.class)){
+                f.setAccessible(true);
+                try {
+                    f.set(this, HttpInterface.proxy(this, f.getType()));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                f.setAccessible(false);
+            }
+        }
+    }
 
 }

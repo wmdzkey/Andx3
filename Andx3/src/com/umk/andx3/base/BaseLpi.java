@@ -4,6 +4,7 @@ import android.content.Context;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.WhereBuilder;
 import com.lidroid.xutils.exception.DbException;
+import com.lidroid.xutils.util.LogUtils;
 import com.umk.andx3.util.AppInfoUtil;
 import com.umk.tiebashenqi.entity.Tieba;
 
@@ -31,11 +32,12 @@ public abstract class BaseLpi<T> {
 
     public DbUtils getDbUtils(Context context) {
         if(dbUtils == null) {
-            dbUtils = DbUtils.create(context, AppInfoUtil.getPackageName(context));//TODO:这里要做成多用户的必须改为加用户id身份标识作区分,还有是否写成静态？还有切换用户之后这里要能知道需要重新生成
             try {
+                //TODO:这里要做成多用户的必须改为加用户id身份标识作区分,还有是否写成静态？还有切换用户之后这里要能知道需要重新生成
+                dbUtils = DbUtils.create(context, AppInfoUtil.getPackageName(context));
                 dbUtils.createTableIfNotExist(entityClass);
             } catch (DbException e) {
-                dbUtils = null;
+                LogUtils.e(e.getMessage());
             }
         }
         return dbUtils;
@@ -48,7 +50,7 @@ public abstract class BaseLpi<T> {
         try {
             dbUtils.saveOrUpdate(t);
         } catch (DbException e) {
-            e.printStackTrace();
+            LogUtils.e(e.getMessage());
         }
     }
 
@@ -57,7 +59,7 @@ public abstract class BaseLpi<T> {
         try {
             dbUtils.saveOrUpdate(list);
         } catch (DbException e) {
-            e.printStackTrace();
+            LogUtils.e(e.getMessage());
         }
     }
 
@@ -66,7 +68,7 @@ public abstract class BaseLpi<T> {
         try {
             dbUtils.delete(t);
         } catch (DbException e) {
-            e.printStackTrace();
+            LogUtils.e(e.getMessage());
         }
     }
 
@@ -75,7 +77,7 @@ public abstract class BaseLpi<T> {
         try {
             dbUtils.deleteAll(list);
         } catch (DbException e) {
-            e.printStackTrace();
+            LogUtils.e(e.getMessage());
         }
     }
 
@@ -84,7 +86,7 @@ public abstract class BaseLpi<T> {
         try {
             return dbUtils.findById(entityClass, id);
         } catch (DbException e) {
-            e.printStackTrace();
+            LogUtils.e(e.getMessage());
         }
         return null;
     }
@@ -94,7 +96,7 @@ public abstract class BaseLpi<T> {
         try {
             return dbUtils.findAll(entityClass);
         } catch (DbException e) {
-            e.printStackTrace();
+            LogUtils.e(e.getMessage());
         }
         return null;
     }
@@ -113,7 +115,7 @@ public abstract class BaseLpi<T> {
                 return null;
             }
         } catch (DbException e) {
-            e.printStackTrace();
+            LogUtils.e(e.getMessage());
         }
         return null;
     }

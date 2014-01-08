@@ -8,6 +8,7 @@ import cn.waps.AppConnect;
 import com.googlecode.androidannotations.annotations.*;
 import com.umk.andx3.R;
 import com.umk.andx3.base.BaseActivity;
+import com.umk.andx3.util.AppInfoUtil;
 import com.umk.andx3.view.ScrollingTextView;
 import com.umk.tiebashenqi.util.BlueToothUtil;
 
@@ -21,6 +22,8 @@ public class AboutActivity extends BaseActivity {
     ScrollingTextView header_stv_title;
     @ViewById(R.id.header_tv_subtitle)
     TextView header_tv_subtitle;
+    @ViewById(R.id.about_tv_version)
+    TextView about_tv_version;
 
     @AfterViews
     void init() {
@@ -31,6 +34,7 @@ public class AboutActivity extends BaseActivity {
         header_stv_title.setText("关于");
         header_tv_subtitle.setText("");
         header_layout_right_imagebuttonlayout.setVisibility(View.GONE);
+        about_tv_version.setText("版本 : " + AppInfoUtil.getVersionName(instance));
     }
 
     /**
@@ -51,7 +55,7 @@ public class AboutActivity extends BaseActivity {
         };
 
         showAlertDialog("温馨提示",
-                "发送安装包前请告之您的朋友打开蓝牙，并设置可以被周围手机搜索到",
+                "发送安装包前请告之您的朋友打开蓝牙\n并设置可以被周围手机搜索到",
                 "搜索并发送",leftClickListener,
                 "我再想想",rightClickListener);
     }

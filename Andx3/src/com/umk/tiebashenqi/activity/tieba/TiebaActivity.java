@@ -10,6 +10,7 @@ import com.googlecode.androidannotations.annotations.*;
 import com.umk.andx3.R;
 import com.umk.andx3.base.BaseActivity;
 import com.umk.andx3.view.ScrollingTextView;
+import com.umk.andx3.view.X3ProgressBar;
 import com.umk.tiebashenqi.adapter.TiebaAdapter;
 import com.umk.tiebashenqi.config.Code;
 import com.umk.tiebashenqi.entity.Tieba;
@@ -19,6 +20,7 @@ import com.umk.tiebashenqi.util.TiebaUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @NoTitle
 @EActivity(R.layout.activity_tieba)
@@ -91,15 +93,19 @@ public class TiebaActivity extends BaseActivity {
 
     @Click
     void header_layout_right_imagebuttonlayout() {
+
         if(header_et_search.getText() == null || header_et_search.getText().toString().trim().equals("")) {
             return;
         }
         //查找贴吧并加入数据库
-        String searchTiebaName = header_et_search.getText().toString();
+        final String searchTiebaName = header_et_search.getText().toString();
         //转换为网络通用url
-        String searchTiebaNameUrl = TempUtil.convertChineseUrl(searchTiebaName);
+        final String searchTiebaNameUrl = TempUtil.convertChineseUrl(searchTiebaName);
         //解析主页看是否有贴子，如果有则加入数据库，如果无则提示贴吧不存在
-        String homePage = "http://tieba.baidu.com/f?ie=utf-8&kw=" + searchTiebaNameUrl;
+        final String homePage = "http://tieba.baidu.com/f?ie=utf-8&kw=" + searchTiebaNameUrl;
+
+
+
         newMap = TiebaUtil.getHomePageHashMap(homePage);
         if(newMap != null & newMap.size() != 0) {
             Tieba tieba = new Tieba();
@@ -114,6 +120,32 @@ public class TiebaActivity extends BaseActivity {
             showLongToast("搜索的贴吧不存在");
         }
         header_et_search.getText().clear();
+
+//        X3ProgressBar<Map<String, String>> x3ProgressBar = new X3ProgressBar<Map<String, String>>(instance, "正在加载...", false, null, false) {
+//            @Override
+//            public Map<String, String> doWork() {
+//                return newMap = TiebaUtil.getHomePageHashMap(homePage);
+//            }
+//
+//            @Override
+//            public void doResult(Map<String, String> result) {
+//                if(newMap != null & newMap.size() != 0) {
+//                    Tieba tieba = new Tieba();
+//                    tieba.setTheName(searchTiebaName);
+//                    tieba.setTheNameUrl(searchTiebaNameUrl);
+//                    tieba.setState(Code.State.Normal);
+//                    TiebaLpi tiebaLpi = new TiebaLpi();
+//                    tiebaLpi.saveOrUpdate(instance, tieba);
+//                    tiebaList.add(tieba);
+//                    tiebaAdapter.notifyDataSetChanged();
+//                } else {
+//                    showLongToast("搜索的贴吧不存在");
+//                }
+//                header_et_search.getText().clear();
+//            }
+//        };
+//        x3ProgressBar.start();
+
     }
 
 

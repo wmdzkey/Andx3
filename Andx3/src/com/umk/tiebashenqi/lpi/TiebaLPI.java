@@ -4,9 +4,11 @@ import android.content.Context;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.WhereBuilder;
 import com.lidroid.xutils.exception.DbException;
+import com.lidroid.xutils.util.LogUtils;
 import com.umk.andx3.base.BaseLpi;
 import com.umk.tiebashenqi.entity.Tieba;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +30,7 @@ public class TiebaLpi extends BaseLpi<Tieba> {
                 dbUtils.saveOrUpdate(tieba);
             }
         } catch (DbException e) {
-            e.printStackTrace();
+            LogUtils.e(e.getMessage());
         }
     }
 
@@ -45,7 +47,7 @@ public class TiebaLpi extends BaseLpi<Tieba> {
                 }
             }
         } catch (DbException e) {
-            e.printStackTrace();
+            LogUtils.e(e.getMessage());
         }
     }
 
@@ -59,7 +61,7 @@ public class TiebaLpi extends BaseLpi<Tieba> {
                 return null;
             }
         } catch (DbException e) {
-            e.printStackTrace();
+            LogUtils.e(e.getMessage());
         }
         return null;
     }
@@ -69,8 +71,8 @@ public class TiebaLpi extends BaseLpi<Tieba> {
         try {
             return dbUtils.findAll(Tieba.class, WhereBuilder.b().and("state", "=", state));
         } catch (DbException e) {
-            e.printStackTrace();
+            LogUtils.e(e.getMessage());
         }
-        return null;
+        return new ArrayList<Tieba>();
     }
 }

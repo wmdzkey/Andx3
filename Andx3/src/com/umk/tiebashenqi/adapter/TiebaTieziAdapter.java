@@ -9,14 +9,19 @@ import com.lidroid.xutils.util.LogUtils;
 import com.umk.andx3.R;
 import com.umk.andx3.util.xutil.BitmapHelp;
 import com.umk.andx3.view.ScrollingTextView;
+import com.umk.andx3.view.X3ProgressBar;
+import com.umk.tiebashenqi.config.Code;
+import com.umk.tiebashenqi.entity.Tieba;
 import com.umk.tiebashenqi.entity.Tiezi;
 import com.umk.tiebashenqi.entity.TieziPicture;
+import com.umk.tiebashenqi.lpi.TiebaLpi;
 import com.umk.tiebashenqi.lpi.TieziPictureLpi;
 import com.umk.tiebashenqi.util.TiebaUtil;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 /**
 * @author Winnid
@@ -102,23 +107,37 @@ public class TiebaTieziAdapter extends BaseExpandableListAdapter {
         holder.btn_group_fresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO(OK):刷新当前帖子图片数据
-                //下载贴吧的每一页
-                HashSet<String> set = TiebaUtil.getDetailsPageImageList(group.getUrl());
-                List<TieziPicture> childList = new ArrayList<TieziPicture>();
-                for (String url : set) {
-                    TieziPicture tieziPicture = new TieziPicture();
-                    tieziPicture.setImageUrl(url);
-                    childList.add(tieziPicture);
-                }
-                mData.set(groupPosition, childList);
-                notifyDataSetChanged();
-                expandableListView.expandGroup(groupPosition);
-                //TODO(OK):保存数据到数据库
-                TieziPictureLpi tieziPictureLpi = new TieziPictureLpi();
-                tieziPictureLpi.saveOrUpdate(mContext, childList);
+
+                X3ProgressBar<List<TieziPicture>> x3ProgressBar = new X3ProgressBar<List<TieziPicture>>(mContext, "正在加载...", false, null, false) {
+                    @Override
+                    public List<TieziPicture> doWork() {
+                        //TODO(OK):刷新当前帖子图片数据
+                        //下载贴吧的每一页
+                        HashSet<String> set = TiebaUtil.getDetailsPageImageList(group.getUrl());
+                        List<TieziPicture> childList = new ArrayList<TieziPicture>();
+                        for (String url : set) {
+                            TieziPicture tieziPicture = new TieziPicture();
+                            tieziPicture.setImageUrl(url);
+                            childList.add(tieziPicture);
+                        }
+                        return childList;
+                    }
+
+                    @Override
+                    public void doResult(List<TieziPicture> childList) {
+                        mData.set(groupPosition, childList);
+                        notifyDataSetChanged();
+                        expandableListView.expandGroup(groupPosition);
+                        //TODO(OK):保存数据到数据库
+                        TieziPictureLpi tieziPictureLpi = new TieziPictureLpi();
+                        tieziPictureLpi.saveOrUpdate(mContext, childList);
+                    }
+                };
+                x3ProgressBar.start();
+
             }
         });
+        holder.btn_group_favorite.setVisibility(View.GONE);
         holder.btn_group_favorite.setFocusable(false);
         holder.btn_group_favorite.setOnClickListener(new View.OnClickListener() {
             @Override

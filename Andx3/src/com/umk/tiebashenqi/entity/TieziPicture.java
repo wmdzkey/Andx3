@@ -3,6 +3,7 @@ package com.umk.tiebashenqi.entity;
 import com.lidroid.xutils.db.annotation.Column;
 import com.lidroid.xutils.db.annotation.Id;
 import com.lidroid.xutils.db.annotation.Table;
+import com.umk.andx3.entity.IEntity;
 
 /**
  * @author Winnid
@@ -11,9 +12,9 @@ import com.lidroid.xutils.db.annotation.Table;
  * @since：13-12-15
  */
 @Table(name = "tiezi_picture")
-public class TieziPicture {
+public class TieziPicture extends IEntity {
 
-    @Id
+    @Id(column = "id")
     private Long id;
     @Column(column = "tieba_id")
     private Long tiebaId;

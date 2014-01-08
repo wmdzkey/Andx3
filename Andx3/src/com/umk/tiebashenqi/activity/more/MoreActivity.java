@@ -1,16 +1,17 @@
 package com.umk.tiebashenqi.activity.more;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.waps.extend.AppWall;
 import com.googlecode.androidannotations.annotations.*;
+import com.smartybean.core.AbstractCallBack;
 import com.umk.andx3.R;
+import com.umk.andx3.api.Api;
 import com.umk.andx3.base.BaseActivity;
 import com.umk.andx3.view.ScrollingTextView;
-import com.umk.tiebashenqi.util.BlueToothUtil;
+import com.umk.tiebashenqi.api.TiebaApi;
 
 @NoTitle
 @EActivity(R.layout.activity_more)
@@ -23,6 +24,9 @@ public class MoreActivity extends BaseActivity {
     @ViewById(R.id.header_tv_subtitle)
     TextView header_tv_subtitle;
 
+    @Api
+    TiebaApi tiebaApi;
+
     @AfterViews
     void init() {
         header_stv_title.setText("更多");
@@ -31,8 +35,13 @@ public class MoreActivity extends BaseActivity {
     }
 
     @Click
-    void header_stv_title() {
-        showCustomToast("更多");
+    void more_rl_option_test() {
+        tiebaApi.test(new AbstractCallBack<String>() {
+            @Override
+            public void call(String str) {
+                showCustomToast(str);
+            }
+        });
     }
 
     @Click

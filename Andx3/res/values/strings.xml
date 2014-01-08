@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">贴吧看图神器</string>
     <string name="tab_tieba">贴吧</string>
     <string name="tab_more">更多</string>
     <string name="about_info_intro">免责申明</string>
