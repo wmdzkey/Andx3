@@ -18,3 +18,76 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-optimizationpasses 5
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-dontpreverify
+-verbose
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Application
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+-keep public class com.android.vending.licensing.ILicensingService
+
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+-keepclasseswithmembernames class * {
+    public <init>(android.content.Context, android.util.AttributeSet);
+}
+
+-keepclasseswithmembernames class * {
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+}
+
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keep class * implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator *;
+}
+
+-keepattributes Signature
+
+#Lpi
+-keep class com.umk.andx3.base.BaseLpi{ *;}
+
+#Api
+-libraryjars /libs/httpinterface.jar
+#-keep class com.smartybean.** {*;}
+#-keep class javax.inject.** {*;}
+
+
+#Entity#这里还有待优化，实体类应该混淆
+-keep class com.umk.tiebashenqi.entity.**{*;}
+
+#xUtils
+-libraryjars /libs/xUtils-2.4.3.jar
+-keep class * extends java.lang.annotation.Annotation { *; }
+#-keep class com.lidroid.xutils.**{*;}
+
+#万普平台
+-libraryjars /libs/AppOffer_2.0.1.jar
+-keep public class cn.waps.** {*;}
+-keep public interface cn.waps.** {*;}
+-dontwarn cn.waps.**
+
+#gson
+-libraryjars /libs/gson-2.2.4.jar
+-keep class com.google.gson.**{*;}
+
+#jsoup
+-libraryjars /libs/jsoup-1.7.2.jar
+-keep class org.jsoup.**{*;}
+
+#swipelistview
+-libraryjars /libs/nineoldandroids-2.4.0.jar
+-libraryjars /libs/swipelistview-1.0-20130701.103547-12-jar-with-dependencies.jar
+-keep class com.fortysevendeg.android.swipelistview.**{*;}
