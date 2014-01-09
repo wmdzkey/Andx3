@@ -175,22 +175,22 @@ public class TiebaTieziActivity extends BaseActivity {
      * */
     @Click
     void header_layout_left_imagebuttonlayout() {
-        //finish();
-        FlippingAlertDialog.Builder customBuilder = new
-                FlippingAlertDialog.Builder(this);
-        customBuilder.setTitle("Custom title").setIcon(R.drawable.ic_tab_more)
-                .setMessage("Custom body")
-                .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        })
-                .setPositiveButton("Confirm",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-        customBuilder.create().show();
+        finish();
+//        FlippingAlertDialog.Builder customBuilder = new
+//                FlippingAlertDialog.Builder(this);
+//        customBuilder.setTitle("Custom title").setIcon(R.drawable.ic_tab_more)
+//                .setMessage("Custom body")
+//                .setNegativeButton("Cancel",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                            }
+//                        })
+//                .setPositiveButton("Confirm",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                            }
+//                        });
+//        customBuilder.create().show();
     }
 
     /**

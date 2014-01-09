@@ -36,12 +36,13 @@ x3ProgressBar.start();
 
 /**
  * @author Winnid
- * @Title:带有回调函数的进度条
+ * @Title:带有回调函数的进度条(已由FlippingProgressDialog替代)
  * @Description: doWork表示方法处理过程<br>doResult表示对于返回结果的处理调用
  * @date 13-10-7
  * @Version V1.0
  * Created by Winnid on 13-10-7.
  */
+@Deprecated
 public abstract class X3ProgressBar<T> implements DialogInterface.OnClickListener{
 
     private Context mContext;

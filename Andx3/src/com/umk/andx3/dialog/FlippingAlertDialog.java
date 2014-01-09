@@ -9,7 +9,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.lidroid.xutils.util.LogUtils;
 import com.umk.andx3.R;
 import com.umk.andx3.view.flipping.FlippingImageView;
 
@@ -201,7 +200,7 @@ public class FlippingAlertDialog extends Dialog {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             // instantiate the dialog with the custom Theme
             final FlippingAlertDialog dialog = new FlippingAlertDialog(context, R.style.FlippingAlertDialog);
-            View layout = inflater.inflate(R.layout.common_flipping_alert_diloag, null);
+            View layout = inflater.inflate(R.layout.common_flipping_alert_dialog, null);
             dialog.addContentView(layout, new LayoutParams(
                     LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 
