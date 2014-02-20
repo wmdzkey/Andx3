@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:s="http://www.springframework.org/schema/security"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation=" http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+                            http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+                            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+    <s:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"/>
+
+    <!-- 自动扫描且只扫描@Controller -->
+    <context:component-scan base-package="com.palm.epalm.modules" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
+    <!-- SockJS
+    <bean class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler" id="taskScheduler">
+        <property name="threadNamePrefix" value="SockJS-"/>
+    </bean>
+    <bean class="org.springframework.web.socket.sockjs.support.DefaultSockJsService" id="sockJsService">
+        <constructor-arg ref="taskScheduler"/>
+    </bean>
+    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="urlMap">
+            <map>
+                <entry key="/message/**">
+                    <bean class="org.springframework.web.socket.sockjs.support.SockJsHttpRequestHandler">
+                        <constructor-arg ref="sockJsService"/>
+                        <constructor-arg ref="messageService"/>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
+    SockJS End-->
+
+
+    <!-- <bean class="com.palm.epalm.modules.system.rest.WebSocketApi"/>
+    <bean class="org.springframework.web.socket.server.endpoint.ServerEndpointExporter"/> -->
+    <mvc:annotation-driven conversion-service="conversionService" validator="validator">
+        <mvc:message-converters register-defaults="true">
+            <!-- 将StringHttpMessageCOnverter的默认编码设为UTF-8 -->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+            <bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
+        </mvc:message-converters>
+        <mvc:argument-resolvers>
+            <bean class="org.springframework.data.web.PageableArgumentResolver"/>
+            <bean class="com.palm.epalm.base.web.QueryFilterArgumentResolver"/>
+            <bean class="com.palm.epalm.base.web.CollectionArgumentResolver"/>
+        </mvc:argument-resolvers>
+        <mvc:async-support default-timeout="100000"/>
+    </mvc:annotation-driven>
+
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <array>
+                <bean class="com.palm.epalm.base.util.converter.StringDateConverter"/>
+            </array>
+        </property>
+    </bean>
+
+    <!-- 页面（Controller）参数绑定到数据库  -->
+    <bean class="org.springframework.data.repository.support.DomainClassConverter">
+        <constructor-arg ref="conversionService"/>
+    </bean>
+
+    <!--<mvc:resources mapping="/static/**" location="/static/"/>-->
+    <!--<mvc:resources mapping="/resources/**" location="/resources/,classpath:/META-INF/web-resources/"/>-->
+
+    <mvc:default-servlet-handler/>
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
+        <bean class="com.palm.epalm.base.web.ContextInterceptor"/>
+    </mvc:interceptors>
+
+
+    <!--
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <array>
+                <value>/WEB-INF/messages/globalMessage</value>
+                <value>/WEB-INF/messages/validationMessage</value>
+            </array>
+        </property>
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="cacheSeconds" value="0" />
+    </bean>
+    -->
+
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="suffix" value=".jsp"/>
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="order" value="2"/>
+    </bean>
+
+    <!-- freemarker
+    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="freemarkerSettings">
+            <value>
+                template_update_delay=prop
+                tag_syntax=auto_detect
+                template_update_delay=2
+                default_encoding=UTF-8
+                url_escaping_charset=UTF-8
+                output_encoding=UTF-8
+                locale=zh_CN
+                date_format=yyyy-MM-dd
+                time_format=HH:mm:ss
+                datetime_format=yyyy-MM-dd HH:mm:ss
+                boolean_format=true,false
+                whitespace_stripping=true
+                #auto_import=/WEB-INF/ftl/test.ftl as t
+            </value>
+        </property>
+    </bean>
+    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="suffix" value=".ftl"/>
+        <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+        <property name="exposePathVariables" value="true"/>
+        <property name="exposeRequestAttributes" value="true"/>
+        <property name="exposeSpringMacroHelpers" value="true"/>
+        <property name="exposeSessionAttributes" value="true"/>
+        <property name="order" value="1"/>
+    </bean>   -->
+    <!--jade support
+    <bean id="templateLoader" class="de.neuland.jade4j.spring.template.SpringTemplateLoader">
+        <property name="basePath" value="/WEB-INF/views/" />
+    </bean>
+
+    <bean id="jadeConfiguration" class="de.neuland.jade4j.JadeConfiguration">
+        <property name="prettyPrint" value="true" />
+        <property name="caching" value="false" />
+        <property name="templateLoader" ref="templateLoader" />
+    </bean>
+
+    <bean  class="de.neuland.jade4j.spring.view.JadeViewResolver">
+        <property name="configuration" ref="jadeConfiguration" />
+        <property name="suffix" value=".jade"/>
+        <property name="renderExceptions" value="true" />
+        <property name="order" value="1"/>
+
+    </bean>    -->
+    <!--
+    <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+        <property name="extractValueFromSingleKeyModel" value="true"/>
+        <property name="objectMapper">
+            <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                <property name="serializationInclusion">
+                      <value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>
+                </property>
+            </bean>
+        </property>
+    </bean>    -->
+    <!--
+    <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+        <property name="extractValueFromSingleKeyModel" value="true" />
+        <property name="objectMapper">
+         <bean class="org.codehaus.jackson.map.ObjectMapper">
+                <property name="serializationInclusion">
+                    <value type="org.codehaus.jackson.map.annotate.JsonSerialize$Inclusion">NON_NULL</value>
+                </property>
+            </bean>
+        </property>
+    </bean>     -->
+    <!--
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+       <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+       <property name="suffix" value=".jsp"/>
+    </bean>      -->
+    <!--
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.Throwable">error/500</prop>
+            </props>
+        </property>
+    </bean>    -->
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="10000000"/>
+    </bean>
+
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="cookieName" value="clientlanguage"/>
+    </bean>
+
+    <bean id="themeResolver" class="org.springframework.web.servlet.theme.CookieThemeResolver">
+        <property name="defaultThemeName" value="sapphire"/>
+    </bean>
+
+</beans>

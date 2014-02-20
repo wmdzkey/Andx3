@@ -1,0 +1,106 @@
+
+package com.palm.epalm.modules.system.web;
+
+import com.palm.epalm.base.repository.QueryFilter;
+import com.palm.epalm.modules.system.rest.vo.EmployeeVO;
+import com.palm.epalm.base.util.mapper.BeanMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import javax.validation.Valid;
+import java.util.List;
+import static com.palm.epalm.base.util.ListArrayUtil.*;
+
+@Controller
+@RequestMapping("/employee")
+@Secured("ROLE_USER")//声明需要的权限，可用声明在方法上
+public class EmployeeController{
+
+    @Autowired
+    private EmployeeService employeeService;
+
+    private final String LIST_ACTION = "redirect:/system/employee";
+    /**
+    @ModelAttribute
+    public void init(Model model) {   //请求初始化，可以定义或者获取数据
+        model.addAttribute("now", new java.sql.Timestamp(System.currentTimeMillis()));
+    }**/
+    /** 列表 */
+    @RequestMapping
+    public String index(Model model,Pageable pageable,QueryFilter []filters) {
+        Page<Employee> page = employeeService.findAll(newList(filters),pageable);
+        model.addAttribute("page",page);
+        return "/employee/index";
+    }
+
+    /** 显示 */
+    @RequestMapping(value="/{id}")
+    public String show(Model model,@PathVariable Long id) throws Exception {
+        Employee employee = (Employee)employeeService.findOne(id);
+        model.addAttribute("employee",employee);
+        return "/employee/view";
+    }
+
+    /** 进入新增 */
+    @RequestMapping(value="/new")
+    public String _new(Model model,Employee employee) throws Exception {
+        model.addAttribute("employee",employee);
+        return "/employee/edit";
+    }
+
+    /** 保存新增,@Valid标注spirng在绑定对象时自动为我们验证对象属性并存放errors在BindingResult  */
+    @RequestMapping(method=RequestMethod.POST)
+    public String create(Model model,@Valid Employee employee,BindingResult errors,RedirectAttributes redirectAttributes) throws Exception {
+        if(errors.hasErrors()) {
+            return  "/employee/edit";
+        }
+
+        employeeService.save(employee);
+        redirectAttributes.addFlashAttribute("sucess", "create sucess");//存放在Flash中的数据,在下一次http请求中仍然可以读取数据,error()用于显示错误消息
+        return LIST_ACTION;
+    }
+
+    /** 编辑 */
+    @RequestMapping(value="/{id}/edit")
+    public String edit(Model model,@PathVariable Long id) throws Exception {
+        Employee employee = (Employee)employeeService.findOne(id);
+        model.addAttribute("employee",employee);
+        return "/employee/edit";
+    }
+
+    /** 保存更新,@Valid标注spirng在绑定对象时自动为我们验证对象属性并存放errors在BindingResult  */
+    @RequestMapping(value="/{id}",method=RequestMethod.PUT)
+    public String update(Model model,@PathVariable("id") Employee employee,@Valid EmployeeVO employeeVO,BindingResult errors,RedirectAttributes redirectAttributes) throws Exception {
+        if(errors.hasErrors()) {
+            return "/employee/edit";
+        }
+        BeanMapper.copy(employeeVO,employee);//拷贝更新的属性，某些属性需要手动处理
+        employeeService.save(employee);
+        redirectAttributes.addFlashAttribute("sucess", "update sucess");
+        return LIST_ACTION;
+    }
+
+    /** 删除 */
+    @RequestMapping(value="/{id}",method=RequestMethod.DELETE)
+    public String delete(Model model,@PathVariable Long id,RedirectAttributes redirectAttributes) {
+        employeeService.delete(id);
+        redirectAttributes.addFlashAttribute("sucess", "delete sucess");
+        return LIST_ACTION;
+    }
+
+    /** 批量删除 */
+    @RequestMapping(method=RequestMethod.DELETE)
+    public String batchDelete(Model model,@RequestParam("items")  List<Long> items, RedirectAttributes redirectAttributes) {
+        employeeService.deleteByIds(items);
+        redirectAttributes.addFlashAttribute("sucess", "delete sucess");
+        return LIST_ACTION;
+    }
+
+}
+

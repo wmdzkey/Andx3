@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd
+                           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--
+    <task:scheduled-tasks>
+        <task:scheduled ref="rankingService" method="generateRankingPage" cron="0 0 0 * * ?"/>
+    </task:scheduled-tasks>
+    -->
+    <!--
+    <bean class="com.palm.epalm.base.util.mapper.StringConvertProcessor">
+        <property name="converters">
+            <map>
+              <description>String converters</description>
+               <entry key="java.util.Date">
+                    <bean class="com.palm.epalm.base.util.mapper.DateStringConverter" p:format="yyyy-MM-dd HH:mm:ss E"></bean>
+               </entry>
+            </map>
+        </property>
+    </bean>
+    -->
+    <bean class="com.palm.epalm.base.support.jquery.datatable.DataConverter">
+        <property name="converters">
+            <map>
+                <entry key="java.util.Date">
+                    <bean class="com.palm.epalm.base.util.converter.DateStringConverter"
+                          p:defaultFormat="yyyy-MM-dd HH:mm:ss aaa"></bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="jPushClient" class="cn.jpush.api.JPushClient">
+        <constructor-arg index="0" type="java.lang.String" name="masterSecret">
+            <value>${jpush_master_secret}</value>
+        </constructor-arg>
+        <constructor-arg index="1" type="java.lang.String" name="appKey">
+            <value>${jpush_app_key}</value>
+        </constructor-arg>
+        <!--
+        <constructor-arg index="2" type="java.lang.Long" name="timeToLive">
+            <value>864000</value>
+        </constructor-arg>
+        -->
+    </bean>
+
+</beans>
