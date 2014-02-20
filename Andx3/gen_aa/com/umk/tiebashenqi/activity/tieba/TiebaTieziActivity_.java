@@ -16,10 +16,9 @@ import android.view.Window;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import com.umk.andx3.R.id;
-import com.umk.andx3.R.layout;
 import com.umk.andx3.view.ScrollingTextView;
+import com.umk.tiebashenqi.R.id;
+import com.umk.tiebashenqi.R.layout;
 
 public final class TiebaTieziActivity_
     extends TiebaTieziActivity
@@ -38,26 +37,11 @@ public final class TiebaTieziActivity_
     }
 
     private void afterSetContentView_() {
-        header_layout_right_imagebuttonlayout = ((LinearLayout) findViewById(id.header_layout_right_imagebuttonlayout));
-        header_stv_title = ((ScrollingTextView) findViewById(id.header_stv_title));
-        header_tv_subtitle = ((TextView) findViewById(id.header_tv_subtitle));
-        tiezi_elv = ((ExpandableListView) findViewById(id.tiezi_elv));
         header_ib_right_imagebutton = ((ImageButton) findViewById(id.header_ib_right_imagebutton));
-        {
-            View view = findViewById(id.header_layout_left_imagebuttonlayout);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        TiebaTieziActivity_.this.header_layout_left_imagebuttonlayout();
-                    }
-
-                }
-                );
-            }
-        }
+        header_layout_rightview_container = ((LinearLayout) findViewById(id.header_layout_rightview_container));
+        header_stv_title = ((ScrollingTextView) findViewById(id.header_stv_title));
+        header_stv_subtitle = ((ScrollingTextView) findViewById(id.header_stv_subtitle));
+        tiezi_elv = ((ExpandableListView) findViewById(id.tiezi_elv));
         {
             View view = findViewById(id.header_layout_right_imagebuttonlayout);
             if (view!= null) {
@@ -67,6 +51,21 @@ public final class TiebaTieziActivity_
                     @Override
                     public void onClick(View view) {
                         TiebaTieziActivity_.this.header_layout_right_imagebuttonlayout();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = findViewById(id.header_layout_left_imagebuttonlayout);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        TiebaTieziActivity_.this.header_layout_left_imagebuttonlayout();
                     }
 
                 }

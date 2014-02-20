@@ -1,7 +1,7 @@
 package com.umk.andx3.base;
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,14 +13,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.googlecode.androidannotations.annotations.Background;
+import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.util.LogUtils;
 import com.smartybean.android.http.HttpInterface;
-import com.umk.andx3.R;
+
+import com.umk.tiebashenqi.R;
 import com.umk.andx3.api.Api;
 import com.umk.andx3.dialog.FlippingAlertDialog;
 import com.umk.andx3.util.NetWorkUtil;
 import com.umk.andx3.util.xutil.BitmapHelp;
+import com.umk.tiebashenqi.activity.MainActivity;
 
 import java.lang.reflect.Field;
 
@@ -42,14 +44,21 @@ import java.lang.reflect.Field;
  *  10.是否处于顶端
  *
  *  11.注解Api
+ *  12.加入BaseApplication
+ *  13.catchException捕获意外退出信息
+ *  14.AlertPopWindow加入 TODO
  * @since：13-12-14
  */
-public abstract class BaseActivity extends Activity{
+public abstract class BaseActivity extends Activity {
 
-    public static Context instance = null;
+    public BaseApplication mApplication;
 
-    protected FlippingAlertDialog loadingDialog;
+    /**工具类*/
     protected NetWorkUtil mNetWorkUtil;
+    protected BitmapUtils mBitmapUtils;
+
+    /**组件类*/
+    protected FlippingAlertDialog loadingDialog;
 
     /**
      * 屏幕的宽度、高度、密度
@@ -61,22 +70,26 @@ public abstract class BaseActivity extends Activity{
     /**
      * Activity状态
      * */
-    private static Boolean run = false;
-    private static Boolean runTop = false;
+    private boolean runTopState = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        instance = this;
-        injectApi();
+        initBase();
         initUtil();
         initParam();
         initLog();
+        injectApi();
     }
 
+    private void initBase() {
+        mApplication = (BaseApplication) getApplication();
+        Thread.setDefaultUncaughtExceptionHandler(new BaseCrashException(this)); // 程序崩溃时触发线程
+    }
 
     private void initUtil() {
         mNetWorkUtil = new NetWorkUtil(this);
+        mBitmapUtils = BitmapHelp.getBitmapUtils(this);
     }
 
     private void initParam() {
@@ -97,25 +110,35 @@ public abstract class BaseActivity extends Activity{
      * *************************************************************************************************/
 
     /** 是否处于运行状态 */
-    public static Boolean getRun() {
-        run = (instance == null);
-        return run;
+    public static boolean getRun(BaseActivity context) {
+        return (context == null);
     }
+
     /** 是否处于顶端（当前）运行 */
-    public static Boolean getRunTop() {
-        return runTop;
+    public static boolean getRunTop(BaseActivity context) {
+        return context.runTopState;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        runTop = true;
+        runTopState = true;
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        runTop = false;
+        runTopState = false;
+    }
+
+    /** 是否处于运行状态 */
+    public static int getScreenWidth(Context context) {
+        return ((BaseActivity)context).mScreenWidth;
+    }
+
+    /** 是否处于运行状态 */
+    public static int getScreenHeight(Context context) {
+        return ((BaseActivity)context).mScreenHeight;
     }
 
     /***************************************************************************************************
@@ -203,7 +226,9 @@ public abstract class BaseActivity extends Activity{
                     public void onFinish() {
                         if (loadingDialog != null && loadingDialog.isShowing()) {
                             loadingDialog.dismiss();
-                            showAlertDialog(null, "请求超时，请稍后再试");
+                            Dialog timeoutDialog = showAlertDialog(null, "请求超时，请稍后再试");
+                            timeoutDialog.setCancelable(true);
+                            timeoutDialog.setCanceledOnTouchOutside(true);
                         }
                         cancel();
                     }
@@ -234,11 +259,11 @@ public abstract class BaseActivity extends Activity{
     }
 
     /** 含有标题、内容、两个按钮的对话框 **/
-    protected FlippingAlertDialog showAlertDialog(String title, String message,
-                                          String positiveText,
-                                          DialogInterface.OnClickListener onPositiveClickListener,
-                                          String negativeText,
-                                          DialogInterface.OnClickListener onNegativeClickListener) {
+    public FlippingAlertDialog showAlertDialog(String title, String message,
+                                               String positiveText,
+                                               DialogInterface.OnClickListener onPositiveClickListener,
+                                               String negativeText,
+                                               DialogInterface.OnClickListener onNegativeClickListener) {
         FlippingAlertDialog.Builder builder = new FlippingAlertDialog.Builder(this).setTitle(title)
                 .setMessage(message)
                 .setPositiveButton(positiveText, onPositiveClickListener)
@@ -263,6 +288,10 @@ public abstract class BaseActivity extends Activity{
         return dialog;
     }
 
+    /***************************************************************************************************
+     *              AlertPopWindow TODO
+     * *************************************************************************************************/
+
 
     /***************************************************************************************************
      *              注入Api对象。
@@ -286,5 +315,7 @@ public abstract class BaseActivity extends Activity{
             }
         }
     }
+
+
 
 }

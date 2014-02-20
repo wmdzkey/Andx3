@@ -59,7 +59,7 @@
 
         <logout logout-success-url="/" invalidate-session="true" logout-url="/logout" delete-cookies="JSESSIONID"/>
         <!--  -->
-        <remember-me user-service-ref="userService" data-source-ref="dataSource"/>
+        <remember-me user-service-ref="systemService" data-source-ref="dataSource"/>
         <http-basic/>
         <!--<remember-me key="jdbc_rember"/>-->
         <!--
@@ -70,7 +70,7 @@
         <anonymous/>
     </http>
     <authentication-manager alias="authenticationManager">
-        <authentication-provider user-service-ref="userService">
+        <authentication-provider user-service-ref="systemService">
             <!--
             <password-encoder hash="md5">
                 <salt-source user-property="username"/>

@@ -16,14 +16,15 @@ public class TieziPicture extends IEntity {
 
     @Id(column = "id")
     private Long id;
+
+    @Column(column = "the_name")
+    private String theName;
     @Column(column = "tieba_id")
     private Long tiebaId;
     @Column(column = "tiezi_id")
     private Long tieziId;
     @Column(column = "image_url")
     private String imageUrl;
-    @Column(column = "state")
-    private Integer state;
 
     public Long getId() {
         return id;
@@ -31,6 +32,14 @@ public class TieziPicture extends IEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTheName() {
+        return theName;
+    }
+
+    public void setTheName(String theName) {
+        this.theName = theName;
     }
 
     public Long getTiebaId() {
@@ -57,11 +66,4 @@ public class TieziPicture extends IEntity {
         this.imageUrl = imageUrl;
     }
 
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
 }

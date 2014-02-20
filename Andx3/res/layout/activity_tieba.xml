@@ -5,16 +5,8 @@
                 android:background="@color/bg_color_default">
 
     <include
-            android:id="@+id/tieba_header"
+            android:id="@+id/header"
             layout="@layout/common_headerbar_default" />
-
-    <TextView
-            android:id="@+id/tieba_tv_test"
-            android:layout_width="fill_parent"
-            android:layout_height="200dip"
-            android:layout_alignParentBottom="true"
-            android:visibility="gone"
-            android:text="测试"/>
 
     <com.fortysevendeg.android.swipelistview.SwipeListView
             xmlns:swipe="http://schemas.android.com/apk/res-auto"
@@ -32,7 +24,7 @@
             swipe:swipeOffsetLeft="0dp"
             swipe:swipeOffsetRight="0dp"
             swipe:swipeOpenOnLongPress="false"
-            android:layout_below="@+id/tieba_header"
+            android:layout_below="@+id/header"
             android:layout_above="@+id/tieba_tv_test"/>
 
 

@@ -72,7 +72,7 @@ public class NetworkProgressDialog  extends ProgressDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.common_simple_progress_dialog);
+        setContentView(R.layout.dialog_progress_simple);
         mFivIcon = (ImageView) findViewById(R.id.progress_iv_loading);
         AnimationDrawable animationDrawable = (AnimationDrawable) mFivIcon.getBackground();
         animationDrawable.start();

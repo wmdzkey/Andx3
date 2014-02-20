@@ -12,7 +12,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ExpandableListView;
-import com.umk.andx3.R;
+
+import com.umk.tiebashenqi.R;
 import com.umk.demo.adapter.ExpandableListViewAdapter;
 import com.umk.demo.entity.Item;
 

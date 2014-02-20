@@ -23,7 +23,7 @@ import cn.waps.extend.AppDetail;
 import cn.waps.extend.AppWall;
 import cn.waps.extend.QuitPopAd;
 import cn.waps.extend.SlideWall;
-import com.umk.andx3.R;
+import com.umk.tiebashenqi.R;
 
 public class DemoApp extends Activity implements View.OnClickListener, UpdatePointsNotifier {
 

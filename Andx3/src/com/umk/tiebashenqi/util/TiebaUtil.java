@@ -3,6 +3,7 @@ package com.umk.tiebashenqi.util;
 import android.util.Log;
 import com.google.gson.internal.LinkedTreeMap;
 import com.lidroid.xutils.util.LogUtils;
+import com.umk.andx3.lib.util.Base64CoderUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -11,6 +12,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -20,6 +22,46 @@ import java.util.Set;
  * @since：13-12-14
  */
 public class TiebaUtil {
+
+
+    public final static String TIEBA_NAME = "TiebaName";
+    public final static String TIEBA_LOGO = "TiebaLogo";
+    public final static String TIEBA_EXCEPTION = "Exception";
+
+
+    /**
+     * 获得贴吧主页所有帖子的页面地址
+     * @return ArrayList<String 地址链接>
+     * @throws IOException
+     */
+    public static Map<String, String> getHomePageName(String homePage) {
+
+        Map<String, String> tiebaMap = new HashMap<String, String>();
+        try
+        {
+            Document doc = Jsoup.connect(homePage).userAgent("Mozilla").get();//模拟PC-IE
+            //Document doc = Jsoup.connect(homePage).userAgent("Mozilla/5.0").get();//模拟Android
+            //Document doc = Jsoup.connect(homePage).get();
+            String homePageName = doc.title();
+            tiebaMap.put(TIEBA_NAME, homePageName.substring(0, homePageName.length() - 6));
+
+            //获得贴吧Logo
+            Elements logoSpan = doc.select("span.common_forum_img");
+            for(Element link : logoSpan){
+                if(logoSpan.attr("style") != null && !link.attr("style").equals("") ){
+                    String logoImgUrl = link.attr("style");
+                    tiebaMap.put(TIEBA_LOGO, logoImgUrl.substring(logoImgUrl.indexOf("(")+1, logoImgUrl.length()-1) );
+                    LogUtils.e("开始解析:" + link.text() + " - " + tiebaMap.get(TIEBA_LOGO));
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return tiebaMap;
+    }
 
     /**
      * 获得贴吧主页所有帖子的页面地址
@@ -35,19 +77,21 @@ public class TiebaUtil {
             LogUtils.e("开始解析:" + homePage);
             Document doc = Jsoup.connect(homePage).get();
             Elements links = doc.select("a[href*=/m?kz=]");//手机版贴吧帖子开头链接
-
             //注意这里是Elements不是Element。同理getElementById返回Element，getElementsByClass返回时Elements
             for(Element link : links){
-                if(link.attr("href") != null && !link.attr("href").equals("") ){
-                    hs.put(link.text(), link.attr("abs:href") );
-                    //LogUtils.e("开始解析:" + link.text() + " - " + link.attr("abs:href"));
+                if(link.attr("href") != null && !link.attr("href").equals("")) {
+                    String url = link.attr("abs:href");
+                    String title = link.text();
+                    url = url.substring(0, url.indexOf("/mo/q---")+3) + url.substring(url.indexOf("/m?kz="), url.length());
+                    title = title.substring(title.indexOf(".")+1, title.length());
+                    hs.put(url, title.substring(title.indexOf(".")+1, title.length()));
+                    LogUtils.e("开始解析:" + link.text() + " - " + url);
                 }
             }
         }
         catch (Exception e)
         {
             hs.put("Exception", e.getMessage());
-            e.printStackTrace();
         }
 
         return hs;
@@ -61,7 +105,7 @@ public class TiebaUtil {
      */
     public static HashSet<String> getDetailsPageImageList(String detailsPage) {
 
-        HashSet<String> set = new HashSet<String>();
+        HashSet<String> set = null;
         try {
             //读取第一页，查看一共有多少页
             detailsPage = detailsPage + "&see_lz=1";
@@ -70,11 +114,10 @@ public class TiebaUtil {
 
             //获得本帖子共有多少页
             Elements totalPage = doc.select("div.h");
-            LogUtils.e("解析子内容:" + totalPage.text());
             int pageNumber = 1;//默认就有一页
             for (Element src : totalPage) {
+                set = new HashSet<String>();
                 if(src.text().contains("第") && src.text().contains("/")  && src.text().contains("页")) {
-                    LogUtils.e("解析子src内容:" + src.text());
                     try{
                         int startIndex = src.text().lastIndexOf("/");
                         int endIndex = src.text().lastIndexOf("页");
@@ -85,6 +128,7 @@ public class TiebaUtil {
                     }
                 }
             }
+            LogUtils.e("解析子图片页数: " + pageNumber);
 
             for(int i = 0; i < pageNumber; i++){
                 LogUtils.e(detailsPage + "&pn=" + i + "0");//手机的页码下标从00开始
@@ -92,11 +136,10 @@ public class TiebaUtil {
                 Elements image = doc.select("a[href^=http://m.tiebaimg.com/]");
                 int j = 0;
                 for (Element src : image) {
-                    LogUtils.e("解析子图片内容:" + src.html());
+                    LogUtils.e("解析子图片内容:" + src.attr("href"));
                     set.add(src.attr("href"));
                     j++;
                 }
-                LogUtils.e("解析子图片内容:第" + i + "页总数：" + j);
             }
 
         } catch (IOException e) {
@@ -106,6 +149,16 @@ public class TiebaUtil {
         }
         return set;
 
+    }
+
+    public static String getOriginalImageUrl(String imageUrl) {
+        if (imageUrl != null && imageUrl.startsWith("http://m.tiebaimg.com/")) {
+            imageUrl = imageUrl.substring(imageUrl.indexOf("&src=") + 5);
+            LogUtils.e("imageUrl : " + imageUrl);
+            LogUtils.e("imageUrl : " + Base64CoderUtil.urlDecode(imageUrl));
+            return Base64CoderUtil.urlDecode(imageUrl);
+        }
+        return "";
     }
 
 }

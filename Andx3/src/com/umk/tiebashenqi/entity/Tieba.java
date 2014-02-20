@@ -2,9 +2,10 @@ package com.umk.tiebashenqi.entity;
 
 import com.lidroid.xutils.db.annotation.Column;
 import com.lidroid.xutils.db.annotation.Id;
+import com.lidroid.xutils.db.annotation.NoAutoIncrement;
 import com.lidroid.xutils.db.annotation.Table;
 import com.umk.andx3.entity.IEntity;
-import com.umk.tiebashenqi.config.Code;
+import com.umk.andx3.lib.config.Code;
 
 /**
  * @author Winnid
@@ -16,13 +17,14 @@ import com.umk.tiebashenqi.config.Code;
 public class Tieba extends IEntity {
 
     @Id(column = "id")
+    @NoAutoIncrement
     private Long id;
     @Column(column = "the_name")
     private String theName;
     @Column(column = "the_name_url")
     private String theNameUrl;
-    @Column(column = "state")
-    private Integer state = Code.State.Normal;
+    @Column(column = "logo_url")
+    private String logoUrl;
 
     public Long getId() {
         return id;
@@ -40,19 +42,19 @@ public class Tieba extends IEntity {
         this.theName = theName;
     }
 
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
-
     public String getTheNameUrl() {
         return theNameUrl;
     }
 
     public void setTheNameUrl(String theNameUrl) {
         this.theNameUrl = theNameUrl;
+    }
+
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 }

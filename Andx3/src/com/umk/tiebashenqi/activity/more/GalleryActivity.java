@@ -1,12 +1,14 @@
 package com.umk.tiebashenqi.activity.more;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.GridView;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.NoTitle;
 import com.googlecode.androidannotations.annotations.ViewById;
-import com.umk.andx3.R;
+
+import com.umk.tiebashenqi.R;
 import com.umk.andx3.base.BaseActivity;
 import com.umk.andx3.view.x3list.X3ListView;
 import com.umk.tiebashenqi.adapter.GalleryAdapter;
@@ -26,6 +28,8 @@ import java.util.List;
 @EActivity(R.layout.activity_gallery)
 public class GalleryActivity extends BaseActivity{
 
+    public static Context instance = null;
+
     @ViewById(R.id.gallery_lv_picture)
     X3ListView mListView;
     GalleryAdapter mAdapter;
@@ -38,6 +42,7 @@ public class GalleryActivity extends BaseActivity{
 
     @AfterViews
     void init() {
+        instance = this;
         initData();
         initView();
     }

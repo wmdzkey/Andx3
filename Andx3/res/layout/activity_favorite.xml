@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/bg_color_default">
+
+    <include
+            android:id="@+id/header"
+            layout="@layout/common_headerbar_back" />
+
+    <com.fortysevendeg.android.swipelistview.SwipeListView
+            xmlns:swipe="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/favorite_slv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:listSelector="#00000000"
+            swipe:swipeActionLeft="reveal"
+            swipe:swipeActionRight="reveal"
+            swipe:swipeAnimationTime="0"
+            swipe:swipeBackView="@+id/back"
+            swipe:swipeCloseAllItemsWhenMoveList="false"
+            swipe:swipeFrontView="@+id/front"
+            swipe:swipeMode="both"
+            swipe:swipeOffsetLeft="0dp"
+            swipe:swipeOffsetRight="0dp"
+            swipe:swipeOpenOnLongPress="false"
+            android:layout_below="@+id/header"/>
+
+
+</RelativeLayout>
+

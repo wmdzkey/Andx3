@@ -5,13 +5,11 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
-import com.fortysevendeg.android.swipelistview.SwipeListView;
-import com.umk.andx3.R;
+import android.widget.ImageView;
 import com.umk.andx3.util.xutil.BitmapHelp;
 import com.umk.andx3.view.gridheader.GridViewWithHeaderBaseAdapter;
+import com.umk.tiebashenqi.R;
 import com.umk.tiebashenqi.activity.tieba.ImageViewActivity;
-import com.umk.tiebashenqi.entity.Tieba;
 import com.umk.tiebashenqi.entity.TieziPicture;
 
 import java.util.List;
@@ -63,7 +61,7 @@ public class GalleryAdapter extends GridViewWithHeaderBaseAdapter {
         }else{
             holder = (ViewHolder) view.getTag();
         }
-        //默认移除按钮(只做移除操作，事件dismiss在外部进行)
+        BitmapHelp.getBitmapUtils(mContext).display( holder.mPicture, item.getImageUrl());
         holder.mPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +71,6 @@ public class GalleryAdapter extends GridViewWithHeaderBaseAdapter {
                 mContext.startActivity(intent);
             }
         });
-        BitmapHelp.getBitmapUtils(mContext).display( holder.mPicture, item.getImageUrl());
         return view;
     }
 

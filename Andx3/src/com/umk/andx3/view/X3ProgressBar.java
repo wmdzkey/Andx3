@@ -4,7 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
-import com.umk.andx3.R;
+
+import com.umk.tiebashenqi.R;
 
 /**
  *

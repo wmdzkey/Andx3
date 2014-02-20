@@ -9,14 +9,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.umk.andx3.R.id;
-import com.umk.andx3.R.layout;
+import com.googlecode.androidannotations.api.SdkVersionHelper;
 import com.umk.andx3.view.ScrollingTextView;
+import com.umk.tiebashenqi.R.id;
+import com.umk.tiebashenqi.R.layout;
 
 public final class MoreActivity_
     extends MoreActivity
@@ -35,17 +38,19 @@ public final class MoreActivity_
     }
 
     private void afterSetContentView_() {
+        header_layout_right_imagebuttonlayout = ((LinearLayout) findViewById(id.header_layout_right_imagebuttonlayout));
+        header_stv_subtitle = ((ScrollingTextView) findViewById(id.header_stv_subtitle));
         header_stv_title = ((ScrollingTextView) findViewById(id.header_stv_title));
-        header_tv_subtitle = ((TextView) findViewById(id.header_tv_subtitle));
+        about_tv_version = ((TextView) findViewById(id.more_tv_version));
         {
-            View view = findViewById(id.header_stv_title);
+            View view = findViewById(id.more_btn_ad);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        MoreActivity_.this.header_stv_title();
+                        MoreActivity_.this.more_btn_ad();
                     }
 
                 }
@@ -53,14 +58,14 @@ public final class MoreActivity_
             }
         }
         {
-            View view = findViewById(id.more_rl_option_picture);
+            View view = findViewById(id.more_btn_more_new);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        MoreActivity_.this.more_rl_option_picture();
+                        MoreActivity_.this.more_btn_more_new();
                     }
 
                 }
@@ -68,14 +73,14 @@ public final class MoreActivity_
             }
         }
         {
-            View view = findViewById(id.more_rl_option_bluetooth);
+            View view = findViewById(id.more_btn_about);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        MoreActivity_.this.more_rl_option_bluetooth();
+                        MoreActivity_.this.more_btn_about();
                     }
 
                 }
@@ -101,6 +106,14 @@ public final class MoreActivity_
     public void setContentView(View view) {
         super.setContentView(view);
         afterSetContentView_();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (((SdkVersionHelper.getSdkInt()< 5)&&(keyCode == KeyEvent.KEYCODE_BACK))&&(event.getRepeatCount() == 0)) {
+            onBackPressed();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public static MoreActivity_.IntentBuilder_ intent(Context context) {

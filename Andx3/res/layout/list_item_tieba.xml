@@ -7,7 +7,7 @@
             android:id="@+id/back"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@color/gray"
+            android:background="@color/white"
             android:gravity="right|center_vertical"
             android:tag="back">
         <LinearLayout
@@ -59,19 +59,19 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:gravity="center_vertical"
-            android:padding="5dip"
             android:background="@color/snow">
 
         <ImageView
                 android:id="@+id/tieba_list_item_iv_img"
-                android:layout_width="40dip"
-                android:layout_height="40dip"
-                android:background="@drawable/ic_nav_tieba_active"
+                android:layout_width="60dip"
+                android:layout_height="60dip"
+                android:padding="5dip"
+                android:src="@drawable/ic_nav_tieba_normal"
                 />
         <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="40dip"
-                android:layout_marginLeft="50dip"
+                android:layout_height="60dip"
+                android:layout_marginLeft="65dip"
                 android:orientation="vertical"
                 android:gravity="center_vertical">
             <TextView

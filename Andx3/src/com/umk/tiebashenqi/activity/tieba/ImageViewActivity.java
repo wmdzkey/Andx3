@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import com.lidroid.xutils.BitmapUtils;
-import com.umk.andx3.R;
 import com.umk.andx3.util.xutil.BitmapHelp;
+import com.umk.tiebashenqi.R;
 import com.umk.tiebashenqi.view.TouchImageView;
 
 

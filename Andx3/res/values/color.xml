@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="bg_color_default">@color/snow</color>
+    <color name="bg_color_default">@color/white</color>
     <color name="title">#FFFFF0</color>
     <color name="text">#ff434343</color>
+    <color name="tip">#ff888271</color>
+    <color name="note">#ff777777</color>
+    <color name="devideline">#ffd0c9b8</color>
 
 </resources>

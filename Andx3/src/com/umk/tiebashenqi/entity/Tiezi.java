@@ -2,6 +2,7 @@ package com.umk.tiebashenqi.entity;
 
 import com.lidroid.xutils.db.annotation.Column;
 import com.lidroid.xutils.db.annotation.Id;
+import com.lidroid.xutils.db.annotation.NoAutoIncrement;
 import com.lidroid.xutils.db.annotation.Table;
 import com.umk.andx3.entity.IEntity;
 
@@ -22,8 +23,6 @@ public class Tiezi extends IEntity {
     private String url;
     @Column(column = "tieba_id")
     private Long tiebaId;
-    @Column(column = "state")
-    private Integer state;
 
     public Long getId() {
         return id;
@@ -47,14 +46,6 @@ public class Tiezi extends IEntity {
 
     public void setTiebaId(Long tiebaId) {
         this.tiebaId = tiebaId;
-    }
-
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
     }
 
     public String getUrl() {

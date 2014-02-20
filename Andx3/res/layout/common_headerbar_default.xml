@@ -47,8 +47,8 @@
                     android:textSize="18sp"
                     android:text="大标题"/>
 
-            <TextView
-                    android:id="@+id/header_tv_subtitle"
+            <com.umk.andx3.view.ScrollingTextView
+                    android:id="@+id/header_stv_subtitle"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-2dip"
@@ -58,7 +58,8 @@
                     android:shadowRadius="1.0"
                     android:textColor="#FF7F7F7F"
                     android:textSize="12sp"
-                    android:text="小标题"/>
+                    android:text="小标题"
+                    android:visibility="gone"/>
         </LinearLayout>
 
         <RelativeLayout
@@ -92,7 +93,8 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:gravity="center_vertical"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:visibility="gone">
 
         <LinearLayout
                 android:id="@+id/header_layout_right_imagebuttonlayout"

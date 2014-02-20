@@ -5,6 +5,7 @@ import com.smartybean.android.http.common.HttpMethod;
 import com.smartybean.core.AbstractCallBack;
 import com.smartybean.core.anntions.Service;
 import com.umk.tiebashenqi.config.SystemConfig;
+import com.umk.tiebashenqi.entity.Tieba;
 
 /**
  * @author Winnid
@@ -14,10 +15,18 @@ import com.umk.tiebashenqi.config.SystemConfig;
  */
 @Service(SystemConfig.WEB_SERVER_URL +"tieba/")
 public interface TiebaApi {
+
     /**
-     * 存储相册成员
+     * 快速测试
      * */
     @Request(value="test", method = HttpMethod.POST)
     public void test(AbstractCallBack<String> callBack);
+
+
+    /**
+     * 存储贴吧
+     * */
+    @Request(value="add", method = HttpMethod.POST)
+    public void add(Tieba tieba, AbstractCallBack<Tieba> callBack);
 
 }

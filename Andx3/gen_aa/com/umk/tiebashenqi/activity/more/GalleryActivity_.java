@@ -12,9 +12,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
-import android.widget.GridView;
-import com.umk.andx3.R.id;
-import com.umk.andx3.R.layout;
+import com.umk.andx3.view.x3list.X3ListView;
+import com.umk.tiebashenqi.R.id;
+import com.umk.tiebashenqi.R.layout;
 
 public final class GalleryActivity_
     extends GalleryActivity
@@ -33,7 +33,7 @@ public final class GalleryActivity_
     }
 
     private void afterSetContentView_() {
-        mGridView = ((GridView) findViewById(id.gallery_gv_picture));
+        mListView = ((X3ListView) findViewById(id.gallery_lv_picture));
         init();
     }
 

@@ -1,26 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:background="@color/bg_color_default">
 
     <include
-            android:id="@+id/tiezi_header"
-            layout="@layout/common_headerbar" />
-
-    <LinearLayout
-            android:id="@+id/AdLinearLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:layout_below="@id/tiezi_header"/>
+            android:id="@+id/header"
+            layout="@layout/common_headerbar_back" />
 
     <ExpandableListView
             android:id="@+id/tiezi_elv"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/transparence"
-            android:layout_below="@+id/AdLinearLayout"/>
+            android:scrollingCache="false"
+            android:layout_below="@+id/header"/>
 
 </RelativeLayout>
 

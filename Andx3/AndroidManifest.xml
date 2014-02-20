@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.umk.andx3"
-          android:versionCode="2"
-          android:versionName="1.0.2">
+          package="com.umk.tiebashenqi"
+          android:versionCode="3"
+          android:versionName="1.2.0">
 
     <uses-sdk android:minSdkVersion="8"/>
 
@@ -19,13 +19,18 @@
     <uses-permission android:name="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"/> -->
 
 
-    <application android:label="@string/app_name" android:icon="@drawable/ic_logo">
+    <application
+            android:name="com.umk.andx3.base.BaseApplication"
+            android:label="@string/app_name"
+            android:icon="@drawable/ic_logo"
+            android:theme="@android:style/Theme.NoTitleBar">
 
         <!--广告 -->
         <activity android:name="cn.waps.extend.AppWall" android:configChanges="keyboardHidden|orientation" />
         <activity android:name="cn.waps.demo201.DemoApp"/>
+        <activity android:name="cn.waps.demo201.WapsBannerActivity_"/>
         <meta-data android:name="WAPS_ID" android:value="4f550b656b2656f58cd4c0f53d080951"/>
-        <meta-data android:name="WAPS_PID" android:value="default"/>
+        <meta-data android:name="WAPS_PID" android:value="91"/>
         <!--广告.end -->
 
 
@@ -44,17 +49,61 @@
                 android:windowSoftInputMode="adjustNothing">
         </activity>
 
+        <!--注册,登陆-->
+        <activity
+                android:name="com.umk.tiebashenqi.activity.register.RegisterActivity_"
+                android:screenOrientation="portrait" >
+        </activity>
+        <activity
+                android:name="com.umk.tiebashenqi.activity.LoginActivity_"
+                android:screenOrientation="portrait" >
+        </activity>
+        <!--注册,登陆.end-->
+
+        <!--我 -->
+        <activity
+                android:name="com.umk.tiebashenqi.activity.MeActivity_"
+                android:screenOrientation="portrait" >
+        </activity>
+
+        <!--我.end -->
+
+        <!--收藏 -->
+        <activity
+                android:name="com.umk.tiebashenqi.activity.favorite.FavoriteActivity_"
+                android:screenOrientation="portrait" >
+        </activity>
+        <activity
+                android:name="com.umk.tiebashenqi.activity.favorite.FavoriteTieziActivity_"
+                android:screenOrientation="portrait" >
+        </activity>
+        <activity
+                android:name="com.umk.tiebashenqi.activity.favorite.GalleryBitmapUtilActivity"
+                android:screenOrientation="portrait" >
+        </activity>
+        <!--收藏.end -->
+
+
         <!--更多-->
+        <activity
+                android:name="com.umk.tiebashenqi.activity.more.MoreActivity_"
+                android:screenOrientation="portrait" >
+        </activity>
+        <activity
+                android:name="com.umk.tiebashenqi.activity.more.NewActivity_"
+                android:screenOrientation="portrait" >
+        </activity>
+
         <activity
                 android:name="com.umk.tiebashenqi.activity.more.AboutActivity_"
                 android:screenOrientation="portrait" >
         </activity>
         <activity
-                android:name="com.umk.tiebashenqi.activity.more.AboutInfoActivity_"
+                android:name="com.umk.tiebashenqi.activity.more.AboutVersionActivity_"
                 android:screenOrientation="portrait" >
         </activity>
         <activity
-                android:name="com.umk.tiebashenqi.activity.more.MoreActivity_"
+                android:name="com.umk.tiebashenqi.activity.more.AboutDisclaimerActivity_"
                 android:screenOrientation="portrait" >
         </activity>
         <activity

@@ -1,22 +1,22 @@
 package com.palm.epalm.modules.tiebashenqi.entity;
 
 import com.palm.epalm.base.repository.IEntity;
-import com.palm.epalm.modules.tiebashenqi.config.Code;
+import com.umk.andx3.lib.config.Code;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 @Table(name="tieba")
 public class Tieba extends IEntity{
 
-    @Column(length = 255)
+    @Column(length = 1024)
     private String theName;
+    @Column(length = 1024)
     private String theNameUrl;
-    private Integer state = Code.State.Normal;
+    @Column(length = 1024)
+    private String logoUrl;
 
     public String getTheName() {
         return theName;
@@ -34,11 +34,11 @@ public class Tieba extends IEntity{
         this.theNameUrl = theNameUrl;
     }
 
-    public Integer getState() {
-        return state;
+    public String getLogoUrl() {
+        return logoUrl;
     }
 
-    public void setState(Integer state) {
-        this.state = state;
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 }

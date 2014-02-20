@@ -14,10 +14,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import com.umk.andx3.R.id;
-import com.umk.andx3.R.layout;
 import com.umk.andx3.view.ScrollingTextView;
+import com.umk.tiebashenqi.R.id;
+import com.umk.tiebashenqi.R.layout;
 
 public final class AboutActivity_
     extends AboutActivity
@@ -36,18 +35,18 @@ public final class AboutActivity_
     }
 
     private void afterSetContentView_() {
+        header_stv_subtitle = ((ScrollingTextView) findViewById(id.header_stv_subtitle));
         header_stv_title = ((ScrollingTextView) findViewById(id.header_stv_title));
         header_layout_right_imagebuttonlayout = ((LinearLayout) findViewById(id.header_layout_right_imagebuttonlayout));
-        header_tv_subtitle = ((TextView) findViewById(id.header_tv_subtitle));
         {
-            View view = findViewById(id.about_btn_more);
+            View view = findViewById(id.about_rl_option_disclaimer);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        AboutActivity_.this.about_btn_more();
+                        AboutActivity_.this.about_rl_option_disclaimer();
                     }
 
                 }
@@ -55,14 +54,14 @@ public final class AboutActivity_
             }
         }
         {
-            View view = findViewById(id.about_btn_bluetooth);
+            View view = findViewById(id.about_rl_option_version);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        AboutActivity_.this.about_btn_bluetooth();
+                        AboutActivity_.this.about_rl_option_version();
                     }
 
                 }
@@ -70,14 +69,29 @@ public final class AboutActivity_
             }
         }
         {
-            View view = findViewById(id.about_btn_info);
+            View view = findViewById(id.about_btn_logout);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        AboutActivity_.this.about_btn_info();
+                        AboutActivity_.this.about_btn_logout();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = findViewById(id.about_rl_option_ad);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        AboutActivity_.this.about_rl_option_ad();
                     }
 
                 }

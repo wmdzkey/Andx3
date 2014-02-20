@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.umk.andx3.R;
+
+import com.umk.tiebashenqi.R;
 import com.umk.demo.entity.Item;
 
 public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
@@ -68,7 +69,6 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
             View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.demo_group_item_layout, null);
         }

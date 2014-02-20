@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.widget.TextView;
-import com.umk.andx3.R;
+
+import com.umk.tiebashenqi.R;
 import com.umk.andx3.view.flipping.FlippingImageView;
 
 /**
@@ -76,7 +77,7 @@ public abstract class FlippingProgressDialog<T>  extends ProgressDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.common_simple_progress_dialog);
+        setContentView(R.layout.common_dialog_progress_flipping);
         mFivIcon = (FlippingImageView) findViewById(R.id.progress_iv_loading);
         mFivIcon.startAnimation();
         mText = (TextView) findViewById(R.id.progress_tv_loading);

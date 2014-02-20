@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:background="@color/bg_color_default">
+
+    <include
+            android:id="@+id/header"
+            layout="@layout/common_headerbar_default" />
+
+    <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scrollbarStyle="outsideOverlay"
+            android:layout_below="@+id/header">
+
+        <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+            <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center_vertical"
+                    android:clickable="false"
+                    android:background="@drawable/preference_first_item" >
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:text="账号"
+                        android:textSize="17sp"
+                        android:textColor="#000" />
+
+
+                <TextView
+                        android:id="@+id/me_tv_option_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dip"
+                        android:text="@string/loading"
+                        android:textSize="17sp"
+                        android:textColor="#000" />
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="matrix"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/preference_submenu" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:clickable="false"
+                    android:background="@drawable/preference_item" >
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:text="昵称"
+                        android:textSize="17sp"
+                        android:textColor="#000" />
+
+
+                <TextView
+                        android:id="@+id/me_tv_option_thename"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dip"
+                        android:text="@string/loading"
+                        android:textSize="17sp"
+                        android:textColor="#000" />
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="matrix"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/preference_submenu" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/me_rl_option_money"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:background="@drawable/preference_last_item" >
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:text="贴币"
+                        android:textSize="17sp"
+                        android:textColor="#000" />
+
+
+                <TextView
+                        android:id="@+id/me_tv_option_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dip"
+                        android:text="@string/loading"
+                        android:textSize="17sp"
+                        android:textColor="#000" />
+
+
+                <ImageView
+                        android:layout_width="18dip"
+                        android:layout_height="18dip"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:clickable="true"
+                        android:src="@drawable/btn_fresh" />
+
+            </RelativeLayout>
+
+
+            <!--   ***********************************************************************   -->
+
+
+
+            <RelativeLayout
+                    android:id="@+id/more_new_rl_option_favorite"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:background="@drawable/preference_single_item" >
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:text="我的收藏"
+                        android:textSize="17sp"
+                        android:textColor="#000" />
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="matrix"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/preference_submenu" />
+            </RelativeLayout>
+
+            <!--   ***********************************************************************   -->
+
+            <!--   ***********************************************************************   -->
+
+            <Button
+                    android:id="@+id/me_btn_ad"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dip"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginBottom="14dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:padding="4dp"
+                    android:text="每天点点广告, 心情更舒畅 ."
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:background="@drawable/btn_bg_write"
+                    android:visibility="visible"
+                    />
+
+            <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                <Button
+                        android:id="@+id/me_btn_ad_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dip"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginBottom="14dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_weight="1"
+                        android:padding="4dp"
+                        android:text="增加50贴币"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:background="@drawable/btn_bg_write"
+                        android:visibility="visible"
+                        />
+
+                <Button
+                        android:id="@+id/me_btn_ad_sub"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dip"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginBottom="14dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_weight="1"
+                        android:padding="4dp"
+                        android:text="减少50贴币"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:background="@drawable/btn_bg_write"
+                        android:visibility="visible"
+                        />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="温馨提示, 点击广告可以获得贴币哦"
+            android:textSize="@dimen/s_text_size"
+            android:textColor="#000" />
+
+</RelativeLayout>
+

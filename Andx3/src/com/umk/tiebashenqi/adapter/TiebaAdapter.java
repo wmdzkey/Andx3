@@ -1,24 +1,16 @@
 package com.umk.tiebashenqi.adapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.fortysevendeg.android.swipelistview.SwipeListView;
-import com.umk.andx3.R;
-import com.umk.andx3.util.xutil.BitmapHelp;
-import com.umk.tiebashenqi.config.SystemConfig;
-import com.umk.tiebashenqi.entity.Tieba;
-import com.umk.tiebashenqi.entity.Tiezi;
-import com.umk.tiebashenqi.entity.TieziPicture;
-import com.umk.tiebashenqi.lpi.TieziPictureLpi;
-import com.umk.tiebashenqi.util.TiebaUtil;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import com.umk.tiebashenqi.R;
+import com.umk.andx3.util.xutil.BitmapHelp;
+import com.umk.tiebashenqi.entity.Tieba;
+import com.umk.andx3.lib.util.ListMap;
 
 /**
 * @author Winnid
@@ -26,17 +18,33 @@ import java.util.List;
 * @version:1.0
 * @since：13-12-6
 */
-public class TiebaAdapter extends ArrayAdapter<Tieba> {
+public class TiebaAdapter extends BaseAdapter {
 
-    private LayoutInflater mInflater ;
-    private List<Tieba> objects ;
-    private SwipeListView mSwipeListView ;
+    private Context mContext;
+    private LayoutInflater mInflater;
+    private ListMap<Long, Tieba> objects;
+    private SwipeListView mSwipeListView;
 
-    public TiebaAdapter(Context context, int viewResourceId,List<Tieba> objects, SwipeListView mSwipeListView) {
-        super(context, viewResourceId, objects);
+    public TiebaAdapter(Context context, ListMap<Long, Tieba> objects, SwipeListView mSwipeListView) {
         this.objects = objects ;
+        this.mContext = context;
         this.mSwipeListView = mSwipeListView;
-        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    @Override
+    public int getCount() {
+        return objects.size();
+    }
+
+    @Override
+    public Tieba getItem(int position) {
+        return objects.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
@@ -67,7 +75,7 @@ public class TiebaAdapter extends ArrayAdapter<Tieba> {
 
         Tieba item = getItem(position);
         holder.mFrontTiebaName.setText(item.getTheName());
-        holder.mFrontTiebaImage.setImageResource(R.drawable.ic_nav_tieba_active);
+        BitmapHelp.getBitmapUtils(mContext).display(holder.mFrontTiebaImage, item.getLogoUrl());
         return convertView;
     }
 

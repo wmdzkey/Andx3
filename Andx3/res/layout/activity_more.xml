@@ -1,118 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-              android:background="@color/bg_color_default">
+              android:background="@color/bg_color_default"
+              android:orientation="vertical">
 
     <include
-            android:id="@+id/more_header"
-            layout="@layout/common_headerbar" />
+            android:id="@+id/header"
+            layout="@layout/common_headerbar_default"/>
 
-
-    <ScrollView
-            android:id="@+id/more_sv"
+    <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:scrollbarStyle="outsideOverlay"
-            android:layout_below="@+id/more_header">
+            android:orientation="vertical"
+            android:padding="10dip">
 
         <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
-            <RelativeLayout
-                    android:id="@+id/more_rl_option_picture"
+            <ImageView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:gravity="center_vertical"
-                    android:clickable="true"
-                    android:background="@drawable/preference_first_item" >
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:text="图库"
-                        android:textSize="17sp"
-                        android:textColor="#000" />
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:scaleType="matrix"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:clickable="true"
-                        android:src="@drawable/preference_submenu" />
-            </RelativeLayout>
-            <RelativeLayout
-                    android:id="@+id/more_rl_option_ad"
-                    android:layout_width="fill_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/pic_about_logo"/>
+
+            <TextView
+                    android:id="@+id/more_tv_version"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:clickable="true"
-                    android:background="@drawable/preference_last_item" >
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:text="推荐应用"
-                        android:textSize="17sp"
-                        android:textColor="#000" />
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:scaleType="matrix"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/preference_submenu" />
-            </RelativeLayout>
-
-            <!--   ***********************************************************************   -->
-
-            <RelativeLayout
-                    android:id="@+id/more_rl_option_test"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:gravity="center_vertical"
-                    android:clickable="true"
-                    android:background="@drawable/preference_single_item" >
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:text="快速测试"
-                        android:textSize="17sp"
-                        android:textColor="#000" />
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:scaleType="matrix"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/preference_submenu" />
-            </RelativeLayout>
-
-
-            <Button
-                    android:layout_width="fill_parent"
-                    android:layout_height="50dip"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginBottom="14dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp"
-                    android:padding="4dp"
-                    android:text="退出登录"
-                    android:textSize="18sp"
-                    android:textColor="#fff"
-                    android:gravity="center"
-                    android:background="@drawable/btn_bg_n"
-                    android:onClick="exit_settings"
-                    android:visibility="invisible"
-                    />
+                    android:layout_gravity="center_horizontal"
+                    android:text="版本"/>
         </LinearLayout>
-    </ScrollView>
 
-</RelativeLayout>
+
+            <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dip"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingLeft="15dip"
+                    android:paddingRight="15dip">
+
+
+                <Button
+                        android:id="@+id/more_btn_more_new"
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dip"
+                        android:layout_marginTop="10dip"
+                        android:background="@drawable/btn_bg_write"
+                        android:text="新功能"
+                        android:textColor="@color/text"
+                        android:textSize="15sp" />
+
+                <Button
+                        android:id="@+id/more_btn_ad"
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dip"
+                        android:layout_marginTop="10dip"
+                        android:background="@drawable/btn_bg_write"
+                        android:text="友情链接"
+                        android:textColor="@color/text"
+                        android:textSize="15sp" />
+
+                <Button
+                        android:id="@+id/more_btn_about"
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dip"
+                        android:layout_marginTop="10dip"
+                        android:background="@drawable/btn_bg_write"
+                        android:text="关于"
+                        android:textColor="@color/text"
+                        android:textSize="15sp" />
+
+            </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="贴吧看图神器"
+                    android:textColor="@color/text"
+                    android:textSize="25sp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Copyright © 2013 UMK TECH All Rights Reserved"
+                    android:textColor="@color/text"
+                    android:textSize="10sp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
 

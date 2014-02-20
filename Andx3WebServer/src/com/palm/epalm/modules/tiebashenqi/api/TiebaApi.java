@@ -1,5 +1,6 @@
 package com.palm.epalm.modules.tiebashenqi.api;
 
+import com.palm.epalm.modules.tiebashenqi.entity.Tieba;
 import com.palm.epalm.modules.tiebashenqi.service.TiebaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -9,8 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/api/tieba")
-//@Secured("ROLE_USER")
 public class TiebaApi {
+
     @Autowired
     private TiebaService tiebaService;
 
@@ -19,6 +20,13 @@ public class TiebaApi {
     @ResponseBody
     public String test() {
         return "我就是个测试";
+    }
+
+    /** 列表 */
+    @RequestMapping(value = "add")
+    @ResponseBody
+    public Tieba add(Tieba tieba) {
+       return tiebaService.addWithNoExist(tieba, "theNameUrl", tieba.getTheNameUrl());
     }
 
 }

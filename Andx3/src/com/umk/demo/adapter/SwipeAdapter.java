@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import com.umk.andx3.R;
+
+import com.umk.tiebashenqi.R;
 
 public class SwipeAdapter extends ArrayAdapter<String> {
 

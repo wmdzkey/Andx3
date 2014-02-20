@@ -2,9 +2,13 @@
 <resources>
     <string name="app_name">贴吧看图神器</string>
     <string name="tab_tieba">贴吧</string>
+    <string name="tab_me">个人中心</string>
     <string name="tab_more">更多</string>
-    <string name="about_info_intro">免责申明</string>
-    <string name="about_info_intro_info">        本应用为用户提供贴吧图片的查看，不提供任何内容，浏览方式与浏览器原理一致，图片来自于用户指定名称的百度贴吧，图片版权归图片所有者，图片合法性由图片发布者负责，本应用不承担与此相关的任何责任。</string>
+    <string name="about_info_disclaimer">免责申明</string>
+    <string name="about_info_disclaimer_intro">        本应用为用户提供贴吧图片的查看，不提供任何内容，浏览方式与浏览器原理一致，任何浏览访问记录等方式也和浏览器缓存一致，为用户个人缓存，图片来自于用户指定名称的百度贴吧，对其合法性概不负责，亦不承担任何法律责任。应用内置贴币功能仅供娱乐体验，无任何触犯法律行为。在此声明，本应用不承担与此相关的任何责任。</string>
     <string name="about_info_me">关于我们</string>
     <string name="about_info_me_info">QQ:125879930</string>
+    <string name="about_info_version">版本介绍</string>
+    <string name="about_info_version_info">本版功能：\n1. 可以自由添加你想要浏览的贴吧\n2. 浏览贴吧中的帖子里的图片\n3. 收藏贴吧中的帖子\n4. 游客体验功能\n5. 可以通过蓝牙免流量分享软件\n6. 测试版图库功能 </string>
+    <string name="loading">正在读取...</string>
 </resources>

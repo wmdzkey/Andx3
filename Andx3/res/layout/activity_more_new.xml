@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:background="@color/bg_color_default">
+
+    <include
+            android:id="@+id/header"
+            layout="@layout/common_headerbar_back" />
+
+    <ScrollView
+            android:id="@+id/more_new_sv"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scrollbarStyle="outsideOverlay"
+            android:layout_below="@+id/header">
+
+        <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+            <RelativeLayout
+                    android:id="@+id/more_new_rl_option_bluetooth"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:background="@drawable/preference_single_item" >
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:text="免流量分享安装包(蓝牙)"
+                        android:textSize="17sp"
+                        android:textColor="#000" />
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="matrix"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:clickable="true"
+                        android:src="@drawable/preference_submenu" />
+            </RelativeLayout>
+
+            <!--   ***********************************************************************   -->
+
+            <RelativeLayout
+                    android:id="@+id/more_new_rl_option_picture"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:background="@drawable/preference_single_item" >
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:text="图库(测试版)"
+                        android:textSize="17sp"
+                        android:textColor="#000" />
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="matrix"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:clickable="true"
+                        android:src="@drawable/preference_submenu" />
+            </RelativeLayout>
+
+            <!--   ***********************************************************************   -->
+
+            <RelativeLayout
+                    android:id="@+id/more_new_rl_option_fasttest"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:visibility="gone"
+                    android:background="@drawable/preference_first_item" >
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:text="快速测试"
+                        android:textSize="17sp"
+                        android:textColor="#000" />
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="matrix"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/preference_submenu" />
+            </RelativeLayout>
+            <RelativeLayout
+                    android:id="@+id/more_new_rl_option_test"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:visibility="gone"
+                    android:background="@drawable/preference_item" >
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:text="测试"
+                        android:textSize="17sp"
+                        android:textColor="#000" />
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="matrix"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/preference_submenu" />
+            </RelativeLayout>
+            <RelativeLayout
+                    android:id="@+id/more_new_rl_option_ad_model"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:visibility="gone"
+                    android:background="@drawable/preference_item" >
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:text="广告模块"
+                        android:textSize="17sp"
+                        android:textColor="#000" />
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="matrix"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/preference_submenu" />
+            </RelativeLayout>
+
+
+            <!--   ***********************************************************************   -->
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
+

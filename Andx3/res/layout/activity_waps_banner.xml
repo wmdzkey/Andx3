@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/bg_color_default">
+
+    <include
+            android:id="@+id/header"
+            layout="@layout/common_headerbar_back"/>
+
+    <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/header"
+            android:scrollbars="none">
+
+        <LinearLayout
+                android:id="@+id/waps_ll_banner"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+        </LinearLayout>
+
+    </ScrollView>
+</RelativeLayout>

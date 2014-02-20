@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFFFF" >
+
+    <LinearLayout
+            android:id="@+id/web_dialog_linear_header_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible" >
+
+        <include layout="@layout/common_headerbar_default" />
+
+    </LinearLayout>
+
+    <WebView
+            android:id="@+id/web_dialog_webview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/web_dialog_linear_header_container"
+            android:layout_above="@+id/web_dialog_bottom"
+            android:fadeScrollbars="true"
+            android:scrollbarStyle="insideOverlay" />
+
+    <LinearLayout android:id="@+id/web_dialog_loading_indicator"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_centerInParent="true"
+                  android:focusable="false"
+                  android:gravity="center"
+                  android:orientation="horizontal">
+
+        <ProgressBar
+                style="\?android:attr/progressBarStyleSmallTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical" />
+
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/web_dialog_bottom"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentBottom="true"
+                  android:background="@drawable/bg_bottombar"
+                  android:gravity="center_vertical"
+                  android:orientation="horizontal"
+                  android:paddingBottom="4dip"
+                  android:paddingLeft="8dip"
+                  android:paddingRight="8dip"
+                  android:paddingTop="4dip">
+        <Button
+                android:id="@+id/web_dialog_btn"
+                android:layout_width="fill_parent"
+                android:layout_height="42dip"
+                android:background="@drawable/btn_bg_black"
+                android:textColor="@color/profile_text_color"
+                android:textSize="14sp"/>
+    </LinearLayout>
+
+    <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/web_dialog_linear_header_container"
+            android:background="@drawable/bg_topbar_shadow"
+            android:focusable="true" />
+</RelativeLayout>

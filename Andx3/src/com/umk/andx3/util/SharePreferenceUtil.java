@@ -14,32 +14,35 @@ import java.util.Set;
  */
 public class SharePreferenceUtil {
 
-    private static SharedPreferences sp;
-    private static String defaultFileName;
+    private SharedPreferences sp;
+    private String defaultFileName;
 
     public static SharePreferenceUtil getInstance(Context context) {
-        if(sp == null) {
-            sp =  PreferenceManager.getDefaultSharedPreferences(context);
-        }
-        return new SharePreferenceUtil();
+        return new SharePreferenceUtil(context, null);
     }
 
     public static SharePreferenceUtil getInstance(Context context, String fileName) {
-        if(defaultFileName == null || !defaultFileName.trim().equals(fileName)) {
-            defaultFileName =  fileName;
+        return new SharePreferenceUtil(context, fileName);
+    }
+
+    private SharePreferenceUtil(Context context, String fileName) {
+        if (fileName != null) {
             sp = context.getSharedPreferences(fileName, context.MODE_PRIVATE);
+            defaultFileName = fileName;
+        } else {
+            sp = PreferenceManager.getDefaultSharedPreferences(context);
+            defaultFileName = "";
         }
-        return new SharePreferenceUtil();
     }
 
 
-    public static boolean hasKey(final String key) {
+    public boolean hasKey(final String key) {
         return sp.contains(key);
     }
 
     /**
      * API-11 以上支持此方法
-     * */
+     */
     /*
     public Set<String> getStringSet(String key, final Set<String> defaultValue) {
         return sp.getStringSet(key, defaultValue);
@@ -47,7 +50,6 @@ public class SharePreferenceUtil {
     public void setStringSet(final String key, final Set<String> value) {
         sp.edit().putStringSet(key, value).commit();
     }*/
-
     public String getString(String key, final String defaultValue) {
         return sp.getString(key, defaultValue);
     }
@@ -86,6 +88,10 @@ public class SharePreferenceUtil {
 
     public long getLong(final String key, final long defaultValue) {
         return sp.getLong(key, defaultValue);
+    }
+
+    public boolean clear() {
+        return sp.edit().clear().commit();
     }
 
 }

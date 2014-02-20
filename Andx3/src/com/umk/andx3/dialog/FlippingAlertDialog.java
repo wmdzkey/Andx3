@@ -9,9 +9,27 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.umk.andx3.R;
+
+import com.umk.tiebashenqi.R;
 import com.umk.andx3.view.flipping.FlippingImageView;
 
+/*
+FlippingAlertDialog.Builder customBuilder = new
+        FlippingAlertDialog.Builder(this);
+customBuilder.setTitle("Custom title").setIcon(R.drawable.ic_tab_more)
+        .setMessage("Custom body")
+        .setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+        .setPositiveButton("Confirm",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+customBuilder.create().show();
+*/
 
 public class FlippingAlertDialog extends Dialog {
 
@@ -22,40 +40,6 @@ public class FlippingAlertDialog extends Dialog {
     public FlippingAlertDialog(Context context) {
         super(context);
     }
-
-//    public static Dialog show(final Context context, final String title, String msg, Boolean progressable) {
-//        Builder customBuilder = new Builder(context, progressable);
-//                customBuilder.setTitle(title).setMessage(msg);
-//        final FlippingAlertDialog x3dialog = customBuilder.create();
-//        x3dialog.setCancelable(false);
-//        x3dialog.setOnShowListener(new OnShowListener() {
-//            @Override
-//            public void onShow(final DialogInterface dialog) {
-//                new CountDownTimer(15000, 1000) {
-//                    public void onTick(long millisUntilFinished) {
-//                        //if(x3dialog != null && x3dialog.isShowing()) {
-//                        //LogUtils.e("X3FlippingDialog - 正在执行");
-//                        //}
-//                    }
-//                    public void onFinish() {
-//                        if(x3dialog != null && x3dialog.isShowing()) {
-//                            x3dialog.dismiss();
-//
-//                            Builder x3FlippingBuilder = new Builder(context, false);
-//                            x3FlippingBuilder.setMessage("请求超时，请稍后再试");
-//                            X3FlippingDialog dialog = x3FlippingBuilder.create();
-//                            dialog.show();
-//                        }
-//
-//                        LogUtils.e("X3FlippingDialog - 请求超时");
-//                        cancel();
-//                    }
-//                }.start();
-//            }
-//        });
-//        x3dialog.show();
-//        return x3dialog;
-//    }
 
     /**
      * Helper class for creating a custom dialog
@@ -200,7 +184,7 @@ public class FlippingAlertDialog extends Dialog {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             // instantiate the dialog with the custom Theme
             final FlippingAlertDialog dialog = new FlippingAlertDialog(context, R.style.FlippingAlertDialog);
-            View layout = inflater.inflate(R.layout.common_flipping_alert_dialog, null);
+            View layout = inflater.inflate(R.layout.common_dialog_alert_flipping, null);
             dialog.addContentView(layout, new LayoutParams(
                     LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 

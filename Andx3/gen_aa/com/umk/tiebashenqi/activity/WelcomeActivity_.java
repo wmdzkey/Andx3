@@ -13,9 +13,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
-import android.widget.TextView;
-import com.umk.andx3.R.id;
-import com.umk.andx3.R.layout;
+import android.widget.Button;
+import com.umk.tiebashenqi.R.id;
+import com.umk.tiebashenqi.R.layout;
 
 public final class WelcomeActivity_
     extends WelcomeActivity
@@ -34,16 +34,48 @@ public final class WelcomeActivity_
     }
 
     private void afterSetContentView_() {
-        tv_welcome_title = ((TextView) findViewById(id.tv_welcome_title));
+        welcome_btn_exp = ((Button) findViewById(id.welcome_btn_experience));
+        welcome_btn_register = ((Button) findViewById(id.welcome_btn_register));
+        welcome_btn_login = ((Button) findViewById(id.welcome_btn_login));
         {
-            View view = findViewById(id.tv_welcome_title);
+            View view = findViewById(id.welcome_btn_register);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        WelcomeActivity_.this.tv_welcome_title();
+                        WelcomeActivity_.this.welcome_btn_register();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = findViewById(id.welcome_btn_experience);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        WelcomeActivity_.this.welcome_btn_experience();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = findViewById(id.welcome_btn_login);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        WelcomeActivity_.this.welcome_btn_login();
                     }
 
                 }

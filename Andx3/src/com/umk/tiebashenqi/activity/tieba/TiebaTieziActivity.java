@@ -1,27 +1,25 @@
 package com.umk.tiebashenqi.activity.tieba;
 
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.Context;
 import android.view.View;
 import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import cn.waps.AppConnect;
 import com.google.gson.internal.LinkedTreeMap;
 import com.googlecode.androidannotations.annotations.*;
 import com.lidroid.xutils.util.LogUtils;
-import com.umk.andx3.R;
+import com.umk.andx3.api.Api;
 import com.umk.andx3.base.BaseActivity;
-import com.umk.andx3.dialog.FlippingAlertDialog;
 import com.umk.andx3.view.ScrollingTextView;
-import com.umk.andx3.view.X3ProgressBar;
+import com.umk.andx3.view.dialog.SimpleProgressDialog;
+import com.umk.tiebashenqi.R;
 import com.umk.tiebashenqi.adapter.TiebaTieziAdapter;
-import com.umk.tiebashenqi.config.Code;
+import com.umk.tiebashenqi.api.FavoriteTieziApi;
+import com.umk.tiebashenqi.config.SystemConfig;
 import com.umk.tiebashenqi.entity.Tieba;
 import com.umk.tiebashenqi.entity.Tiezi;
 import com.umk.tiebashenqi.entity.TieziPicture;
+import com.umk.tiebashenqi.lpi.FavoriteTieziLpi;
 import com.umk.tiebashenqi.lpi.TiebaLpi;
 import com.umk.tiebashenqi.lpi.TieziLpi;
 import com.umk.tiebashenqi.util.TiebaUtil;
@@ -35,40 +33,41 @@ import java.util.Map;
 @EActivity(R.layout.activity_tieba_tiezi)
 public class TiebaTieziActivity extends BaseActivity {
 
+    public static Context instance = null;
     public static String intentTiebaId = "tiebaId";
 
 
     @ViewById(R.id.tiezi_elv)
     ExpandableListView tiezi_elv;
-    @ViewById(R.id.header_layout_right_imagebuttonlayout)
-    LinearLayout header_layout_right_imagebuttonlayout;
+    @ViewById(R.id.header_layout_rightview_container)
+    LinearLayout header_layout_rightview_container;
     @ViewById(R.id.header_ib_right_imagebutton)
     ImageButton header_ib_right_imagebutton;
     @ViewById(R.id.header_stv_title)
     ScrollingTextView header_stv_title;
-    @ViewById(R.id.header_tv_subtitle)
-    TextView header_tv_subtitle;
+    @ViewById(R.id.header_stv_subtitle)
+    ScrollingTextView header_stv_subtitle;
 
 
     TiebaTieziAdapter mAdapter = null;
     List<Tiezi> mGroup = new ArrayList<Tiezi>();
     List<List<TieziPicture>> mData = new ArrayList<List<TieziPicture>>();
 
+    List<Tiezi> mFavoriteTiezi = new ArrayList<Tiezi>();
+
     Long tiebaId;
     Tieba tieba;
+
+    @Api
+    FavoriteTieziApi favoriteTieziApi;
 
 
     @AfterViews
     void init() {
+        instance = this;
         initParam();
         initData();
-        initAd();
-    }
-
-    private void initAd() {
-        // 互动广告调用方式
-        LinearLayout layout = (LinearLayout) this.findViewById(R.id.AdLinearLayout);
-        AppConnect.getInstance(this).showBannerAd(this, layout);
+        initView();
     }
 
     private void initParam() {
@@ -81,14 +80,17 @@ public class TiebaTieziActivity extends BaseActivity {
     private void initData() {
         if(tiebaId != -1L) {
 
-            X3ProgressBar<Map<String, String>> x3ProgressBar = new X3ProgressBar<Map<String, String>>(instance, "正在加载...", false, null, false) {
-                @Override
-                public Map<String, String> doWork() {
-                    TiebaLpi tiebaLpi = new TiebaLpi();
-                    tieba = tiebaLpi.find(instance, tiebaId);
+            TiebaLpi tiebaLpi = new TiebaLpi();
+            tieba = tiebaLpi.find(instance, tiebaId);
 
+            FavoriteTieziLpi favoriteTieziLpi = new FavoriteTieziLpi();
+            mFavoriteTiezi = favoriteTieziLpi.findTiezi(instance, tieba.getId());
+
+            new SimpleProgressDialog<Map<String, String>>(instance, "正在加载...") {
+                @Override
+                public Map<String, String> doInBackground() {
                     //设置主页
-                    String homePage = "http://tieba.baidu.com/f?ie=utf-8&kw=" + tieba.getTheNameUrl();
+                    String homePage = SystemConfig.TIEBA_WAP_BASE_URL + tieba.getTheNameUrl();
 
                     //初始化帖子列表<标题,网址>
                     LinkedTreeMap<String, String> map = TiebaUtil.getHomePageHashMap(homePage);
@@ -96,42 +98,34 @@ public class TiebaTieziActivity extends BaseActivity {
                 }
 
                 @Override
-                public void doResult(Map<String, String> map) {
-                    //TODO(OK):设置帖子
-                    List<Tiezi> tieziList = new ArrayList<Tiezi>();
-                    for(String title : map.keySet()){
-                        Tiezi tiezi = new Tiezi();
-                        tiezi.setTheName(title);
-                        tiezi.setTiebaId(tieba.getId());
-                        tiezi.setUrl(map.get(title));
-                        mGroup.add(tiezi);
-                        tieziList.add(tiezi);
-                    }
-                    //TODO(OK):保存帖子到数据库
-                    TieziLpi tieziLpi = new TieziLpi();
-                    tieziLpi.saveOrUpdate(instance, tieziList);
+                public void doInUiThread(final Map<String, String> map) {
 
-                    //TODO(OK):初始化帖子内部图片
-                    for(String title : map.keySet()){
-                        LogUtils.e("准备下载子页面，标题为：" + title);
-                        //下载贴吧的每一页
-                        //            HashSet<String> set = TiebaUtil.getDetailsPageImageList(map.get(title));
-                        List<TieziPicture> childList = new ArrayList<TieziPicture>();
-                        //            for (String url : set) {
-                        //                TieziPicture tieziPicture = new TieziPicture();
-                        //                tieziPicture.setImageUrl(url);
-                        //                childList.add(tieziPicture);
-                        //            }
-                        mData.add(childList);
-                        //TODO(OK):暂时不显示，点击之后到数据库加载显示，点刷新重新获取网络数据
+                    if (map != null && map.get(TiebaUtil.TIEBA_EXCEPTION) != null) {
+                        showCustomToast("网络正忙...请点击右上角刷新按钮");
+                        LogUtils.e(map.get(TiebaUtil.TIEBA_EXCEPTION));
+                    } else if (map != null) {
+                        //TODO(OK):设置帖子
+                        List<Tiezi> tieziList = new ArrayList<Tiezi>();
+                        for(String url : map.keySet()){
+                            Tiezi tiezi = new Tiezi();
+                            tiezi.setUrl(url);
+                            tiezi.setTiebaId(tieba.getId());
+                            tiezi.setTheName(map.get(url));
+                            mGroup.add(tiezi);
+                            mData.add(new ArrayList<TieziPicture>());
+                            tieziList.add(tiezi);
+                        }
+                        //TODO(OK):保存帖子到数据库
+                        new TieziLpi().saveOrUpdate(instance, tieziList);
+
+                        initList();
+
+                    } else {
+                        showCustomToast("这个贴吧是新吧哦，还没有帖子呢");
                     }
 
-                    initView();
-                    initList();
                 }
-            };
-            x3ProgressBar.start();
-
+            }.show();
 
         } else {
             showLongToast("贴吧加载出错");
@@ -141,34 +135,18 @@ public class TiebaTieziActivity extends BaseActivity {
     private void initView() {
         header_ib_right_imagebutton.setImageDrawable(getResources().getDrawable(R.drawable.btn_fresh));
         header_stv_title.setText(tieba.getTheName());
-        header_tv_subtitle.setText("");
+        header_stv_subtitle.setText("消耗的贴币可以通过点点点广告获得");
+        header_stv_subtitle.setVisibility(View.VISIBLE);
+        header_layout_rightview_container.setVisibility(View.VISIBLE);
     }
 
     private void initList() {
         mAdapter = new TiebaTieziAdapter(this, tiezi_elv, mGroup, mData);
+        mAdapter.setFavoriteTiezi(mFavoriteTiezi);
+        mAdapter.notifyDataSetChanged();
         tiezi_elv.setGroupIndicator(getResources().getDrawable(R.drawable.ic_expander));
         tiezi_elv.setAdapter(mAdapter);
-        tiezi_elv.setOnChildClickListener(onChildClickListener);
     }
-
-
-    /**
-     * ChildView 设置 布局很可能onChildClick进不来，要在 ChildView layout 里加上
-     * android:descendantFocusability="blocksDescendants",
-     * 还有isChildSelectable里返回true
-     */
-    OnChildClickListener onChildClickListener = new OnChildClickListener() {
-        @Override
-        public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-            final TieziPicture item = mAdapter.getChild(groupPosition, childPosition);
-            //加载可放大的图片View显示
-            Intent intent = new Intent(instance, ImageViewActivity.class);
-            intent.putExtra("imageUrl", item.getImageUrl());
-            instance.startActivity(intent);
-            return true;
-        }
-    };
-
 
     /**
      * 返回
@@ -176,21 +154,6 @@ public class TiebaTieziActivity extends BaseActivity {
     @Click
     void header_layout_left_imagebuttonlayout() {
         finish();
-//        FlippingAlertDialog.Builder customBuilder = new
-//                FlippingAlertDialog.Builder(this);
-//        customBuilder.setTitle("Custom title").setIcon(R.drawable.ic_tab_more)
-//                .setMessage("Custom body")
-//                .setNegativeButton("Cancel",
-//                        new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int which) {
-//                            }
-//                        })
-//                .setPositiveButton("Confirm",
-//                        new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int which) {
-//                            }
-//                        });
-//        customBuilder.create().show();
     }
 
     /**

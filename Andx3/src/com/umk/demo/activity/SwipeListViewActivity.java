@@ -8,7 +8,8 @@ import com.fortysevendeg.android.swipelistview.SwipeListView;
 import android.os.Bundle;
 import android.widget.Toast;
 import android.app.Activity;
-import com.umk.andx3.R;
+
+import com.umk.tiebashenqi.R;
 import com.umk.demo.adapter.SwipeAdapter;
 
 /**

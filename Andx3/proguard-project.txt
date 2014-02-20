@@ -61,8 +61,8 @@
 
 #Api
 -libraryjars /libs/httpinterface.jar
-#-keep class com.smartybean.** {*;}
-#-keep class javax.inject.** {*;}
+-keep class com.smartybean.** {*;}
+-keep class javax.inject.** {*;}
 
 
 #Entity#这里还有待优化，实体类应该混淆
@@ -71,7 +71,7 @@
 #xUtils
 -libraryjars /libs/xUtils-2.4.3.jar
 -keep class * extends java.lang.annotation.Annotation { *; }
-#-keep class com.lidroid.xutils.**{*;}
+-keep class com.lidroid.xutils.**{*;}
 
 #万普平台
 -libraryjars /libs/AppOffer_2.0.1.jar

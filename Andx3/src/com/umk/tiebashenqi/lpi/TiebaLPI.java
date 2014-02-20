@@ -54,7 +54,7 @@ public class TiebaLpi extends BaseLpi<Tieba> {
     public Tieba exist(Context context, Tieba tieba) {
         DbUtils dbUtils = getDbUtils(context);
         try {
-            Tieba tiebaInDB = dbUtils.findFirst(Tieba.class, WhereBuilder.b().and("the_name","=",tieba.getTheName().trim()));
+            Tieba tiebaInDB = dbUtils.findFirst(Tieba.class, WhereBuilder.b().and("the_name_url","=",tieba.getTheNameUrl()));
             if(tiebaInDB != null) {
                 return tiebaInDB;
             } else {

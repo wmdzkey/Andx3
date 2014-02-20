@@ -1,78 +1,61 @@
 package com.umk.tiebashenqi.activity.more;
 
-import android.content.DialogInterface;
+import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import cn.waps.AppConnect;
+import cn.waps.extend.AppWall;
 import com.googlecode.androidannotations.annotations.*;
-import com.umk.andx3.R;
+import com.umk.tiebashenqi.R;
 import com.umk.andx3.base.BaseActivity;
-import com.umk.andx3.util.AppInfoUtil;
 import com.umk.andx3.view.ScrollingTextView;
-import com.umk.tiebashenqi.util.BlueToothUtil;
+import com.umk.tiebashenqi.activity.MainActivity;
+import com.umk.tiebashenqi.activity.WelcomeActivity_;
+import com.umk.tiebashenqi.config.SystemAdapter;
 
 @NoTitle
 @EActivity(R.layout.activity_about)
 public class AboutActivity extends BaseActivity {
 
+    public static Context instance = null;
+
     @ViewById(R.id.header_layout_right_imagebuttonlayout)
     LinearLayout header_layout_right_imagebuttonlayout;
     @ViewById(R.id.header_stv_title)
     ScrollingTextView header_stv_title;
-    @ViewById(R.id.header_tv_subtitle)
-    TextView header_tv_subtitle;
-    @ViewById(R.id.about_tv_version)
-    TextView about_tv_version;
+    @ViewById(R.id.header_stv_subtitle)
+    ScrollingTextView header_stv_subtitle;
+
 
     @AfterViews
     void init() {
-        initView();
-    }
-
-    private void initView() {
+        instance = this;
         header_stv_title.setText("关于");
-        header_tv_subtitle.setText("");
         header_layout_right_imagebuttonlayout.setVisibility(View.GONE);
-        about_tv_version.setText("版本 : " + AppInfoUtil.getVersionName(instance));
-    }
-
-    /**
-     *发送蓝牙安装包
-     * */
-    @Click
-    void about_btn_bluetooth() {
-
-        DialogInterface.OnClickListener leftClickListener = new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                BlueToothUtil.sendApkFile(instance);
-            }
-        };
-
-        DialogInterface.OnClickListener rightClickListener = new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        };
-
-        showAlertDialog("温馨提示",
-                "发送安装包前请告之您的朋友打开蓝牙\n并设置可以被周围手机搜索到",
-                "搜索并发送",leftClickListener,
-                "我再想想",rightClickListener);
     }
 
     @Click
-    void about_btn_info() {
-        startActivity(AboutInfoActivity_.class);
+    void about_rl_option_ad() {
+        //获取全部自定义广告数据
+        Intent appWallIntent = new Intent(this, AppWall.class);
+        startActivity(appWallIntent);
     }
 
     @Click
-    void about_btn_more() {
-        startActivity(MoreActivity_.class);
+    void about_rl_option_version() {
+        startActivity(AboutVersionActivity_.class);
     }
 
     @Click
-    void about_btn_ad() {
-        //显示推荐列表（综合）
-        AppConnect.getInstance(this).showOffers(this);
+    void about_rl_option_disclaimer() {
+        startActivity(AboutDisclaimerActivity_.class);
+    }
+
+    @Click
+    void about_btn_logout() {
+        SystemAdapter.logout();
+        startActivity(WelcomeActivity_.class);
+        MainActivity.close();
+        finish();
     }
 }
