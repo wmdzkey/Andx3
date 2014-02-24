@@ -36,17 +36,17 @@ public final class AboutActivity_
 
     private void afterSetContentView_() {
         header_stv_subtitle = ((ScrollingTextView) findViewById(id.header_stv_subtitle));
-        header_stv_title = ((ScrollingTextView) findViewById(id.header_stv_title));
         header_layout_right_imagebuttonlayout = ((LinearLayout) findViewById(id.header_layout_right_imagebuttonlayout));
+        header_stv_title = ((ScrollingTextView) findViewById(id.header_stv_title));
         {
-            View view = findViewById(id.about_rl_option_disclaimer);
+            View view = findViewById(id.about_btn_logout);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        AboutActivity_.this.about_rl_option_disclaimer();
+                        AboutActivity_.this.about_btn_logout();
                     }
 
                 }
@@ -69,14 +69,14 @@ public final class AboutActivity_
             }
         }
         {
-            View view = findViewById(id.about_btn_logout);
+            View view = findViewById(id.about_rl_option_disclaimer);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        AboutActivity_.this.about_btn_logout();
+                        AboutActivity_.this.about_rl_option_disclaimer();
                     }
 
                 }

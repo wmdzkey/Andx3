@@ -39,13 +39,13 @@ public final class FavoriteActivity_
     }
 
     private void afterSetContentView_() {
-        header_layout_rightview_container = ((LinearLayout) findViewById(id.header_layout_rightview_container));
         header_layout_title = ((LinearLayout) findViewById(id.header_layout_title));
         header_layout_search = ((RelativeLayout) findViewById(id.header_layout_search));
-        header_et_search = ((EditText) findViewById(id.header_et_search));
         favorite_slv = ((SwipeListView) findViewById(id.favorite_slv));
+        header_layout_rightview_container = ((LinearLayout) findViewById(id.header_layout_rightview_container));
         header_stv_title = ((ScrollingTextView) findViewById(id.header_stv_title));
         header_ib_right_imagebutton = ((ImageButton) findViewById(id.header_ib_right_imagebutton));
+        header_et_search = ((EditText) findViewById(id.header_et_search));
         {
             View view = findViewById(id.header_layout_left_imagebuttonlayout);
             if (view!= null) {

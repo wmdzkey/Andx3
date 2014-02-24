@@ -47,8 +47,7 @@ public class AppInfoUtil {
         return applicationInfo;
     }
 
-
-    public static String getAppName(Context context) {
+    public static String getName(Context context) {
         String applicationName = getPackageManager(context).getApplicationLabel(getApplicationInfo(context)).toString();
         return applicationName;
     }
@@ -70,7 +69,7 @@ public class AppInfoUtil {
         return versionCode;
     }
 
-    public static Drawable getAppIcon(Context context) {
+    public static Drawable getIcon(Context context) {
         Drawable appIcon = getApplicationInfo(context).loadIcon(getPackageManager(context));
         return appIcon;
     }
@@ -78,7 +77,7 @@ public class AppInfoUtil {
     /*
      * 获取程序的签名
      */
-    public String getAppSignature(Context context){
+    public String getSignature(Context context){
         String appSignature = getPackageInfo(context).signatures[0].toCharsString();
         return appSignature;
     }

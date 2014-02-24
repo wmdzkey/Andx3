@@ -148,7 +148,7 @@ public class SystemAdapter {
                 List<FavoriteTiezi> favoriteTieziList = new ArrayList<FavoriteTiezi>();
                 for(Tiezi tiezi : tieziInDBList){
                     FavoriteTiezi favoriteTiezi = new FavoriteTiezi();
-                    favoriteTiezi.setState(Code.State.Normal);
+                    favoriteTiezi.setState(Code.state.Normal);
                     favoriteTiezi.setTiebaId(tiezi.getTiebaId());
                     favoriteTiezi.setTieziUrl(tiezi.getUrl());
                     favoriteTiezi.setUserId(SystemAdapter.getCurrentUser().getId());

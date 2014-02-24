@@ -18,7 +18,7 @@ import com.umk.andx3.base.BaseActivity;
 import com.umk.andx3.base.BaseToast;
 import com.umk.andx3.lib.config.Code;
 import com.umk.andx3.view.dialog.SimpleProgressDialog;
-import com.umk.tiebashenqi.activity.MeActivity;
+import com.umk.tiebashenqi.activity.me.MeActivity;
 import com.umk.tiebashenqi.activity.favorite.GalleryBitmapUtilActivity;
 import com.umk.tiebashenqi.activity.tieba.TiebaTieziActivity;
 import com.umk.tiebashenqi.api.FavoriteTieziApi;
@@ -277,7 +277,7 @@ public class TiebaTieziAdapter extends BaseExpandableListAdapter{
         FavoriteTiezi favoriteTiezi = new FavoriteTiezi();
         favoriteTiezi.setTiebaId(tiezi.getTiebaId());
         favoriteTiezi.setUserId(SystemAdapter.getCurrentUser().getId());
-        favoriteTiezi.setState(Code.State.Normal);
+        favoriteTiezi.setState(Code.state.Normal);
 
         List<TieziPicture> tieziPictureList = mData.get(groupPosition);//后台补充其余数据
         //传递List只需要转换Json即可

@@ -36,17 +36,17 @@ public final class NewActivity_
 
     private void afterSetContentView_() {
         header_stv_subtitle = ((ScrollingTextView) findViewById(id.header_stv_subtitle));
-        header_layout_right_imagebuttonlayout = ((LinearLayout) findViewById(id.header_layout_right_imagebuttonlayout));
         header_stv_title = ((ScrollingTextView) findViewById(id.header_stv_title));
+        header_layout_right_imagebuttonlayout = ((LinearLayout) findViewById(id.header_layout_right_imagebuttonlayout));
         {
-            View view = findViewById(id.more_new_rl_option_ad_model);
+            View view = findViewById(id.header_layout_left_imagebuttonlayout);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        NewActivity_.this.more_new_rl_option_ad_model();
+                        NewActivity_.this.header_layout_left_imagebuttonlayout();
                     }
 
                 }
@@ -62,6 +62,21 @@ public final class NewActivity_
                     @Override
                     public void onClick(View view) {
                         NewActivity_.this.more_new_rl_option_fasttest();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = findViewById(id.more_new_rl_option_ad_model);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        NewActivity_.this.more_new_rl_option_ad_model();
                     }
 
                 }
@@ -92,21 +107,6 @@ public final class NewActivity_
                     @Override
                     public void onClick(View view) {
                         NewActivity_.this.more_new_rl_option_test();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = findViewById(id.more_new_rl_option_picture);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        NewActivity_.this.more_new_rl_option_picture();
                     }
 
                 }

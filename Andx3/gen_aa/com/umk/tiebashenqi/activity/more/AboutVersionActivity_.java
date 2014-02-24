@@ -35,8 +35,8 @@ public final class AboutVersionActivity_
 
     private void afterSetContentView_() {
         header_stv_title = ((ScrollingTextView) findViewById(id.header_stv_title));
-        header_layout_right_imagebuttonlayout = ((LinearLayout) findViewById(id.header_layout_right_imagebuttonlayout));
         header_stv_subtitle = ((ScrollingTextView) findViewById(id.header_stv_subtitle));
+        header_layout_right_imagebuttonlayout = ((LinearLayout) findViewById(id.header_layout_right_imagebuttonlayout));
         init();
     }
 

@@ -38,8 +38,8 @@ public class FavoriteTieziService extends BaseService<FavoriteTiezi> {
 
         FavoriteTiezi favoriteTieziInDB = exist(favoriteTiezi, favoriteUniqueMap);
         if(favoriteTieziInDB != null) {
-            if(favoriteTieziInDB.getState() == Code.State.Delete) {
-                favoriteTieziInDB.setState(Code.State.Normal);
+            if(favoriteTieziInDB.getState() == Code.state.Delete) {
+                favoriteTieziInDB.setState(Code.state.Normal);
                 repository().saveAndFlush(favoriteTieziInDB);
             }
             return favoriteTieziInDB;
@@ -50,8 +50,8 @@ public class FavoriteTieziService extends BaseService<FavoriteTiezi> {
 
     public void cancel(FavoriteTiezi favoriteTiezi) {
         if(favoriteTiezi != null) {
-            if(favoriteTiezi.getState() == Code.State.Normal) {
-                favoriteTiezi.setState(Code.State.Delete);
+            if(favoriteTiezi.getState() == Code.state.Normal) {
+                favoriteTiezi.setState(Code.state.Delete);
                 repository().saveAndFlush(favoriteTiezi);
             }
         }

@@ -34,18 +34,18 @@ public final class WelcomeActivity_
     }
 
     private void afterSetContentView_() {
+        welcome_btn_login = ((Button) findViewById(id.welcome_btn_login));
         welcome_btn_exp = ((Button) findViewById(id.welcome_btn_experience));
         welcome_btn_register = ((Button) findViewById(id.welcome_btn_register));
-        welcome_btn_login = ((Button) findViewById(id.welcome_btn_login));
         {
-            View view = findViewById(id.welcome_btn_register);
+            View view = findViewById(id.welcome_btn_login);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        WelcomeActivity_.this.welcome_btn_register();
+                        WelcomeActivity_.this.welcome_btn_login();
                     }
 
                 }
@@ -68,14 +68,14 @@ public final class WelcomeActivity_
             }
         }
         {
-            View view = findViewById(id.welcome_btn_login);
+            View view = findViewById(id.welcome_btn_register);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        WelcomeActivity_.this.welcome_btn_login();
+                        WelcomeActivity_.this.welcome_btn_register();
                     }
 
                 }

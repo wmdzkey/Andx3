@@ -38,10 +38,10 @@ public final class FavoriteTieziActivity_
 
     private void afterSetContentView_() {
         tiezi_elv = ((ExpandableListView) findViewById(id.favorite_tiezi_elv));
-        header_stv_title = ((ScrollingTextView) findViewById(id.header_stv_title));
-        header_ib_right_imagebutton = ((ImageButton) findViewById(id.header_ib_right_imagebutton));
-        header_layout_rightview_container = ((LinearLayout) findViewById(id.header_layout_rightview_container));
         header_stv_subtitle = ((ScrollingTextView) findViewById(id.header_stv_subtitle));
+        header_ib_right_imagebutton = ((ImageButton) findViewById(id.header_ib_right_imagebutton));
+        header_stv_title = ((ScrollingTextView) findViewById(id.header_stv_title));
+        header_layout_rightview_container = ((LinearLayout) findViewById(id.header_layout_rightview_container));
         {
             View view = findViewById(id.header_layout_left_imagebuttonlayout);
             if (view!= null) {

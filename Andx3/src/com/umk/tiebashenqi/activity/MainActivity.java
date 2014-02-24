@@ -13,6 +13,7 @@ import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.NoTitle;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.umk.tiebashenqi.R;
+import com.umk.tiebashenqi.activity.me.MeActivity_;
 import com.umk.tiebashenqi.activity.more.MoreActivity_;
 import com.umk.tiebashenqi.activity.tieba.TiebaActivity_;
 import com.umk.tiebashenqi.config.SystemAdapter;

@@ -2,8 +2,8 @@ package com.umk.andx3.base;
 
 import android.app.Application;
 import android.content.Context;
-import android.widget.Toast;
 import cn.waps.AppConnect;
+import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.util.LogUtils;
 import com.smartybean.android.http.HttpInterface;
 import com.smartybean.android.http.common.DefaultRequestHandler;
@@ -11,6 +11,7 @@ import com.smartybean.android.http.common.ResponseException;
 import com.smartybean.util.NetWorkUtil;
 import com.umk.tiebashenqi.config.SystemAdapter;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.conn.HttpHostConnectException;
 
@@ -31,6 +32,8 @@ public class BaseApplication extends Application {
 
 
     private Context aContext;
+    private HttpUtils aHttpUtil;
+    private HttpClient aHttpClient;
 
     @Override
     public void onCreate() {
@@ -38,6 +41,7 @@ public class BaseApplication extends Application {
         initBase();
         initServer();//处理后台消息
         initAd();
+        initHttpClient();
     }
 
 
@@ -129,4 +133,39 @@ public class BaseApplication extends Application {
         AppConnect.getInstance(this).initPopAd(this);
     }
 
+    // 创建HttpClient实例
+    private void initHttpClient() {
+        aHttpUtil = new HttpUtils();
+        aHttpClient = aHttpUtil.getHttpClient();
+    }
+
+    /**关闭连接管理器并释放资源*/
+    private void shutdownHttpClient() {
+        if (aHttpClient != null && aHttpClient.getConnectionManager() != null) {
+            aHttpClient.getConnectionManager().shutdown();
+        }
+    }
+
+    /**对外提供HttpUtil实例*/
+    public HttpUtils getaHttpUtil() {
+        return aHttpUtil;
+    }
+
+    /**对外提供HttpClient实例*/
+    public HttpClient getaHttpClient() {
+        return aHttpClient;
+    }
+
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        this.shutdownHttpClient();
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        this.shutdownHttpClient();
+    }
 }

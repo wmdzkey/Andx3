@@ -49,13 +49,13 @@ public class FavoriteTieziApi {
             tieziPicture.setImageUrl(tieziPictureUrl);
             tieziPicture.setTiebaId(tiezi.getTiebaId());
             tieziPicture.setTieziId(tiezi.getId());
-            tieziPicture.setState(Code.State.Normal);
+            tieziPicture.setState(Code.state.Normal);
             tieziPictureService.addWithNoExist(tieziPicture, "imageUrl", tieziPicture.getImageUrl());
         }
         favoriteTiezi.setTieziUrl(tiezi.getUrl());
         favoriteTiezi.setTiebaId(tiezi.getTiebaId());
         favoriteTiezi.setTieziId(tiezi.getId());
-        favoriteTiezi.setState(Code.State.Normal);
+        favoriteTiezi.setState(Code.state.Normal);
         favoriteTieziService.add(favoriteTiezi);
 
         return favoriteTiezi;

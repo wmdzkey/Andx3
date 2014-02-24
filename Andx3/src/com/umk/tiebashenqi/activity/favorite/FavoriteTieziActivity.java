@@ -99,7 +99,7 @@ public class FavoriteTieziActivity extends BaseActivity {
                     List<FavoriteTiezi> favoriteTieziList = new ArrayList<FavoriteTiezi>();
                     for(Tiezi tiezi : tieziList){
                         FavoriteTiezi favoriteTiezi = new FavoriteTiezi();
-                        favoriteTiezi.setState(Code.State.Normal);
+                        favoriteTiezi.setState(Code.state.Normal);
                         favoriteTiezi.setTiebaId(tieba.getId());
                         favoriteTiezi.setTieziUrl(tiezi.getUrl());
                         favoriteTiezi.setUserId(SystemAdapter.getCurrentUser().getId());

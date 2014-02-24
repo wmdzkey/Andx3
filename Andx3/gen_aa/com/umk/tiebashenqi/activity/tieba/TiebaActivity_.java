@@ -41,14 +41,14 @@ public final class TiebaActivity_
     }
 
     private void afterSetContentView_() {
+        header_layout_search = ((RelativeLayout) findViewById(id.header_layout_search));
         header_layout_rightview_container = ((LinearLayout) findViewById(id.header_layout_rightview_container));
-        header_ib_right_imagebutton = ((ImageButton) findViewById(id.header_ib_right_imagebutton));
-        header_layout_title = ((LinearLayout) findViewById(id.header_layout_title));
-        header_et_search = ((EditText) findViewById(id.header_et_search));
         header_stv_title = ((ScrollingTextView) findViewById(id.header_stv_title));
         tieba_slv = ((SwipeListView) findViewById(id.tieba_slv));
-        header_layout_search = ((RelativeLayout) findViewById(id.header_layout_search));
         header_layout_right_imagebuttonlayout = ((LinearLayout) findViewById(id.header_layout_right_imagebuttonlayout));
+        header_layout_title = ((LinearLayout) findViewById(id.header_layout_title));
+        header_ib_right_imagebutton = ((ImageButton) findViewById(id.header_ib_right_imagebutton));
+        header_et_search = ((EditText) findViewById(id.header_et_search));
         {
             View view = findViewById(id.header_layout_right_imagebuttonlayout);
             if (view!= null) {

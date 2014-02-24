@@ -37,26 +37,11 @@ public final class TiebaTieziActivity_
     }
 
     private void afterSetContentView_() {
-        header_ib_right_imagebutton = ((ImageButton) findViewById(id.header_ib_right_imagebutton));
         header_layout_rightview_container = ((LinearLayout) findViewById(id.header_layout_rightview_container));
         header_stv_title = ((ScrollingTextView) findViewById(id.header_stv_title));
         header_stv_subtitle = ((ScrollingTextView) findViewById(id.header_stv_subtitle));
+        header_ib_right_imagebutton = ((ImageButton) findViewById(id.header_ib_right_imagebutton));
         tiezi_elv = ((ExpandableListView) findViewById(id.tiezi_elv));
-        {
-            View view = findViewById(id.header_layout_right_imagebuttonlayout);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        TiebaTieziActivity_.this.header_layout_right_imagebuttonlayout();
-                    }
-
-                }
-                );
-            }
-        }
         {
             View view = findViewById(id.header_layout_left_imagebuttonlayout);
             if (view!= null) {
@@ -66,6 +51,21 @@ public final class TiebaTieziActivity_
                     @Override
                     public void onClick(View view) {
                         TiebaTieziActivity_.this.header_layout_left_imagebuttonlayout();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = findViewById(id.header_layout_right_imagebuttonlayout);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        TiebaTieziActivity_.this.header_layout_right_imagebuttonlayout();
                     }
 
                 }

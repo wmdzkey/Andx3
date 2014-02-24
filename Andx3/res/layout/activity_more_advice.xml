@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:background="@color/bg_color_default">
+
+    <include
+            android:id="@+id/header"
+            layout="@layout/common_headerbar_back" />
+
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/header"
+            android:orientation="vertical" >
+
+        <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1" >
+
+            <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:paddingTop="15dip" >
+
+
+                <EditText
+                        android:id="@+id/more_advice_et_advice"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="100dip"
+                        android:inputType="textMultiLine"
+                        android:ems="10"
+                        android:gravity="top"
+                        android:maxLength="255"
+                        android:layout_marginBottom="3dip"
+                        android:background="@drawable/edittext_default"
+                        android:hint="我们的成长离不开您的支持"
+                        android:singleLine="true"/>
+
+
+                <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dip"
+                        android:background="@color/devideline"/>
+
+                <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <EditText
+                            android:id="@+id/more_advice_et_user_contact"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="3dip"
+                            android:background="@drawable/edittext_default"
+                            android:hint="您的QQ或者邮箱(可选)"
+                            android:singleLine="true"/>
+                </LinearLayout>
+
+                <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dip"
+                        android:background="@color/devideline"/>
+
+                <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <EditText
+                            android:id="@+id/more_advice_et_user_name"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="3dip"
+                            android:background="@drawable/edittext_default"
+                            android:hint="您的姓名(可选)"
+                            android:singleLine="true"/>
+                </LinearLayout>
+
+                <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dip"
+                        android:background="@color/devideline"/>
+
+                <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dip"
+                        android:layout_marginRight="8dip"
+                        android:text="有好的意见，我们会不定期送出奖励。\n您也可以加入我们的QQ群: 339189441"
+                        android:textColor="@color/text"
+                        android:textSize="14sp"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <include
+                android:id="@+id/bottom"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/common_bottombar_single" />
+
+    </LinearLayout>
+
+</RelativeLayout>
+

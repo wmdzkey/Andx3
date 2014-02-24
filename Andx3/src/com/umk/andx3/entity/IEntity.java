@@ -12,7 +12,7 @@ import java.util.Date;
  */
 public class IEntity implements Serializable {
 
-    public Integer state = Code.State.Normal;
+    public Integer state = Code.state.Normal;
     public Date createTime = new Date();
     public Date updateTime;
 

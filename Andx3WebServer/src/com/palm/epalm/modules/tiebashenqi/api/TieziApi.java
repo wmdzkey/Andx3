@@ -31,7 +31,7 @@ public class TieziApi {
         for (TieziPicture tieziPicture : tieziPictureList) {
             tieziPicture.setTiebaId(tiezi.getTiebaId());
             tieziPicture.setTieziId(tiezi.getId());
-            tieziPicture.setState(Code.State.Normal);
+            tieziPicture.setState(Code.state.Normal);
             tieziPictureService.addWithNoExist(tieziPicture, "imageUrl", tieziPicture.getImageUrl());
         }
 

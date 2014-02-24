@@ -10,11 +10,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
-import com.umk.andx3.view.x3list.X3ListView;
+import android.widget.GridView;
+import android.widget.LinearLayout;
+import com.umk.andx3.view.ScrollingTextView;
 import com.umk.tiebashenqi.R.id;
 import com.umk.tiebashenqi.R.layout;
+import com.umk.tiebashenqi.activity.me.GalleryActivity;
 
 public final class GalleryActivity_
     extends GalleryActivity
@@ -33,7 +37,25 @@ public final class GalleryActivity_
     }
 
     private void afterSetContentView_() {
-        mListView = ((X3ListView) findViewById(id.gallery_lv_picture));
+        header_layout_right_imagebuttonlayout = ((LinearLayout) findViewById(id.header_layout_right_imagebuttonlayout));
+        header_stv_subtitle = ((ScrollingTextView) findViewById(id.header_stv_subtitle));
+        header_stv_title = ((ScrollingTextView) findViewById(id.header_stv_title));
+        mGridView = ((GridView) findViewById(id.gallery_lv_picture));
+        {
+            View view = findViewById(id.header_layout_left_imagebuttonlayout);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        GalleryActivity_.this.header_layout_left_imagebuttonlayout();
+                    }
+
+                }
+                );
+            }
+        }
         init();
     }
 

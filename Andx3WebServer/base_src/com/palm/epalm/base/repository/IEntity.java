@@ -19,7 +19,7 @@ import java.util.Date;
 public abstract class IEntity implements Serializable {
 
     protected Long id;
-    protected Integer state = Code.State.Normal;
+    protected Integer state = Code.state.Normal;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss SSS")
     protected Date createTime = new Date();
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss SSS")

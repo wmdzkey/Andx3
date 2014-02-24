@@ -46,8 +46,8 @@ public class MoreActivity extends BaseActivity {
 
 
     @Click
-    void more_btn_ad() {
-        startActivity(WapsBannerActivity_.class);
+    void more_btn_advice() {
+        startActivity(AdviceActivity_.class);
     }
 
 

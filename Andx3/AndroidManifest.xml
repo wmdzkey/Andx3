@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.umk.tiebashenqi"
           android:versionCode="3"
-          android:versionName="1.2.0">
+          android:versionName="1.2.6">
 
     <uses-sdk android:minSdkVersion="8"/>
 
@@ -62,10 +62,13 @@
 
         <!--我 -->
         <activity
-                android:name="com.umk.tiebashenqi.activity.MeActivity_"
+                android:name="com.umk.tiebashenqi.activity.me.MeActivity_"
                 android:screenOrientation="portrait" >
         </activity>
-
+        <activity
+                android:name="com.umk.tiebashenqi.activity.me.GalleryActivity_"
+                android:screenOrientation="portrait" >
+        </activity>
         <!--我.end -->
 
         <!--收藏 -->
@@ -107,7 +110,7 @@
                 android:screenOrientation="portrait" >
         </activity>
         <activity
-                android:name="com.umk.tiebashenqi.activity.more.GalleryActivity_"
+                android:name="com.umk.tiebashenqi.activity.more.AdviceActivity_"
                 android:screenOrientation="portrait" >
         </activity>
 

@@ -13,7 +13,7 @@ import com.umk.tiebashenqi.entity.Tieba;
  * @version:1.0
  * @since：14-1-3
  */
-@Service(SystemConfig.WEB_SERVER_URL +"tieba/")
+@Service(SystemConfig.WEB_SERVER_URL_API +"tieba/")
 public interface TiebaApi {
 
     /**

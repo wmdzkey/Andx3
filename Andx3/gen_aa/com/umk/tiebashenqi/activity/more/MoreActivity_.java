@@ -39,24 +39,9 @@ public final class MoreActivity_
 
     private void afterSetContentView_() {
         header_layout_right_imagebuttonlayout = ((LinearLayout) findViewById(id.header_layout_right_imagebuttonlayout));
-        header_stv_subtitle = ((ScrollingTextView) findViewById(id.header_stv_subtitle));
         header_stv_title = ((ScrollingTextView) findViewById(id.header_stv_title));
+        header_stv_subtitle = ((ScrollingTextView) findViewById(id.header_stv_subtitle));
         about_tv_version = ((TextView) findViewById(id.more_tv_version));
-        {
-            View view = findViewById(id.more_btn_ad);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        MoreActivity_.this.more_btn_ad();
-                    }
-
-                }
-                );
-            }
-        }
         {
             View view = findViewById(id.more_btn_more_new);
             if (view!= null) {
@@ -81,6 +66,21 @@ public final class MoreActivity_
                     @Override
                     public void onClick(View view) {
                         MoreActivity_.this.more_btn_about();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = findViewById(id.more_btn_advice);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        MoreActivity_.this.more_btn_advice();
                     }
 
                 }

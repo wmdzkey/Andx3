@@ -65,9 +65,9 @@ public class StepBaseInfo extends RegisterStep implements TextWatcher, OnChecked
 
 
         if(mRgGender.getCheckedRadioButtonId() == R.id.reg_baseinfo_rb_male) {
-            mSex = Code.Sex.Boy;
+            mSex = Code.sex.Boy;
         } else if(mRgGender.getCheckedRadioButtonId() == R.id.reg_baseinfo_rb_female){
-            mSex = Code.Sex.Girl;
+            mSex = Code.sex.Girl;
         }
         mTheName = mEtName.getText().toString();
 

@@ -48,7 +48,7 @@
             <!--   ***********************************************************************   -->
 
             <RelativeLayout
-                    android:id="@+id/more_new_rl_option_picture"
+                    android:id="@+id/more_new_rl_option_"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
@@ -59,7 +59,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
-                        android:text="图库(测试版)"
+                        android:text="(测试版)"
                         android:textSize="17sp"
                         android:textColor="#000" />
                 <ImageView

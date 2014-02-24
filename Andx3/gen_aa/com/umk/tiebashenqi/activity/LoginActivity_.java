@@ -40,24 +40,9 @@ public final class LoginActivity_
         header_stv_title = ((ScrollingTextView) findViewById(id.header_stv_title));
         mEtAccount = ((EditText) findViewById(id.login_et_account));
         mTvForgotPassword = ((TextView) findViewById(id.login_tv_forgotpassword));
-        mEtPwd = ((EditText) findViewById(id.login_et_pwd));
         mBtnBack = ((Button) findViewById(id.login_btn_back));
         mBtnLogin = ((Button) findViewById(id.login_btn_login));
-        {
-            View view = findViewById(id.login_tv_forgotpassword);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        LoginActivity_.this.login_tv_forgotpassword();
-                    }
-
-                }
-                );
-            }
-        }
+        mEtPwd = ((EditText) findViewById(id.login_et_pwd));
         {
             View view = findViewById(id.login_btn_back);
             if (view!= null) {
@@ -82,6 +67,21 @@ public final class LoginActivity_
                     @Override
                     public void onClick(View view) {
                         LoginActivity_.this.login_btn_login();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = findViewById(id.login_tv_forgotpassword);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        LoginActivity_.this.login_tv_forgotpassword();
                     }
 
                 }

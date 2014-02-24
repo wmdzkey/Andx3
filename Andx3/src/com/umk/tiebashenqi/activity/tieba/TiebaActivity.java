@@ -83,7 +83,7 @@ public class TiebaActivity extends BaseActivity {
 
 
     private void initData() {
-        List<Tieba> tiebaList = tiebaLpi.findAllByState(instance, Code.State.Normal);
+        List<Tieba> tiebaList = tiebaLpi.findAllByState(instance, Code.state.Normal);
         for (Tieba t : tiebaList) {
             tiebaListMap.put(t.getId(), t);
         }
@@ -130,7 +130,7 @@ public class TiebaActivity extends BaseActivity {
                     tieba.setTheName(result.get(TiebaUtil.TIEBA_NAME) + "吧");
                     tieba.setTheNameUrl(TempUtil.convertChineseUrl(result.get(TiebaUtil.TIEBA_NAME)));
                     tieba.setLogoUrl(result.get(TiebaUtil.TIEBA_LOGO));
-                    tieba.setState(Code.State.Normal);
+                    tieba.setState(Code.state.Normal);
                     tiebaApi.add(tieba, new AbstractCallBack<Tieba>() {
                         @Override
                         public void call(Tieba t) {
@@ -170,7 +170,7 @@ public class TiebaActivity extends BaseActivity {
             for (int position : reverseSortedPositions) {
                 //TODO:更新数据库
                 Tieba tieba = tiebaListMap.get(position);
-                tieba.setState(Code.State.Delete);
+                tieba.setState(Code.state.Delete);
                 tiebaLpi.saveOrUpdate(instance, tieba);
                 tiebaListMap.remove(position);
             }

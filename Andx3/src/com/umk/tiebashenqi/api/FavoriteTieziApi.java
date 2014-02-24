@@ -20,7 +20,7 @@ import java.util.List;
  * @version:1.0
  * @since：14-1-3
  */
-@Service(SystemConfig.WEB_SERVER_URL +"favorite_tiezi/")
+@Service(SystemConfig.WEB_SERVER_URL_API +"favorite_tiezi/")
 public interface FavoriteTieziApi {
 
     /**

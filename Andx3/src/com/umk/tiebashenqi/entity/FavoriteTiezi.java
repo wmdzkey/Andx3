@@ -17,7 +17,7 @@ public class FavoriteTiezi extends IEntity {
     @Id(column = "id")
     private Long id;
     @Column(column = "user_id")
-    private Long userId;;
+    private Long userId;
     @Column(column = "tieba_id")
     private Long tiebaId;
     @Column(column = "tiezi_url")

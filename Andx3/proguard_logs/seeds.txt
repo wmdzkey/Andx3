@@ -5751,8 +5751,8 @@ com.umk.tiebashenqi.activity.MainActivity
 com.umk.tiebashenqi.activity.MainActivity: MainActivity()
 com.umk.tiebashenqi.activity.MainActivity_
 com.umk.tiebashenqi.activity.MainActivity_: MainActivity_()
-com.umk.tiebashenqi.activity.MeActivity
-com.umk.tiebashenqi.activity.MeActivity: MeActivity()
+com.umk.tiebashenqi.activity.me.MeActivity
+com.umk.tiebashenqi.activity.me.MeActivity: MeActivity()
 com.umk.tiebashenqi.activity.MeActivity_
 com.umk.tiebashenqi.activity.MeActivity_: MeActivity_()
 com.umk.tiebashenqi.activity.WelcomeActivity
@@ -5781,8 +5781,8 @@ com.umk.tiebashenqi.activity.more.AboutVersionActivity
 com.umk.tiebashenqi.activity.more.AboutVersionActivity: AboutVersionActivity()
 com.umk.tiebashenqi.activity.more.AboutVersionActivity_
 com.umk.tiebashenqi.activity.more.AboutVersionActivity_: AboutVersionActivity_()
-com.umk.tiebashenqi.activity.more.GalleryActivity
-com.umk.tiebashenqi.activity.more.GalleryActivity: GalleryActivity()
+com.umk.tiebashenqi.activity.me.GalleryActivity
+com.umk.tiebashenqi.activity.me.GalleryActivity: GalleryActivity()
 com.umk.tiebashenqi.activity.more.GalleryActivity_
 com.umk.tiebashenqi.activity.more.GalleryActivity_: GalleryActivity_()
 com.umk.tiebashenqi.activity.more.MoreActivity

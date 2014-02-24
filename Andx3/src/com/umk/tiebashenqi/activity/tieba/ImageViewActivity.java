@@ -8,7 +8,9 @@ import com.umk.andx3.util.xutil.BitmapHelp;
 import com.umk.tiebashenqi.R;
 import com.umk.tiebashenqi.view.TouchImageView;
 
-
+/**
+ *简单可以放大的图片View
+ * */
 public class ImageViewActivity extends Activity {
 
     private TouchImageView imageView;

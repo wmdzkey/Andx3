@@ -14,7 +14,7 @@ import com.umk.tiebashenqi.entity.User;
  * @version:1.0
  * @since：14-01-10
  */
-@Service(SystemConfig.WEB_SERVER_URL +"sys/")
+@Service(SystemConfig.WEB_SERVER_URL_API +"sys/")
 public interface SystemApi {
 
     /**

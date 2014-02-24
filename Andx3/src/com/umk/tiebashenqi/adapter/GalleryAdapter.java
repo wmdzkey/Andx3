@@ -5,13 +5,17 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import com.umk.andx3.util.xutil.BitmapHelp;
-import com.umk.andx3.view.gridheader.GridViewWithHeaderBaseAdapter;
+import android.widget.ToggleButton;
+import com.umk.andx3.base.BaseActivity;
 import com.umk.tiebashenqi.R;
-import com.umk.tiebashenqi.activity.tieba.ImageViewActivity;
+import com.umk.tiebashenqi.activity.favorite.GalleryBitmapUtilActivity;
 import com.umk.tiebashenqi.entity.TieziPicture;
+import com.umk.tiebashenqi.util.TiebaUtil;
+import com.umk.tiebashenqi.util.imagemanager.ImageManager2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,17 +24,22 @@ import java.util.List;
 * @version:1.0
 * @since：13-12-6
 */
-public class GalleryAdapter extends GridViewWithHeaderBaseAdapter {
+public class GalleryAdapter extends BaseAdapter{
 
-    private Context mContext ;
-    private LayoutInflater mInflater ;
-    private List<TieziPicture> objects ;
+    private Context mContext;
+    private List<TieziPicture> objects;
+    private int mScreenWidth;
 
     public GalleryAdapter(Context context, List<TieziPicture> objects) {
-        super(context);
         this.mContext = context;
-        this.mInflater = LayoutInflater.from(context);
         this.objects = objects;
+        this.mScreenWidth = BaseActivity.getScreenWidth(mContext);
+    }
+
+
+    @Override
+    public int getCount() {
+        return objects.size();
     }
 
     @Override
@@ -40,41 +49,70 @@ public class GalleryAdapter extends GridViewWithHeaderBaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return getItem(position).getId();
     }
 
-    @Override
-    public int getItemCount() {
-        return objects.size();
+    /**
+     * 存放列表项控件句柄
+     */
+    private class ViewHolder {
+        public ImageView imageView;
+        public ToggleButton toggleButton;
     }
 
-    @Override
-    protected View getItemView(int position, View view, ViewGroup parent) {
-        ViewHolder holder = null ;
-        final TieziPicture item = getItem(position);
 
-        if(view == null){
-            view = mInflater.inflate(R.layout.grid_item_gallery, parent, false);
-            holder = new ViewHolder();
-            holder.mPicture = (ImageView) view.findViewById(R.id.gallery_item_iv_picture);
-            view.setTag(holder);
-        }else{
-            holder = (ViewHolder) view.getTag();
+    @Override
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder;
+
+        if (convertView == null) {
+            viewHolder = new ViewHolder();
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.grid_item_gallery, parent, false);
+            viewHolder.imageView = (ImageView) convertView.findViewById(R.id.gallery_item_iv_picture);
+            viewHolder.toggleButton = (ToggleButton) convertView.findViewById(R.id.gallery_item_tbtn_choose);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
-        BitmapHelp.getBitmapUtils(mContext).display( holder.mPicture, item.getImageUrl());
-        holder.mPicture.setOnClickListener(new View.OnClickListener() {
+
+
+        String path;
+        if (objects != null && objects.size() > position) {
+            path = objects.get(position).getImageUrl();
+        } else {
+            path = "picture_z_default";
+        }
+
+        if (path.contains("picture_z_default")) {
+            viewHolder.imageView.setImageResource(R.drawable.bg_pic_default);
+        } else {
+            ImageManager2.from(mContext).displayImage(viewHolder.imageView, path, R.drawable.bg_pic_default, 100, 100);
+
+            //这个适合单张图片，多图，有点卡，而且无法充分利用缓存空间
+            //BitmapHelp.getBitmapUtils(mContext).display(viewHolder.imageView, path);
+        }
+        viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //加载可放大的图片View显示
-                Intent intent = new Intent(mContext, ImageViewActivity.class);
-                intent.putExtra("imageUrl", item.getImageUrl());
+                Intent intent = new Intent(mContext, GalleryBitmapUtilActivity.class);
+                ArrayList<String> urlList = new ArrayList<String>();
+                for (TieziPicture tieziPicture : objects) {
+                    urlList.add(TiebaUtil.getOriginalImageUrl(tieziPicture.getImageUrl()));
+                }
+                intent.putStringArrayListExtra(GalleryBitmapUtilActivity.intentUrlList, urlList);
+                intent.putExtra(GalleryBitmapUtilActivity.intentUrlPosition, position);
                 mContext.startActivity(intent);
             }
         });
-        return view;
+
+        viewHolder.toggleButton.setTag(position);
+
+        return convertView;
     }
 
-    class ViewHolder{
-        ImageView mPicture ;
-    }
+
+
+
+
 }

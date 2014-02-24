@@ -56,12 +56,12 @@
                         android:textSize="15sp" />
 
                 <Button
-                        android:id="@+id/more_btn_ad"
+                        android:id="@+id/more_btn_advice"
                         android:layout_width="fill_parent"
                         android:layout_height="40dip"
                         android:layout_marginTop="10dip"
                         android:background="@drawable/btn_bg_write"
-                        android:text="友情链接"
+                        android:text="意见反馈"
                         android:textColor="@color/text"
                         android:textSize="15sp" />
 

@@ -6,7 +6,6 @@ import com.smartybean.android.http.common.HttpMethod;
 import com.smartybean.core.AbstractCallBack;
 import com.smartybean.core.anntions.Service;
 import com.umk.tiebashenqi.config.SystemConfig;
-import com.umk.tiebashenqi.entity.Tieba;
 import com.umk.tiebashenqi.entity.Tiezi;
 
 /**
@@ -15,7 +14,7 @@ import com.umk.tiebashenqi.entity.Tiezi;
  * @version:1.0
  * @since：14-1-3
  */
-@Service(SystemConfig.WEB_SERVER_URL +"tiezi/")
+@Service(SystemConfig.WEB_SERVER_URL_API +"tiezi/")
 public interface TieziApi {
 
     /**

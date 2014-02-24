@@ -1,6 +1,5 @@
 package com.umk.tiebashenqi.api;
 
-import com.smartybean.android.http.annotation.Name;
 import com.smartybean.android.http.annotation.Request;
 import com.smartybean.android.http.common.HttpMethod;
 import com.smartybean.core.AbstractCallBack;
@@ -14,7 +13,7 @@ import com.umk.tiebashenqi.entity.User;
  * @version:1.0
  * @since：14-01-10
  */
-@Service(SystemConfig.WEB_SERVER_URL +"user/")
+@Service(SystemConfig.WEB_SERVER_URL_API +"user/")
 public interface UserApi {
 
     /**

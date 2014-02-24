@@ -7260,7 +7260,7 @@ com.umk.tiebashenqi.activity.MainActivity_ -> com.umk.tiebashenqi.activity.MainA
     void setContentView(int) -> setContentView
     void setContentView(android.view.View,android.view.ViewGroup$LayoutParams) -> setContentView
     void setContentView(android.view.View) -> setContentView
-com.umk.tiebashenqi.activity.MeActivity -> com.umk.tiebashenqi.activity.MeActivity:
+com.umk.tiebashenqi.activity.me.MeActivity -> com.umk.tiebashenqi.activity.me.MeActivity:
     android.content.Context instance -> a
     android.widget.LinearLayout header_layout_right_imagebuttonlayout -> b
     com.umk.andx3.view.ScrollingTextView header_stv_title -> c
@@ -7278,14 +7278,14 @@ com.umk.tiebashenqi.activity.MeActivity -> com.umk.tiebashenqi.activity.MeActivi
     void getUpdatePoints(java.lang.String,int) -> getUpdatePoints
     void getUpdatePointsFailed(java.lang.String) -> getUpdatePointsFailed
     void updateMoney(java.lang.String,int) -> a
-    void access$000(com.umk.tiebashenqi.activity.MeActivity,java.lang.String) -> a
-com.umk.tiebashenqi.activity.MeActivity$1 -> com.umk.tiebashenqi.activity.e:
+    void access$000(com.umk.tiebashenqi.activity.me.MeActivity,java.lang.String) -> a
+com.umk.tiebashenqi.activity.me.MeActivity$1 -> com.umk.tiebashenqi.activity.e:
     java.lang.String val$currencyName -> a
     int val$pointTotal -> b
-    com.umk.tiebashenqi.activity.MeActivity this$0 -> c
+    com.umk.tiebashenqi.activity.me.MeActivity this$0 -> c
     void run() -> run
-com.umk.tiebashenqi.activity.MeActivity$2 -> com.umk.tiebashenqi.activity.f:
-    com.umk.tiebashenqi.activity.MeActivity this$0 -> a
+com.umk.tiebashenqi.activity.me.MeActivity$2 -> com.umk.tiebashenqi.activity.f:
+    com.umk.tiebashenqi.activity.me.MeActivity this$0 -> a
     void run() -> run
 com.umk.tiebashenqi.activity.MeActivity_ -> com.umk.tiebashenqi.activity.MeActivity_:
     void onCreate(android.os.Bundle) -> onCreate
@@ -7443,7 +7443,7 @@ com.umk.tiebashenqi.activity.more.AboutVersionActivity_ -> com.umk.tiebashenqi.a
     void setContentView(int) -> setContentView
     void setContentView(android.view.View,android.view.ViewGroup$LayoutParams) -> setContentView
     void setContentView(android.view.View) -> setContentView
-com.umk.tiebashenqi.activity.more.GalleryActivity -> com.umk.tiebashenqi.activity.more.GalleryActivity:
+com.umk.tiebashenqi.activity.me.GalleryActivity -> com.umk.tiebashenqi.activity.me.GalleryActivity:
     android.content.Context instance -> a
     com.umk.andx3.view.x3list.X3ListView mListView -> b
     com.umk.tiebashenqi.adapter.GalleryAdapter mAdapter -> c
@@ -7455,9 +7455,9 @@ com.umk.tiebashenqi.activity.more.GalleryActivity -> com.umk.tiebashenqi.activit
     com.umk.andx3.view.x3list.X3ListView$OnLoadMoreListener x3LoadMoreListener -> i
     void init() -> a
     void loadPicture() -> b
-    void access$000(com.umk.tiebashenqi.activity.more.GalleryActivity) -> a
-com.umk.tiebashenqi.activity.more.GalleryActivity$1 -> com.umk.tiebashenqi.activity.more.e:
-    com.umk.tiebashenqi.activity.more.GalleryActivity this$0 -> a
+    void access$000(com.umk.tiebashenqi.activity.me.GalleryActivity) -> a
+com.umk.tiebashenqi.activity.me.GalleryActivity$1 -> com.umk.tiebashenqi.activity.more.e:
+    com.umk.tiebashenqi.activity.me.GalleryActivity this$0 -> a
     void onLoadMore() -> a
 com.umk.tiebashenqi.activity.more.GalleryActivity_ -> com.umk.tiebashenqi.activity.more.GalleryActivity_:
     void onCreate(android.os.Bundle) -> onCreate

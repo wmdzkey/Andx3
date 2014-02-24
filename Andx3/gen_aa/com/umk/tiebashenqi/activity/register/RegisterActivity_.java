@@ -39,27 +39,12 @@ public final class RegisterActivity_
     }
 
     private void afterSetContentView_() {
-        header_stv_subtitle = ((ScrollingTextView) findViewById(id.header_stv_subtitle));
-        mVfFlipper = ((ViewFlipper) findViewById(id.reg_vf_viewflipper));
-        mBtnPrevious = ((Button) findViewById(id.reg_btn_previous));
-        header_stv_title = ((ScrollingTextView) findViewById(id.header_stv_title));
         mBtnNext = ((Button) findViewById(id.reg_btn_next));
+        mBtnPrevious = ((Button) findViewById(id.reg_btn_previous));
         header_layout_rightview_container = ((LinearLayout) findViewById(id.header_layout_rightview_container));
-        {
-            View view = findViewById(id.reg_btn_next);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        RegisterActivity_.this.reg_btn_next();
-                    }
-
-                }
-                );
-            }
-        }
+        mVfFlipper = ((ViewFlipper) findViewById(id.reg_vf_viewflipper));
+        header_stv_title = ((ScrollingTextView) findViewById(id.header_stv_title));
+        header_stv_subtitle = ((ScrollingTextView) findViewById(id.header_stv_subtitle));
         {
             View view = findViewById(id.reg_btn_previous);
             if (view!= null) {
@@ -69,6 +54,21 @@ public final class RegisterActivity_
                     @Override
                     public void onClick(View view) {
                         RegisterActivity_.this.reg_btn_previous();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = findViewById(id.reg_btn_next);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        RegisterActivity_.this.reg_btn_next();
                     }
 
                 }

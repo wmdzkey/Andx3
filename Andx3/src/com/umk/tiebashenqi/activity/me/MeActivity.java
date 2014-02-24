@@ -1,4 +1,4 @@
-package com.umk.tiebashenqi.activity;
+package com.umk.tiebashenqi.activity.me;
 
 import android.content.Context;
 import android.view.View;
@@ -10,7 +10,9 @@ import com.googlecode.androidannotations.annotations.*;
 import com.umk.andx3.base.BaseActivity;
 import com.umk.andx3.view.ScrollingTextView;
 import com.umk.tiebashenqi.R;
+import com.umk.tiebashenqi.activity.MainActivity;
 import com.umk.tiebashenqi.activity.favorite.FavoriteActivity_;
+import com.umk.tiebashenqi.activity.more.GalleryActivity_;
 import com.umk.tiebashenqi.config.SystemAdapter;
 import com.umk.tiebashenqi.entity.User;
 
@@ -88,6 +90,12 @@ public class MeActivity extends BaseActivity implements UpdatePointsNotifier {
             showCustomToast("想要使用更多功能就先注册吧");
         }
     }
+
+    @Click
+    void more_new_rl_option_gallery() {
+        startActivity(GalleryActivity_.class);
+    }
+
 
     @Click
     void me_btn_ad() {
