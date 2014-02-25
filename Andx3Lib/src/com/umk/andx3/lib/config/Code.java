@@ -45,6 +45,9 @@ public class Code {
         public int AdviceSendSuccess = 1000;
         public int AdviceSendFaild = 1001;
 
+        public int FavoriteCancelSuccess = 1010;
+        public int FavoriteCancelFaild = 1011;
+
         ReturnStateCode() {
             keys = new int[10000];
             for (int i = 0; i < 10000; i++) {
@@ -57,6 +60,9 @@ public class Code {
             values[999] = "服务器繁忙";
             values[1000] = "发送意见反馈成功";
             values[1001] = "发送意见反馈失败";
+
+            values[1010] = "取消收藏成功";
+            values[1011] = "取消收藏失败";
         }
     }
 }

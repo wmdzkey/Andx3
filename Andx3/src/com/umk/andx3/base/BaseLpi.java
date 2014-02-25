@@ -21,8 +21,8 @@ import java.util.Map;
  */
 public abstract class BaseLpi<T> {
 
-    protected Class<T> entityClass;
-    protected DbUtils dbUtils;
+    private Class<T> entityClass;
+    private DbUtils dbUtils;
 
     public BaseLpi(){
         Type genType = getClass().getGenericSuperclass();

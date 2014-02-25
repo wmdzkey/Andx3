@@ -33,7 +33,7 @@ public interface FavoriteTieziApi {
      * 取消收藏帖子
      * */
     @Request(value="cancel", method = HttpMethod.POST)
-    public void cancel(FavoriteTiezi favoriteTiezi, ProgressCallBack<String> callBack);
+    public void cancel(Tiezi tiezi, ProgressCallBack<Integer> callBack);
 
 
     /**

@@ -12,7 +12,6 @@ import com.umk.andx3.view.ScrollingTextView;
 import com.umk.tiebashenqi.R;
 import com.umk.tiebashenqi.activity.MainActivity;
 import com.umk.tiebashenqi.activity.favorite.FavoriteActivity_;
-import com.umk.tiebashenqi.activity.more.GalleryActivity_;
 import com.umk.tiebashenqi.config.SystemAdapter;
 import com.umk.tiebashenqi.entity.User;
 

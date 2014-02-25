@@ -38,10 +38,9 @@ public class FavoriteTieziService extends BaseService<FavoriteTiezi> {
 
         FavoriteTiezi favoriteTieziInDB = exist(favoriteTiezi, favoriteUniqueMap);
         if(favoriteTieziInDB != null) {
-            if(favoriteTieziInDB.getState() == Code.state.Delete) {
-                favoriteTieziInDB.setState(Code.state.Normal);
-                repository().saveAndFlush(favoriteTieziInDB);
-            }
+            favoriteTieziInDB.setState(Code.state.Normal);
+            repository().saveAndFlush(favoriteTieziInDB);
+            favoriteTieziInDB.setId(-1L);
             return favoriteTieziInDB;
         } else {
             return repository().save(favoriteTiezi);

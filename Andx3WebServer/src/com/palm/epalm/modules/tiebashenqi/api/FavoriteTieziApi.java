@@ -52,11 +52,12 @@ public class FavoriteTieziApi {
             tieziPicture.setState(Code.state.Normal);
             tieziPictureService.addWithNoExist(tieziPicture, "imageUrl", tieziPicture.getImageUrl());
         }
+
         favoriteTiezi.setTieziUrl(tiezi.getUrl());
         favoriteTiezi.setTiebaId(tiezi.getTiebaId());
         favoriteTiezi.setTieziId(tiezi.getId());
         favoriteTiezi.setState(Code.state.Normal);
-        favoriteTieziService.add(favoriteTiezi);
+        favoriteTiezi = favoriteTieziService.add(favoriteTiezi);
 
         return favoriteTiezi;
     }
@@ -64,9 +65,9 @@ public class FavoriteTieziApi {
 
     @RequestMapping(value = "cancel")
     @ResponseBody
-    public String cancel(FavoriteTiezi favoriteTiezi) {
+    public Integer cancel(FavoriteTiezi favoriteTiezi) {
         favoriteTieziService.cancel(favoriteTiezi);
-        return "取消收藏成功";
+        return Code.returnStateCode.FavoriteCancelSuccess;
     }
 
 

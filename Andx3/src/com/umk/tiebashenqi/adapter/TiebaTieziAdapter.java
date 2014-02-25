@@ -38,7 +38,7 @@ import java.util.*;
 * @version:1.0
 * @since：13-12-6
 */
-public class TiebaTieziAdapter extends BaseExpandableListAdapter{
+public class TiebaTieziAdapter extends BaseExpandableListAdapter {
 
     private ExpandableListView expandableListView;
     private Context mContext;
@@ -105,7 +105,8 @@ public class TiebaTieziAdapter extends BaseExpandableListAdapter{
         Tiezi group;
         if (convertView != null) {
             holder = (GroupViewHolder) convertView.getTag();
-        } else if (holder == null) {
+        }
+        if (holder == null) {
             convertView = mInflater.inflate(R.layout.group_item_tiezi, null);
             holder = new GroupViewHolder();
             holder.mGroupName = (TextView) convertView.findViewById(R.id.group_name);
@@ -123,6 +124,9 @@ public class TiebaTieziAdapter extends BaseExpandableListAdapter{
         }
         if (!mCache.get(groupPosition)) {
             holder.mGroupName.setOnClickListener(getGroupNameClickListener(holder, group, groupPosition));
+        } else {
+            holder.mGroupName.setClickable(false);
+            holder.mGroupName.setFocusable(false);
         }
 
         holder.mGroupCount.setText("[" + mData.get(groupPosition).size() + "]");
@@ -155,10 +159,12 @@ public class TiebaTieziAdapter extends BaseExpandableListAdapter{
         View.OnClickListener groupNameClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                refreshTieziPicture(holder, group, groupPosition, false);
-                mCache.put(groupPosition, true);
-                holder.mGroupName.setClickable(false);
-                holder.mGroupName.setFocusable(false);
+                if (!mCache.get(groupPosition)) {
+                    refreshTieziPicture(holder, group, groupPosition, false);
+                    mCache.put(groupPosition, true);
+                    holder.mGroupName.setClickable(false);
+                    holder.mGroupName.setFocusable(false);
+                }
             }
         };
         return groupNameClickListener;
@@ -205,13 +211,13 @@ public class TiebaTieziAdapter extends BaseExpandableListAdapter{
         if(SystemAdapter.getNoticeableTieziFavorite()) {
             DialogInterface.OnClickListener leftClickListener = new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    payMoney(10, holder, group, groupPosition);
+                    checkMoney(holder, group, groupPosition);
                 }
             };
 
             DialogInterface.OnClickListener rightClickListener = new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    payMoney(10, holder, group, groupPosition);
+                    checkMoney(holder, group, groupPosition);
                     SystemAdapter.setNoticeableTieziFavorite(false);
                 }
             };
@@ -221,19 +227,46 @@ public class TiebaTieziAdapter extends BaseExpandableListAdapter{
                     "收藏", leftClickListener,
                     "收藏且不再提醒", rightClickListener);
         } else {
-            payMoney(10, holder, group, groupPosition);
+            checkMoney(holder, group, groupPosition);
         }
     }
 
-    private void payMoney(int amount, final GroupViewHolder holder, final Tiezi group, final int groupPosition) {
-        UpdatePointsNotifier upn = new UpdatePointsNotifier() {
+    private void checkMoney(final GroupViewHolder holder, final Tiezi group, final int groupPosition) {
+
+        //TODO 先检测剩余的贴币是否大于10，然后开始向服务器发送收藏请求，收藏成功返回参数，有两种情况，
+        // 以前收藏过不减贴币，
+        // 未收藏过减去贴币，
+        // 失败则给提示
+        AppConnect.getInstance(mContext).getPoints(new UpdatePointsNotifier() {
+            @Override
+            public void getUpdatePoints(String currencyName, int pointTotal) {
+                MeActivity.updateMoney(currencyName, pointTotal);
+                if (pointTotal >= 10) {
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            addFavoriteToServer(holder, group, groupPosition);
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void getUpdatePointsFailed(String s) {
+                BaseToast.showToast(mContext, "贴币读取失败，请检查网络");
+            }
+        });
+    }
+
+    private void payMoney(int amount) {
+            UpdatePointsNotifier upn = new UpdatePointsNotifier() {
             @Override
             public void getUpdatePoints(final String currencyName, final int pointTotal) {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
                         MeActivity.updateMoney(currencyName, pointTotal);
-                        addFavoriteToServer(holder, group, groupPosition);
                     }
                 });
             }
@@ -249,6 +282,7 @@ public class TiebaTieziAdapter extends BaseExpandableListAdapter{
                 });
             }
         };
+
         AppConnect.getInstance(mContext).spendPoints(amount, upn);
     }
 
@@ -264,12 +298,33 @@ public class TiebaTieziAdapter extends BaseExpandableListAdapter{
                 addTieziPicture(holder, group, groupPosition);
             }
         } else {
-            //TODO 解除收藏
+            cancelFavorite(holder, group, groupPosition);
         }
     }
 
-    private void cancelFavorite(GroupViewHolder holder, Tiezi group, int groupPosition) {
-        BaseToast.showToast(mContext, "收藏了暂时没有办法取消哦");
+    private void cancelFavorite(final GroupViewHolder holder, final Tiezi group, int groupPosition) {
+        //BaseToast.showToast(mContext, "收藏了暂时没有办法取消哦");
+        //TODO 取消收藏，先向服务器发送取消收藏请求，软删除，然后根据返回情况给予相应提示。
+        FavoriteTieziApi favoriteTieziApi = HttpInterface.proxy(mContext, FavoriteTieziApi.class);
+        favoriteTieziApi.cancel(group, new ProgressCallBack<Integer>() {
+            @Override
+            protected Context getContext() {
+                return mContext;
+            }
+
+            @Override
+            public void call(Integer code) {
+                if (Code.returnStateCode.FavoriteCancelSuccess == code.intValue()) {
+                    BaseToast.showToast(mContext, "取消成功");
+                    FavoriteTieziLpi favoriteTieziLpi = new FavoriteTieziLpi();
+                    favoriteTieziLpi.remove(mContext, group);
+                    mFavoriteTiezi.add(group);
+                    holder.btn_group_favorite.setBackgroundResource(R.drawable.ic_favorite_no);
+                    holder.isFavorite = false;
+                }
+            }
+        });
+
     }
 
     private void addTieziPicture(final GroupViewHolder holder, final Tiezi tiezi, final int groupPosition) {
@@ -296,7 +351,18 @@ public class TiebaTieziAdapter extends BaseExpandableListAdapter{
 
             @Override
             public void call(FavoriteTiezi ft) {
-                BaseToast.showToast(mContext, "收藏成功, 消耗10贴币");
+                if (ft == null) {
+                    BaseToast.showToast(mContext, "收藏失败");
+                    return;
+                }
+
+                if (ft != null && ft.getId().longValue() == -1L) {
+                    BaseToast.showToast(mContext, "收藏成功");
+                } else if (ft != null && ft.getId().longValue() != -1L){
+                    BaseToast.showToast(mContext, "收藏成功, 消耗10贴币");
+                    payMoney(10);
+                }
+
                 FavoriteTieziLpi favoriteTieziLpi = new FavoriteTieziLpi();
                 ft.setId(null);
                 favoriteTieziLpi.saveOrUpdate(mContext, ft);
@@ -306,6 +372,9 @@ public class TiebaTieziAdapter extends BaseExpandableListAdapter{
             }
         });
     }
+
+
+
 
     private void refreshTieziPicture(final GroupViewHolder holder, final Tiezi tiezi, final int groupPosition, final boolean afterAdd) {
         new SimpleProgressDialog<List<TieziPicture>>(mContext, "正在加载...") {
@@ -346,6 +415,8 @@ public class TiebaTieziAdapter extends BaseExpandableListAdapter{
             }
         }.show();
     }
+
+
 
     @Override
     public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
@@ -390,8 +461,7 @@ public class TiebaTieziAdapter extends BaseExpandableListAdapter{
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        /*很重要：实现ChildView点击事件，必须返回true*/
-        return true;
+        return true;/*很重要：实现ChildView点击事件，必须返回true*/
     }
 
     public void setFavoriteTiezi(List<Tiezi> favoriteTiezi) {

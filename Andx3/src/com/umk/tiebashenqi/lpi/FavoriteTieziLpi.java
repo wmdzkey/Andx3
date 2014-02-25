@@ -84,4 +84,17 @@ public class FavoriteTieziLpi extends BaseLpi<FavoriteTiezi> {
         return  tieziList;
     }
 
+    public void remove(Context mContext, Tiezi group) {
+        DbUtils dbUtils = getDbUtils(mContext);
+        try {
+            FavoriteTiezi favoriteTieziInDB = dbUtils.findFirst(FavoriteTiezi.class, WhereBuilder.b().
+                    and("tieba_id","=",group.getTiebaId()).
+                    and("tiezi_url","=",group.getUrl()));
+            if (favoriteTieziInDB != null) {
+                dbUtils.delete(favoriteTieziInDB);
+            }
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
 }
